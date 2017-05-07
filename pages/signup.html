@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sign up page</title>
+        <link rel="stylesheet" href="../styles/sign.css">
+    </head>
+    <body>
+        <div class="singup_page">
+            <div class="title">
+                <p>Sign up</p>
+            </div>
+            <div class="signin_form">
+                <form action="">
+                    <input type="text" id="email" placeholder="Your Email" required><br>
+                    <input type="tel" id="phone" placeholder="Your Phone Number" required><br>
+                    <input type="text" id="name" placeholder="Your First Name" required><br>
+                    <input type="text" id="surname" placeholder="Your Last Name" required><br>
+                    <input type="password" id="password" placeholder="Password" required><br>
+                    <input type="password" id="confirm" placeholder="Confirm password" required>
+                    <p>Your Birthday</p>
+                    <select name="birthday" id="month">
+                        <option value="default">Month</option>
+                        <option value="jan">January</option>
+                        <option value="feb">February</option>
+                        <option value="march">March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="aug">August</option>
+                        <option value="sept">September</option>
+                        <option value="oct">October</option>
+                        <option value="nov">November</option>
+                        <option value="dec">December</option>
+                    </select>
+                    <select name="birthday" id="day" required>
+                        <option value="default">Day</option>
+                        <!-- I guess JS generates options based on month -->
+                    </select>
+                    <select name="birthday" id="year" required>
+                        <option value="default">Year</option>
+                        <!--JS from -100 til now-->
+                    </select>
+                    <p>
+                        <input type="checkbox" id="terms_of_use"> I agree to the
+                        <a href="terms.html">Terms of Use</a> .
+                    </p>
+                    <p>
+                        <input type="checkbox" id="spam"> I wanna get a bunch of spam from Airbnb Transport everyday!
+                    </p>
+                    <input type="submit" name="signup_btn" value="Sign up">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
