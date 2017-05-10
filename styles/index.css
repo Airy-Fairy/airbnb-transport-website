@@ -1,0 +1,144 @@
+* {
+    margin: 0 auto;
+}
+
+nav {
+    line-height: 48px;
+    min-height: 48px;
+    min-width: 100%;
+}
+
+nav .content {
+    font-family: monospace;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    color: inherit;
+    display: inline-block;
+    fill: inherit;
+    margin: 0;
+    padding: 0 12px;
+    text-decoration: none;
+}
+nav a:focus {
+    color: #08c;
+    fill: #08c;
+}
+nav a:hover {
+    opacity: 0.7;
+}
+
+nav .logo {
+    line-height: 16px;
+    vertical-align: middle;
+}
+
+.title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: georgia;
+    text-align: center;
+}
+
+.title .name {
+    font-size: 80px;
+    /* margin-top: 20px; */
+    padding:  0 0 16px;
+}
+
+.title .name .transport {
+    color: #08c;
+}
+
+.title .tagline {
+    font-size: 20px;
+}
+
+.search {
+    width: 700px;
+    margin-top: 20px;
+    /* margin-bottom: 50px; */
+}
+
+.search input[type="search"] {
+    width: 700px;
+    height: 50px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: black;
+    font-family: georgia;
+    font-size: 20px;
+    padding: 0 10px;
+}
+
+.search input[type="submit"] {
+    visibility: hidden;
+}
+
+.picture {
+    width: 500px;
+}
+
+.picture img {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(8px 8px 10px gray);
+}
+
+.random-content {
+    text-align: center;
+    width: 800px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    line-height: 30px;
+    min-height: 30px;
+    min-width: 100%;
+    opacity: 0.7;
+}
+
+footer .content {
+    font-family: monospace;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+footer ul {
+    display: inline-block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+footer li {
+    display: inline-block;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+footer a {
+    color:  inherit;
+}
+footer a:focus {
+    color: #08c;
+    fill: #08c;
+}

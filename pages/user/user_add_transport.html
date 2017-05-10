@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>New transport page</title>
+    </head>
+    <body>
+        <div class="new_transport">
+            <p>New transport</p>
+            <div class="new_transport_form">
+                <form action="">
+                    <label for="transport_type">Transport Type</label>
+                    <select id="transport_type">
+                        <option value="vehicle">Vehicle</option>
+                        <option value="motorcycle">Motorcycle</option>
+                    </select>
+                    <label for="transport_brand">Brand</label>
+                    <select id="transport_brand">
+                        <!-- Generated based on type -->
+                    </select>
+                    <label for="transport_model">Model</label>
+                    <select id="transport_model">
+                        <!-- Generated based on brand -->
+                    </select>
+                    <label for="year_of_manufacture">Year of Manufacture</label>
+                    <select id="year_of_manufacture">
+                        <option value="before_1960">Before 1960</option>
+                        <!-- And more -->
+                    </select>
+                    <label for="rental_price">Rental Price (a day)</label>
+                    <input type="text" id="rental_price" value="666">
+                    <input type="submit" id="new_transport_btn" value="Add">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
