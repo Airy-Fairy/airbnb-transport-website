@@ -2,18 +2,19 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Sign in page</title>
-        <link rel="stylesheet" href="../styles/sign.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign in</title>
+        <link rel="icon" href="../imgs/icon.png">
+        <link rel="stylesheet" href="../styles/main.css">
     </head>
     <body>
         <div class="signin_page">
-            <div class="title">
-                <p>Sign in</p>
-            </div>
             <div class="signin_form">
                 <form action="">
-                    <input type="text" name="email" placeholder="Email" required><br>
-                    <input type="password" name="password" placeholder="Password" required><br>
+                    <div class="user_creds">
+                        <input type="text" name="email" placeholder="Your Email" required><br>
+                        <input type="password" name="password" placeholder="Your Password" required><br>
+                    </div>
                     <div class="rememberme_forgotpasswd">
                         <div class="rememberme">
                             <input type="checkbox" name="remember"> Remember me
@@ -24,7 +25,6 @@
                     </div>
                     <input type="submit" name="signin_btn" value="Sign in">
                 </form>
-                <hr>
                 <div class="no_account">
                     Don't have an account?
                     <a href="signup.html">Sign up</a>.

@@ -2,52 +2,61 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Sign up page</title>
-        <link rel="stylesheet" href="../styles/sign.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign up</title>
+        <link rel="icon" href="../imgs/icon.png">
+        <link rel="stylesheet" href="../styles/main.css">
     </head>
     <body>
         <div class="singup_page">
-            <div class="title">
-                <h3>Sign up</h3>
-            </div>
-            <div class="signin_form">
+            <div class="signup_form">
                 <form action="">
-                    <input type="email" id="email" placeholder="Your Email" required><br>
-                    <input type="tel" id="phone" placeholder="Your Phone Number" required><br>
-                    <input type="text" id="name" placeholder="Your First Name" required><br>
-                    <input type="text" id="surname" placeholder="Your Last Name" required><br>
-                    <input type="password" id="password" placeholder="Password" required><br>
-                    <input type="password" id="confirm" placeholder="Confirm password" required>
-                    <p>Your Birthday</p>
-                    <select name="birthday" id="month">
-                        <option value="default">Month</option>
-                        <option value="jan">January</option>
-                        <option value="feb">February</option>
-                        <option value="march">March</option>
-                        <option value="april">April</option>
-                        <option value="may">May</option>
-                        <option value="june">June</option>
-                        <option value="july">July</option>
-                        <option value="aug">August</option>
-                        <option value="sept">September</option>
-                        <option value="oct">October</option>
-                        <option value="nov">November</option>
-                        <option value="dec">December</option>
-                    </select>
-                    <select name="birthday" id="day" required>
-                        <option value="default">Day</option>
-                    </select>
-                    <select name="birthday" id="year" required>
-                        <option value="default">Year</option>=
-                    </select>
-                    <p>
-                        <input type="checkbox" id="terms_of_use"> I agree to the
-                        <a href="terms.html">Terms of Use</a> .
-                    </p>
-                    <p>
-                        <input type="checkbox" id="spam"> I wanna get a bunch of spam from Airbnb Transport everyday!
-                    </p>
-                    <input type="submit" name="signup_btn" value="Sign up">
+                    <div class="user_creds">
+                        <input type="email" id="email" placeholder="Your Email" required><br>
+                        <input type="tel" id="phone" placeholder="Your Phone Number" required><br>
+                        <input type="text" id="name" placeholder="Your First Name" required><br>
+                        <input type="text" id="surname" placeholder="Your Last Name" required><br>
+                        <input type="password" id="password" placeholder="Password" required><br>
+                        <input type="password" id="confirm" placeholder="Confirm password" required>
+                    </div>
+                    <div class="birthday">
+                        <p>Your Birthday</p>
+                        <select name="birthday" id="month">
+                            <option value="default">Month</option>
+                            <option value="jan">January</option>
+                            <option value="feb">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                            <option value="july">July</option>
+                            <option value="aug">August</option>
+                            <option value="sept">September</option>
+                            <option value="oct">October</option>
+                            <option value="nov">November</option>
+                            <option value="dec">December</option>
+                        </select>
+                        <select name="birthday" id="day" required>
+                            <option value="default">Day</option>
+                        </select>
+                        <select name="birthday" id="year" required>
+                            <option value="default">Year</option>=
+                        </select>
+                    </div>
+                    <!-- <div class="last_block"> -->
+                    <div class="checkboxes">
+                        <p>
+                            <input type="checkbox" id="terms_of_use"> I agree to the
+                            <a href="terms.html">Terms of Use</a> .
+                        </p>
+                        <p>
+                            <input type="checkbox" id="spam"> I wanna get a bunch of spam from Airbnb Transport everyday!
+                        </p>
+                    </div>
+                    <div class="signin_btn">
+                        <input type="submit" name="signup_btn" value="Sign up">
+                    </div>
+                    <!-- </div> -->
                 </form>
             </div>
         </div>
