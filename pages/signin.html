@@ -11,7 +11,7 @@
         <div class="signin_page">
             <div class="signin_form">
                 <form action="">
-                    <div class="user_creds">
+                    <div class="signin_creds">
                         <input type="text" name="email" placeholder="Your Email" required><br>
                         <input type="password" name="password" placeholder="Your Password" required><br>
                     </div>
@@ -23,11 +23,16 @@
                             Forgot your password?
                         </div>
                     </div>
-                    <input type="submit" name="signin_btn" value="Sign in">
+                    <div class="signin_btn">
+                        <input type="submit" name="signin_btn" value="Sign in">
+                    </div>
                 </form>
+                <hr>
                 <div class="no_account">
-                    Don't have an account?
-                    <a href="signup.html">Sign up</a>.
+                    <div class="left">
+                        Don't have an account?
+                    </div>
+                    <a class="go_signup" href="signup.html">Sign up</a>
                 </div>
             </div>
         </div>
