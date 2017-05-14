@@ -2,36 +2,58 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>New transport page</title>
+        <link rel="icon" href="../../imgs/icon.png">
+        <link rel="stylesheet" href="../../styles/main.css">
     </head>
     <body>
-        <div class="new_transport">
-            <p>New transport</p>
-            <div class="new_transport_form">
-                <form action="">
+        <div class="new_transport_form">
+            <form action="">
+                <div class="form_row">
                     <label for="transport_type">Transport Type</label>
-                    <select id="transport_type">
-                        <option value="vehicle">Vehicle</option>
-                        <option value="motorcycle">Motorcycle</option>
-                    </select>
+                    <div class="elem">
+                        <select id="transport_type">
+                            <option value="vehicle">Vehicle</option>
+                            <option value="motorcycle">Motorcycle</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form_row">
                     <label for="transport_brand">Brand</label>
-                    <select id="transport_brand">
-                        <!-- Generated based on type -->
-                    </select>
+                    <div class="elem">
+                        <select id="transport_brand">
+                            <!-- Generated based on type -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form_row">
                     <label for="transport_model">Model</label>
-                    <select id="transport_model">
-                        <!-- Generated based on brand -->
-                    </select>
+                    <div class="elem">
+                        <select id="transport_model">
+                            <!-- Generated based on brand -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form_row">
                     <label for="year_of_manufacture">Year of Manufacture</label>
-                    <select id="year_of_manufacture">
-                        <option value="before_1960">Before 1960</option>
-                        <!-- And more -->
-                    </select>
+                    <div class="elem">
+                        <select id="year_of_manufacture">
+                            <option value="before_1960">Before 1960</option>
+                            <!-- And more -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form_row">
                     <label for="rental_price">Rental Price (a day)</label>
-                    <input type="text" id="rental_price" value="666">
-                    <input type="submit" id="new_transport_btn" value="Add">
-                </form>
-            </div>
+                    <div class="elem">
+                        <input type="text" id="rental_price">
+                    </div>
+                </div>
+                <div class="save_transport_btn">
+                    <input type="submit" id="new_transport_btn" value="Save">
+                </div>
+            </form>
         </div>
     </body>
 </html>

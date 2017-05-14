@@ -2,68 +2,93 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>User settings page</title>
+        <link rel="icon" href="../../imgs/icon.png">
+        <link rel="stylesheet" href="../../styles/main.css">
     </head>
     <body>
-        <div class="user_settings">
-            <h3>User settings</h3>
+        <div class="user_settings_form">
             <form action="">
-                <label for="name">First Name</label>
-                <input type="text" id="name" value="Ivan" required><br>
-                <label for="surname">Last Name</label>
-                <input type="text" id="surname" value="Ivanov" required><br>
-                <label for="gender">Gender</label>
-                <select id="gender">
-                    <option>Gender</option>
-                    <option value="man">Masculine</option>
-                    <option value="woman">Feminine</option>
-                    <option value="other">Other</option>
-                </select>
-                <br>Birthday
-                <select name="birthday" id="month">
-                    <option value="default">Month</option>
-                    <option value="jan">January</option>
-                    <option value="feb">February</option>
-                    <option value="march">March</option>
-                    <option value="april">April</option>
-                    <option value="may">May</option>
-                    <option value="june">June</option>
-                    <option value="july">July</option>
-                    <option value="aug">August</option>
-                    <option value="sept">September</option>
-                    <option value="oct">October</option>
-                    <option value="nov">November</option>
-                    <option value="dec">December</option>
-                </select>
-                <select name="birthday" id="day" required>
-                    <option value="default">Day</option>
-                    <!-- I guess JS generates options based on month -->
-                </select>
-                <select name="birthday" id="year" required>
-                    <option value="default">Year</option>
-                    <!--JS from -100 til now-->
-                </select>
-                <br>
-                <label for="email">Email</label>
-                <input type="email" id="email" value="ivanivanov@email" required>
-                <br>
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" value="+0 123 456 78 99" required>
-                <br>
-                <label for="currency">Currency</label>
-                <select id="currency">
-                    <option value="rub">RUB</option>
-                    <option value="usd">USD</option>
-                    <option value="eur">EUR</option>
-                </select>
-                <br>
-                <label for="address">Address</label>
-                <input type="text" id="address" value="Saint-Petersburg">
-                <br>
-                <label for="aboutme">About me</label>
-                <textarea id="aboutme">I love metal</textarea>
-            <input type="submit" name="save_btn" value="Save">
-        </form>
-    </div>
-</body>
+                <div class="form_row">
+                    <label for="name">First Name</label>
+                    <div class="elem">
+                        <input type="text" id="name" value="Ivan" required>
+                    </div>
+                </div>
+                <div class="form_row">
+                    <label for="surname">Last Name</label>
+                    <div class="elem">
+                        <input type="text" id="surname" value="Ivanov" required>
+                    </div>
+                </div>
+                <div class="form_row">
+                    <label for="gender">Gender</label>
+                    <div class="elem">
+                        <select id="gender">
+                            <option>Gender</option>
+                            <option value="man">Masculine</option>
+                            <option value="woman">Feminine</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form_row">
+                    <label for="birthday">Birthday</label>
+                    <div class="elem">
+                        <select name="birthday" id="month">
+                        <option value="default">Month</option>
+                        <option value="jan">January</option>
+                        <option value="feb">February</option>
+                        <option value="march">March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="aug">August</option>
+                        <option value="sept">September</option>
+                        <option value="oct">October</option>
+                        <option value="nov">November</option>
+                        <option value="dec">December</option>
+                    </select>
+                    <select name="birthday" id="day" required>
+                        <option value="default">Day</option>
+                        <!-- I guess JS generates options based on month -->
+                    </select>
+                    <select name="birthday" id="year" required>
+                        <option value="default">Year</option>
+                        <!--JS from -100 til now-->
+                    </select>
+                    </div>
+                </div>
+                <div class="form_row">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" value="ivanivanov@email" required>
+                </div>
+                <div class="form_row">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" value="+0 123 456 78 99" required>
+                </div>
+                <div class="form_row">
+                    <label for="currency">Currency</label>
+                    <select id="currency">
+                        <option value="rub">RUB</option>
+                        <option value="usd">USD</option>
+                        <option value="eur">EUR</option>
+                    </select>
+                </div>
+                <div class="form_row">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" value="Saint-Petersburg">
+                </div>
+                <div class="form_row">
+                    <label for="aboutme">About me</label>
+                    <textarea id="aboutme">I love metal</textarea>
+                </div>
+                <div class="save_btn">
+                    <input type="submit" name="save_btn" value="Save">
+                </div>
+            </form>
+        </div>
+    </body>
 </html>
