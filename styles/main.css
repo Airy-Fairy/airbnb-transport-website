@@ -133,13 +133,6 @@ footer .content {
     padding-top: 10px;
 }
 
-/* footer ul {
-    display: inline-block;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-} */
-
 footer li {
     display: inline-block;
     padding-left: 12px;
@@ -157,46 +150,32 @@ footer a:hover {
     opacity: 0.7;
 }
 
-
 /*
  *  
  *  styles for signup.html and signin.html
  *  
  */
 
-
-.signin_form,
-.signup_form {
-    width: 350px;
+.signin-form,
+.signup-form {
+    width: 40%;
 }
-
-/* .signin_creds input,
-.signup_creds input {
-    width: 350px;
-    height: 35px;
-    border-radius: 2px;
-    border-width: 1px;
-    border-color: gray;
-    border-style: solid;
-    margin-bottom: 5px;
-    padding: 0 10px;
-} */
 
 input[type="text"],
 input[type="tel"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+textarea {
+    border: 1px solid gray;
     border-radius: 2px;
-    border-width: 1px;
-    border-color: gray;
-    border-style: solid;
     margin-bottom: 5px;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
-.signin_creds input,
-.signup_creds input {
-    width: 350px;
+.signin-creds input,
+.signup-creds input {
+    /* width: 350px; */
+    width: 97%;
     line-height: 35px;
 }
 
@@ -214,24 +193,25 @@ input[type="password"] {
 /* .birthday select { */
 select {
     height: 35px;
+    border: 1px solid gray;
     border-radius: 2px;
-    border-width: 1px;
-    border-color: gray;
-    border-style: solid;
     margin-right: 5px;
-    padding: 0 10px;
+    padding: 0 5px;
 }
 
 .birthday select[id="month"] {
-    width: 150px;
+    width: 45%;
+    /* width: 150px; */
 }
 
 .birthday select[id="day"] {
-    width: 70px;
+    width: 25%;
+    /* width: 70px; */
 }
 
 .birthday select[id="year"] {
-    width: 130px;
+    width: 30%;
+    /* width: 130px; */
 }
 
 .checkboxes {
@@ -243,26 +223,6 @@ select {
 .checkboxes input {
     margin-left: -18px;
 }
-
-/* .signup_btn input[type="submit"],
-.signin_btn input[type="submit"] {
-    width: 370px;
-    height: 60px;
-    border-radius: 5px;
-    border-style: none;
-    font-size: 18px;
-    background-color: darkcyan;
-    opacity: 0.7;
-    color: white;
-}
-.signup_btn input[type="submit"]:hover,
-.signin_btn input[type="submit"]:hover {
-    opacity: 0.5;
-}
-.signup_btn input[type="submit"]:focus,
-.signin_btn input[type="submit"]:focus {
-    opacity: 1;
-} */
 
 input[type="submit"]{
     border-radius: 5px;
@@ -279,21 +239,23 @@ input[type="submit"]:focus {
     opacity: 1;
 }
 
-.signup_btn input[type="submit"],
-.signin_btn input[type="submit"] {
-    width: 370px;
+.signup-btn input[type="submit"],
+.signin-btn input[type="submit"] {
+    /* width: 370px; */
+    width: 100%;
     height: 60px;
 }
 
-.signin_creds input {
+.signin-creds input {
     height: 60px;
     font-size: 16px;
 }
 
-.rememberme_forgotpasswd,
-.no_account,
-.account_exists {
-    width: 370px;
+.rememberme-forgotpasswd,
+.no-account,
+.account-exists {
+    /* width: 370px; */
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin: 10px auto;
@@ -301,36 +263,34 @@ input[type="submit"]:focus {
 
 .rememberme,
 .forgotpasswd,
-.no_account .left,
-.no_account .go_signup,
-.account_exists .left,
-.account_exists .go_signin {
+.no-account .left,
+.no-account .go-signup,
+.account-exists .left,
+.account-exists .go-signin {
     margin: 0;
     padding: 0;
 }
 
-.signup_btn,
-.signin_btn {
+.signup-btn,
+.signin-btn {
     margin-bottom: 20px;
 }
 
-.no_account,
-.account_exists {
+.no-account,
+.account-exists {
     margin-top: 20px;
     line-height: 30px;
 }
 
-.go_signup,
-.go_signin {
+.go-signup,
+.go-signin {
     width: 100px;
     font-size: 14px;
     color: darkcyan;
     text-decoration: none;
     text-align: center;
+    border: 1px solid darkcyan;
     border-radius: 5px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: darkcyan;
 }
 
 hr {
@@ -373,9 +333,17 @@ input[type="checkbox"]:checked:after {
     color: #99a1a7;
 }
 
+.terms-of-use {
+    color: darkcyan;
+    text-decoration: none;
+}
+.terms-of-use:hover {
+    opacity: 0.7;
+}
+
 /*
  *
- *  styles for user_page.html
+ *  styles for user-page.html
  *  
  */
 
@@ -385,103 +353,167 @@ input[type="checkbox"]:checked:after {
     margin: 10px auto;
 }
 
-.left_col {
+.left-col {
     width: 25%;
 }
 
-.left_col ul {
+.left-col ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.left_col li {
+.left-col li {
     margin: 15px 10px;
 }
 
-.left_col a {
+.left-col a {
     color: inherit;
     opacity: 0.7;
     text-decoration: none;
     font-weight: bold;
 }
-.left_col a:focus {
+.left-col a:focus {
     color: darkcyan;
     fill: darkcyan;
 }
-.left_col a:hover {
+.left-col a:hover {
     opacity: 0.5;
 }
 
-/* .left .current_link {
+/* .left .current-link {
     opacity: 1;
 } */
 
-.right_col {
+.right-col {
     width: 75%;
     min-height: 500px;
-    border-style: solid;
+    border: 1px solid lightgray;
     border-radius: 1px;
-    border-width: 1px;
-    border-color: lightgray;
+    
 }
 
-.right_col .content {
+.right-col .content {
     
 }
 
 /*
  *
- *  styles for user_add_transport.html
+ *  styles for user-add-transport.html
  *  
  */
 
-.new_transport_form,
-.user_settings_form {
-    width: 30%;
+.new-transport-form {
+    width: 40%;
 }
 
-.form_row {
+.form-row {
     margin: 10px auto;
     display: flex;
 }
 
-.form_row label {
+.form-row label {
     font-weight: bold;
     width: 35%;
 }
 
-.form_row .elem {
+.form-row .elem {
     width: 65%;
     margin-left: 10px;
 }
 
-.form_row select {
+.form-row select {
     width: 70%;
 }
 
-#rental_price {
+#rental-price {
     width: 30%;
     line-height: 35px;
     text-align: center;
 }
 
-.save_transport_btn {
+.save-settings-btn {
     margin-top: 20px;
     width: 100%;
 }
 
-.new_transport_form input[type="submit"] {
+.new-transport-form input[type="submit"],
+.user-settings-form input[type="submit"] {
     width: 100%;
     height: 60px;
 }
 
+input[type="file"] {
+    width: 100%;
+}
+
+.custom-file-input {
+    visibility: hidden;
+    width: 0;
+    position: relative;
+}
+.custom-file-input::before {
+    content: 'Browse...';
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 2px;
+    width: 50%;
+    padding: 0 10px;
+    line-height: 35px;
+    cursor: pointer;
+    font-weight: bold;
+    visibility: visible;
+    position: absolute;
+}
+.custom-file-input:hover::before {
+    border-color: #333333;
+}
+
+
+.save-transport-btn {
+    margin-top: 40px;
+}
+
 /*
  *
- *  styles for user_settings.html
+ *  styles for user-settings.html
  *  
  */
 
-.user_settings_form input {
+.user-settings-form {
+    width: 40%;
+}
 
+.user-settings-form label {
+    padding-top: 8px;
+}
+
+.user-settings-form select[id="gender"] {
+    width: 35%;
+}
+
+.user-settings-form select[id="currency"] {
+    width: 25%;
+}
+
+.user-settings-form input {
+    width: 100%;
+    line-height: 35px;
+}
+
+.user-settings-form .birthday {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.user-settings-form textarea {
+    min-height: 100px;
+    width: 100%;
+    resize: vertical;
+    padding: 5px 5px;
+}
+
+.user-settings-form input[type="submit"] {
+    margin-left: 5px;
 }

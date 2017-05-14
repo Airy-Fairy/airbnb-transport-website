@@ -8,50 +8,56 @@
         <link rel="stylesheet" href="../../styles/main.css">
     </head>
     <body>
-        <div class="new_transport_form">
+        <div class="new-transport-form">
             <form action="">
-                <div class="form_row">
-                    <label for="transport_type">Transport Type</label>
+                <div class="form-row">
+                    <label for="transport-type">Transport Type</label>
                     <div class="elem">
-                        <select id="transport_type">
+                        <select id="transport-type">
                             <option value="vehicle">Vehicle</option>
                             <option value="motorcycle">Motorcycle</option>
                         </select>
                     </div>
                 </div>
-                <div class="form_row">
-                    <label for="transport_brand">Brand</label>
+                <div class="form-row">
+                    <label for="transport-brand">Brand</label>
                     <div class="elem">
-                        <select id="transport_brand">
+                        <select id="transport-brand">
                             <!-- Generated based on type -->
                         </select>
                     </div>
                 </div>
-                <div class="form_row">
-                    <label for="transport_model">Model</label>
+                <div class="form-row">
+                    <label for="transport-model">Model</label>
                     <div class="elem">
-                        <select id="transport_model">
+                        <select id="transport-model">
                             <!-- Generated based on brand -->
                         </select>
                     </div>
                 </div>
-                <div class="form_row">
-                    <label for="year_of_manufacture">Year of Manufacture</label>
+                <div class="form-row">
+                    <label for="year-of-manufacture">Year of Manufacture</label>
                     <div class="elem">
-                        <select id="year_of_manufacture">
-                            <option value="before_1960">Before 1960</option>
+                        <select id="year-of-manufacture">
+                            <option value="before-1960">Before 1960</option>
                             <!-- And more -->
                         </select>
                     </div>
                 </div>
-                <div class="form_row">
-                    <label for="rental_price">Rental Price (a day)</label>
+                <div class="form-row">
+                    <label for="rental-price">Rental Price (a day)</label>
                     <div class="elem">
-                        <input type="text" id="rental_price">
+                        <input type="text" id="rental-price">
                     </div>
                 </div>
-                <div class="save_transport_btn">
-                    <input type="submit" id="new_transport_btn" value="Save">
+                <div class="form-row">
+                    <label for="photo">Photo</label>
+                    <div class="elem">
+                        <input type="file" accept="image/*" class="custom-file-input" id="transport-photo" capture="camera">
+                    </div>
+                </div>
+                <div class="save-transport-btn">
+                    <input type="submit" id="new-transport-btn" value="Save">
                 </div>
             </form>
         </div>
