@@ -88,7 +88,7 @@ header .logo {
 
 .search input[type="search"] {
     width: 700px;
-    height: 50px;
+    line-height: 50px;
     border-radius: 2px;
     border-width: 1px;
     border-color: gray;
@@ -166,17 +166,18 @@ input[type="tel"],
 input[type="email"],
 input[type="password"],
 textarea {
+    line-height: 50px;
+    font-size: 18px;
     border: 1px solid gray;
     border-radius: 2px;
-    margin-bottom: 5px;
-    padding: 0 5px;
+    margin-bottom: 10px;
+    padding: 0 10px;
 }
 
 .signin-creds input,
 .signup-creds input {
-    /* width: 350px; */
     width: 97%;
-    line-height: 35px;
+    line-height: 40px;
 }
 
 .birthday {
@@ -190,28 +191,24 @@ textarea {
     font-size: 16px;
 }
 
-/* .birthday select { */
 select {
-    height: 35px;
+    height: 40px;
     border: 1px solid gray;
     border-radius: 2px;
     margin-right: 5px;
-    padding: 0 5px;
+    padding: 0 10px;
 }
 
 .birthday select[id="month"] {
     width: 45%;
-    /* width: 150px; */
 }
 
 .birthday select[id="day"] {
     width: 25%;
-    /* width: 70px; */
 }
 
 .birthday select[id="year"] {
     width: 30%;
-    /* width: 130px; */
 }
 
 .checkboxes {
@@ -227,6 +224,7 @@ select {
 input[type="submit"]{
     border-radius: 5px;
     border-style: none;
+    font-weight: bold;
     font-size: 18px;
     background-color: darkcyan;
     opacity: 0.7;
@@ -241,20 +239,18 @@ input[type="submit"]:focus {
 
 .signup-btn input[type="submit"],
 .signin-btn input[type="submit"] {
-    /* width: 370px; */
     width: 100%;
-    height: 60px;
+    line-height: 40px;
 }
 
 .signin-creds input {
-    height: 60px;
+    line-height: 40px;
     font-size: 16px;
 }
 
 .rememberme-forgotpasswd,
 .no-account,
 .account-exists {
-    /* width: 370px; */
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -333,17 +329,17 @@ input[type="checkbox"]:checked:after {
     color: #99a1a7;
 }
 
-.terms-of-use {
+.colored-link {
     color: darkcyan;
     text-decoration: none;
 }
-.terms-of-use:hover {
+.colored-link:hover {
     opacity: 0.7;
 }
 
 /*
  *
- *  styles for user-page.html
+ *  styles for user_page.html
  *  
  */
 
@@ -399,7 +395,7 @@ input[type="checkbox"]:checked:after {
 
 /*
  *
- *  styles for user-add-transport.html
+ *  styles for user_add_transport.html
  *  
  */
 
@@ -428,7 +424,7 @@ input[type="checkbox"]:checked:after {
 
 #rental-price {
     width: 30%;
-    line-height: 35px;
+    line-height: 40px;
     text-align: center;
 }
 
@@ -453,13 +449,14 @@ input[type="file"] {
     position: relative;
 }
 .custom-file-input::before {
-    content: 'Browse...';
+    content: 'Upload your transport photo';
+    text-align: center;
     display: inline-block;
     border: 1px solid gray;
     border-radius: 2px;
-    width: 50%;
+    width: 70%;
     padding: 0 10px;
-    line-height: 35px;
+    line-height: 40px;
     cursor: pointer;
     font-weight: bold;
     visibility: visible;
@@ -476,7 +473,7 @@ input[type="file"] {
 
 /*
  *
- *  styles for user-settings.html
+ *  styles for user_settings.html
  *  
  */
 
@@ -497,8 +494,8 @@ input[type="file"] {
 }
 
 .user-settings-form input {
-    width: 100%;
-    line-height: 35px;
+    width: 96.5%;
+    line-height: 40px;
 }
 
 .user-settings-form .birthday {
@@ -515,5 +512,74 @@ input[type="file"] {
 }
 
 .user-settings-form input[type="submit"] {
+    width: 100%;
     margin-left: 5px;
+}
+
+/*
+ *
+ *  styles for password_recovery.html
+ *  
+ */
+
+.passwd-recovery {
+    width: 40%;
+}
+
+.passwd-recovery .hdr {
+    margin-bottom: 15px;
+}
+
+.passwd-recovery .msg {
+    margin-bottom: 12px;
+    text-align: justify;
+    font-size: 14px;
+}
+
+.passwd-recovery input {
+    line-height: 40px;
+}
+
+.passwd-recovery input[type="email"] {
+    width: 96.5%;
+}
+
+.passwd-recovery input[type="submit"] {
+    width: 100%;
+}
+
+.passwd-recovery .email-input {
+    margin-bottom: 12px;
+}
+
+/*
+ *
+ *  styles for user_settings.html
+ *  
+ */
+
+.thumbnail {
+    width: 100%;
+}
+
+.thumbnail * {
+    margin-bottom: 2px;
+}
+
+.thumbnail .label {
+    font-weight: bold;
+}
+
+.thumbnail .short-info {
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.thumbnail .rating {
+    display: inline-flex;
+    text-align: left;
+}
+
+.thumbnail .reviews {
+    margin-left: 10px;
 }
