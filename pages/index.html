@@ -7,79 +7,157 @@
         <link rel="icon" href="../imgs/icon.png">
         <link rel="stylesheet" href="../styles/main.css">
         <link rel="stylesheet" href="../styles/font-awesome-4.7.0/css/font-awesome.css">
-        <!-- <script src="../scripts/jquery-3.2.1.js"></script> -->
+        <script src="../scripts/jquery-3.2.1.js"></script>
     </head>
     <body>
-        <div class="index">
-            <header>
-                <div class="content">
-                    <ul>
-                        <li>
-                            <a class="logo" href="index.html">
-                                <img src="../imgs/white-car.svg" height="36">
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">Something</a>
-                        </li>
-                        <li>
-                            <a href="">Something</a>
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <li>
-                            <a href="help.html">Help</a>
-                        </li>
-                        <li>
-                            <a href="signup.html">Sign up</a>
-                        </li>
-                        <li>
-                            <a href="signin.html">Sign in</a>
-                        </li>
-                        <li>
-                            <a href="user/user_page.html">User</a>
-                        </li>
-                    </ul>
-                </div>
-            </header>
-            <div class="title">
-                <section class="name">
-                    Airbnb <span class="transport">Transport</span>
-                </section>
-                <section class="tagline">
-                    Share your transport with everyone
-                </section>
+        <!-- POPUP sign in form -->
+        <div class="signin-form">
+            <div class="close-block">
+                <a href="#" class="close"></a>
             </div>
-            <section class="picture">
-                <img src="../imgs/wtf.png" alt="car sharing picture">
-            </section>
-            <section class="search">
-                <form action="">
-                    <input type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
-                    <input type="submit" name="search-btn">
-                </form>
-            </section>
-            <section class="random-content">
-                [Random content here]
-            </section>
-            <footer>
-                <div class="content">
-                    <ul>
-                        <li>
-                            Copyrights &copy; 2017 Airbnb Transport
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <li>
-                            <a href=""> <i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
-                            <a href=""> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
-                            <a href=""><i class="fa fa-vk fa-2x" aria-hidden="true"></i></a>
-                            <a href=""><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
-                            <a href=""><i class="fa fa-google fa-2x" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
+            <form action="">
+                <div class="signin-creds">
+                    <input type="email" name="email" placeholder="Your Email" required><br>
+                    <input type="password" name="password" placeholder="Your Password" required><br>
                 </div>
-            </footer>
+                <div class="rememberme-forgotpasswd">
+                    <div class="rememberme">
+                        <input type="checkbox" name="remember"> Remember me
+                    </div>
+                    <div class="forgotpasswd">
+                        <a class="colored-link" href="password_recovery.html">Forgot your password?</a>
+                    </div>
+                </div>
+                <div class="signin-btn">
+                    <input type="submit" name="signin-btn" value="Sign in">
+                </div>
+            </form>
+            <hr>
+            <div class="no-account">
+                <div class="left">
+                    Don't have an account?
+                </div>
+                <a class="go-signup" href="signup.html">Sign up</a>
+            </div>
         </div>
+        <!--  -->
+        <!-- POPUP sign up form -->
+        <div class="signup-form">
+            <div class="close-block">
+                <a href="#" class="close"></a>
+            </div>
+            <form action="">
+                <div class="signup-creds">
+                    <input type="email" id="email" placeholder="Your Email" required><br>
+                    <input type="tel" id="phone" placeholder="Your Phone Number" required><br>
+                    <input type="text" id="name" placeholder="Your First Name" required><br>
+                    <input type="text" id="surname" placeholder="Your Last Name" required><br>
+                    <input type="password" id="password" placeholder="Password" required><br>
+                    <input type="password" id="confirm" placeholder="Confirm password" required>
+                </div>
+                <div class="birthday">
+                    <p>Your Birthday</p>
+                    <select name="birthday" id="month">
+                        <option value="default">Month</option>
+                        <option value="jan">January</option>
+                        <option value="feb">February</option>
+                        <option value="march">March</option>
+                        <option value="april">April</option>
+                        <option value="may">May</option>
+                        <option value="june">June</option>
+                        <option value="july">July</option>
+                        <option value="aug">August</option>
+                        <option value="sept">September</option>
+                        <option value="oct">October</option>
+                        <option value="nov">November</option>
+                        <option value="dec">December</option>
+                    </select>
+                    <select name="birthday" id="day" required>
+                        <option value="default">Day</option>
+                    </select>
+                    <select name="birthday" id="year" required>
+                        <option value="default">Year</option>=
+                    </select>
+                </div>
+                <div class="checkboxes">
+                    <p>
+                        <input type="checkbox" id="terms-of-use"> I agree to the
+                        <a class="colored-link" href="terms.html">Terms of Use</a> .
+                    </p>
+                    <p>
+                        <input type="checkbox" id="spam"> I wanna get a bunch of spam from Airbnb Transport everyday!
+                    </p>
+                </div>
+                <div class="signup-btn">
+                    <input type="submit" name="signup-btn" value="Sign up">
+                </div>
+                <hr>
+                <div class="account-exists">
+                    <div class="left">
+                        Already have an account?
+                    </div>
+                    <a class="go-signin" href="signin.html">Sign in</a>
+                </div>
+            </form>
+        </div>
+        <!--  -->
+        <header>
+            <div class="content">
+                <ul>
+                    <li>
+                        <a class="logo" href="index.html" title="Home">
+                            <img src="../imgs/white-car.svg" height="36">
+                        </a>
+                    </li>
+                    <li><a href="">Something</a></li>
+                    <li><a href="">Something</a></li>
+                </ul>
+                <ul class="right">
+                    <li><a href="help.html">Help</a></li>
+                    <li><a href="#" id="sign-up">Sign up</a></li>
+                    <li><a href="#" id="sign-in">Sign in</a></li>
+                    <li><a href="user/user_page.html">User</a></li>
+                </ul>
+            </div>
+        </header>
+        <div class="title">
+            <section class="name">
+                Shared <span class="transport">Wheels</span>
+            </section>
+            <section class="tagline">
+                Share your transport with everyone
+            </section>
+        </div>
+        <section class="picture">
+            <img src="../imgs/wtf.png" alt="car sharing picture">
+        </section>
+        <section class="search">
+            <form action="">
+                <input type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
+                <input type="submit" name="search-btn">
+            </form>
+        </section>
+        <section class="random-content">
+            [Random content here]
+        </section>
+        <footer>
+            <div class="content">
+                <ul>
+                    <li>
+                        Copyrights &copy; 2017 Shared Wheels
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li>
+                        <a href=""> <i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+                        <a href=""> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                        <a href=""><i class="fa fa-vk fa-2x" aria-hidden="true"></i></a>
+                        <a href=""><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                        <a href=""><i class="fa fa-google fa-2x" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <script src="../scripts/index_popups.js"></script>
     </body>
 </html>

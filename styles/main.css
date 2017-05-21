@@ -67,7 +67,7 @@ header .logo {
 
 .title .name {
     font-family: Impact;
-    font-size: 72px;
+    font-size: 80px;
     padding:  0 0 16px;
 }
 
@@ -158,8 +158,50 @@ footer a:hover {
 
 .signin-form,
 .signup-form {
-    width: 40%;
+    background-color: white;
+    /* border: 1px solid lightgray; */
+    cursor: default;
+    display: none;
+    position: absolute;
+    width: 100%;
+    min-width: 300px;
+    max-width: 450px;
+    padding: 25px 25px 20px;
 }
+
+.close-block {
+    margin-bottom: 60px;
+}
+
+/* close cross */
+
+.close {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 24px;
+  height: 24px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 0.7;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 20px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+/*  */
 
 input[type="text"],
 input[type="tel"],
@@ -176,8 +218,9 @@ textarea {
 
 .signin-creds input,
 .signup-creds input {
-    width: 97%;
+    width: 95%;
     line-height: 40px;
+    /* background-repeat: no-repeat; */
 }
 
 .birthday {
@@ -369,17 +412,13 @@ input[type="checkbox"]:checked:after {
     text-decoration: none;
     font-weight: bold;
 }
-.left-col a:focus {
-    color: darkcyan;
-    fill: darkcyan;
-}
 .left-col a:hover {
     opacity: 0.5;
 }
 
-/* .left .current-link {
+.left-col .current-link>a {
     opacity: 1;
-} */
+}
 
 .right-col {
     width: 75%;
