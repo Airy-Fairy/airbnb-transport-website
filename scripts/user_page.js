@@ -1,20 +1,26 @@
-// add listener for every 'li' in list
-var lis = document.getElementById('list').getElementsByTagName('li');
+// On page ready
+$( document ).ready(function() {
+    // Load first content from the first link
+    // and make it current
+    var li = $('#list').children()[0];
+    var a = $(li).children()[0];
 
-for (var i = 0; i < lis.length; i++) {
-    lis[i].addEventListener('click', makeCurrentLink, false);
-}
+    $(a).addClass('current-link');
 
-// change style of the clicked link
-function makeCurrentLink(event) {
-    var li = event.currentTarget;
+    var url = a.href;
+    $('.right-col > .content').load(url).hide().fadeIn();
+});
 
-    for (var i = 0; i < lis.length; i++) {
-        if(lis[i].getAttribute('class') == 'current-link' &&
-            lis[i] != li) {
-            lis[i].setAttribute('class', '');
-        }
-    }
+// Load new content on click
+$('.left-col li a').on('click', function(event) {
+    event.preventDefault(); // Stop loading new link
+    var url = this.href;    // Get value of href
+    
+    // Change style of the clicked link
+    $('li a.current-link').removeClass('current-link');
+    $(this).addClass('current-link');
 
-    li.setAttribute('class', 'current-link');
-}
+    // Remove previous container and load new
+    $('.right-col > .container').remove();
+    $('.right-col > .content').load(url).hide().fadeIn();
+});
