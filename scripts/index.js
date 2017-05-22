@@ -40,33 +40,42 @@ $('#help, #user-page').on('click', function(event) {
 
 
 // Show/hide popups listener
-$.fn.popup = function(id, className, divisor) {
+$.fn.popup = function(id, className, closeClass, divisor) {
     // On link click listener - show popup
-    $(id).on('click', function() {
-        $(className).fadeIn();
+    $(id).on('click', function(event) {
+        event.preventDefault();
+        $(className).show();
         $(className).centerPopup(divisor);
-        return false;
     });
 
     // On cross click listener - hide popup
-    $('.close').on('click', function(event) {
-        $(className).fadeOut();
-        return false;
+    $('.close' + closeClass).on('click', function() {
+        $(className).hide();
     });
 };
 
 
 // Call popup() twice for sign up and sign in forms
-$.fn.popup('#sign-in', '.signin-form', 4);
-$.fn.popup('#sign-up', '.signup-form', 16);
+$.fn.popup('#sign-in', '.signin-form', '.signin', 4);
+$.fn.popup('#sign-up', '.signup-form', '.signup', 16);
 
-
-// Center popup
+// Center popup window
 $.fn.centerPopup = function(divisor) {
-    this.css('position','absolute');
     this.css('top', Math.max(0, (($(window).height() - $(this).outerHeight()) / divisor) + 
-      $(window).scrollTop()) + 'px');
+        $(window).scrollTop()) + 'px');
     this.css('left', Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
-      $(window).scrollLeft()) + 'px');
+        $(window).scrollLeft()) + 'px');
     return this;
 };
+
+
+$('#forgotpasswd').on('click', function(event) {
+    event.preventDefault();
+    $('.signin-form').hide();
+    $('.passwd-recovery').show();
+    $('.passwd-recovery').centerPopup(4);
+});
+
+$('.close.passwd').on('click', function() {
+    $('.passwd-recovery').hide();
+});

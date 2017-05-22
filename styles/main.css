@@ -607,7 +607,14 @@ input[type="file"] {
  */
 
 .passwd-recovery {
-    width: 40%;
+    background-color: white;
+    cursor: default;
+    display: none;
+    position: absolute;
+    width: 100%;
+    min-width: 300px;
+    max-width: 450px;
+    padding: 25px 25px 20px;
 }
 
 .passwd-recovery .hdr {
