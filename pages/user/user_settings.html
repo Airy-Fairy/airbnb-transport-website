@@ -38,27 +38,25 @@
                         <div class="elem">
                             <div class="birthday">
                                 <select name="birthday" id="month">
-                                    <option value="default">Month</option>
-                                    <option value="jan">January</option>
-                                    <option value="feb">February</option>
-                                    <option value="march">March</option>
-                                    <option value="april">April</option>
-                                    <option value="may">May</option>
-                                    <option value="june">June</option>
-                                    <option value="july">July</option>
-                                    <option value="aug">August</option>
-                                    <option value="sept">September</option>
-                                    <option value="oct">October</option>
-                                    <option value="nov">November</option>
-                                    <option value="dec">December</option>
+                                    <option value="-1">Month</option>
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10">November</option>
+                                    <option value="11">December</option>
                                 </select>
                                 <select name="birthday" id="day" required>
-                                    <option value="default">Day</option>
-                                    <!-- I guess JS generates options based on month -->
+                                    <option value="-1">Day</option>
                                 </select>
                                 <select name="birthday" id="year" required>
-                                    <option value="default">Year</option>
-                                    <!--JS from -100 til now-->
+                                    <option value="-1">Year</option>
                                 </select>
                             </div>
                         </div>
@@ -98,7 +96,7 @@
                         </div>
                     </div>
                     <div class="save-settings-btn">
-                        <input type="submit" name="save-btn" value="Save">
+                        <input type="submit" id="save-btn" value="Save">
                     </div>
                 </form>
             </div>

@@ -1,4 +1,6 @@
-// Load user page
+/**
+ * Loads user page
+ */
 $('#help, #user-page').on('click', function(event) {
     event.preventDefault(); // Stop loading new link
     var url = this.href;    // Get value of href
@@ -12,11 +14,20 @@ $('#help, #user-page').on('click', function(event) {
         // If it's a user page
         if($(this).children('.user-page')[0] !== undefined) {
             // Load first content from the first link
-            // and make it current
             var a = $('#left-col-list>li>a')[0];
 
+            // Make it current
             $(a).addClass('current-link');
             $('.right-col > .content').load(a.href).hide().fadeIn();
+
+            // load() callback
+            $('.right-col > .content').load(a.href, function() {
+                // Fill birthday Day and Year
+                fillBirthday();
+
+                // Set listener to check for birthday
+                birthdayCheck('#save-btn');
+            });
 
             // Load new content on click
             $('.left-col li a').on('click', function(event) {
@@ -30,52 +41,19 @@ $('#help, #user-page').on('click', function(event) {
                 // Remove previous container and load new
                 $('.right-col > .container').remove();
                 $('.right-col > .content').load(url).hide().fadeIn();
+
+                // load() callback
+                $('.right-col > .content').load(url, function() {
+                    // Fill birthday Day and Year
+                    fillBirthday();
+
+                    // Set listener to check for birthday
+                    birthdayCheck('#save-btn');
+                });
             });
         }
     });
 
     // Show the header search
     $('.nav-search').css('visibility', 'visible');
-});
-
-
-// Show/hide popups listener
-$.fn.popup = function(id, className, closeClass, divisor) {
-    // On link click listener - show popup
-    $(id).on('click', function(event) {
-        event.preventDefault();
-        $(className).show();
-        $(className).centerPopup(divisor);
-    });
-
-    // On cross click listener - hide popup
-    $('.close' + closeClass).on('click', function() {
-        $(className).hide();
-    });
-};
-
-
-// Call popup() twice for sign up and sign in forms
-$.fn.popup('#sign-in', '.signin-form', '.signin', 4);
-$.fn.popup('#sign-up', '.signup-form', '.signup', 16);
-
-// Center popup window
-$.fn.centerPopup = function(divisor) {
-    this.css('top', Math.max(0, (($(window).height() - $(this).outerHeight()) / divisor) + 
-        $(window).scrollTop()) + 'px');
-    this.css('left', Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
-        $(window).scrollLeft()) + 'px');
-    return this;
-};
-
-
-$('#forgotpasswd').on('click', function(event) {
-    event.preventDefault();
-    $('.signin-form').hide();
-    $('.passwd-recovery').show();
-    $('.passwd-recovery').centerPopup(4);
-});
-
-$('.close.passwd').on('click', function() {
-    $('.passwd-recovery').hide();
 });

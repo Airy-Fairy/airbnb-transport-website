@@ -645,7 +645,7 @@ input[type="file"] {
 
 /*
  *
- *  styles for user_settings.html
+ *  styles for transport thumbnails
  *  
  */
 
@@ -674,3 +674,9 @@ input[type="file"] {
 .thumbnail .reviews {
     margin-left: 10px;
 }
+
+/*
+ *
+ *  styles for reviews
+ *  
+ */
