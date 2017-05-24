@@ -1,7 +1,7 @@
 /*
  *
  *  styles for index.html
- *  
+ *
  */
 
 html {
@@ -55,7 +55,7 @@ header li {
 header a {
     color: inherit;
     display: inline-block;
-    fill: inherit;
+    /*fill: inherit;*/
     margin: 0;
     padding: 0 12px;
     text-decoration: none;
@@ -92,23 +92,23 @@ header input[type="search"] {
 
 /*  */
 
-.title {
+.main-content .title {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.title .name {
+.main-content .title .name {
     font-family: Impact;
     font-size: 80px;
     padding:  0 0 16px;
 }
 
-.title .name .transport {
+.main-content .title .name .transport {
     color: darkcyan;
 }
 
-.title .tagline {
+.main-content .title .tagline {
     font-family: monospace;
     font-size: 20px;
 }
@@ -181,22 +181,19 @@ footer a {
 }
 footer a:focus {
     color: darkcyan;
-    fill: darkcyan;
 }
 footer a:hover {
     opacity: 0.7;
 }
 
 /*
- *  
+ *
  *  styles for signup.html and signin.html
- *  
+ *
  */
 
-.signin-form,
-.signup-form {
+.popup {
     background-color: white;
-    /* border: 1px solid lightgray; */
     cursor: default;
     display: none;
     position: absolute;
@@ -204,6 +201,7 @@ footer a:hover {
     min-width: 300px;
     max-width: 450px;
     padding: 25px 25px 20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.4);
 }
 
 .close-block {
@@ -245,17 +243,18 @@ input[type="tel"],
 input[type="email"],
 input[type="password"],
 textarea {
-    line-height: 50px;
+    /*line-height: 50px;*/
+    height: 100px;
     font-size: 18px;
     border: 1px solid gray;
     border-radius: 2px;
     margin-bottom: 10px;
-    padding: 0 10px;
+    padding: 10px;
 }
 
 .signin-creds input,
 .signup-creds input {
-    width: 95%;
+    width: 100%;
     line-height: 40px;
     /* background-repeat: no-repeat; */
 }
@@ -323,11 +322,6 @@ input[type="submit"]:focus {
     line-height: 40px;
 }
 
-.signin-creds input {
-    line-height: 40px;
-    font-size: 16px;
-}
-
 .rememberme-forgotpasswd,
 .no-account,
 .account-exists {
@@ -371,12 +365,12 @@ input[type="submit"]:focus {
 
 hr {
     width: 370px;
-    border: 0; 
-    height: 1px; 
+    border: 0;
+    height: 1px;
     background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
     background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
     background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
-    background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0); 
+    background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
 }
 
 input[type="checkbox"] {
@@ -392,12 +386,12 @@ input[type="checkbox"] {
 }
 input[type="checkbox"]:active,
 input[type="checkbox"]:checked:active {
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0 1px 3px rgba(0,0,0,0.1);
 }
 input[type="checkbox"]:checked {
     background-color: #e9ecee;
     border: 1px solid #adb8c0;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0 -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
     color: #99a1a7;
 }
 input[type="checkbox"]:checked:after {
@@ -420,15 +414,19 @@ input[type="checkbox"]:checked:after {
 /*
  *
  *  styles for user_page.html
- *  
+ *
  */
 
-.grid {
-    width: 100%;
+.user-page {
+    width: 70%;
     min-width: 500px;
-    max-width: 750px;
-    display: flex;
+    max-width: 800px;
     margin-top: 25px;
+}
+
+.user-page .grid {
+    width: 100%;
+    display: flex;
 }
 
 .left-col {
@@ -455,7 +453,7 @@ input[type="checkbox"]:checked:after {
     opacity: 0.5;
 }
 
-.left-col a.current-link {
+.left-col .current-link {
     opacity: 1;
 }
 
@@ -466,7 +464,7 @@ input[type="checkbox"]:checked:after {
     min-height: 500px;
     border: 1px solid lightgray;
     border-radius: 1px;
-    
+
 }
 
 .right-col .content {
@@ -477,7 +475,7 @@ input[type="checkbox"]:checked:after {
 /*
  *
  *  styles for user_add_transport.html
- *  
+ *
  */
 
 .new-transport-form {
@@ -555,7 +553,7 @@ input[type="file"] {
 /*
  *
  *  styles for user_settings.html
- *  
+ *
  */
 
 .user-settings-form {
@@ -603,19 +601,8 @@ input[type="file"] {
 /*
  *
  *  styles for password_recovery.html
- *  
+ *
  */
-
-.passwd-recovery {
-    background-color: white;
-    cursor: default;
-    display: none;
-    position: absolute;
-    width: 100%;
-    min-width: 300px;
-    max-width: 450px;
-    padding: 25px 25px 20px;
-}
 
 .passwd-recovery .hdr {
     margin-bottom: 15px;
@@ -646,29 +633,56 @@ input[type="file"] {
 /*
  *
  *  styles for transport thumbnails
- *  
+ *
  */
 
 .thumbnail {
+    /*width: 400px;*/
+    /*height: 300px;*/
     width: 100%;
+    height: 100%;
+    border: 1px dotted black;
 }
 
-.thumbnail * {
+.thumbnail .image {
+    width: 100%;
+    height: 80%;
     margin-bottom: 2px;
+}
+
+/*.thumbnail .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}*/
+
+.cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .thumbnail .label {
     font-weight: bold;
+    margin-bottom: 2px;
 }
 
 .thumbnail .short-info {
-    font-size: 14px;
-    margin-bottom: 7px;
+    font-size: 0.95em;
+    margin-bottom: 3px;
+}
+
+.rating {
+    display: inline-flex;
+    text-align: left;
 }
 
 .thumbnail .rating {
-    display: inline-flex;
-    text-align: left;
+    font-size: 0.9em;
+}
+
+.rating .star-rating {
+    color: darkcyan;
 }
 
 .thumbnail .reviews {
@@ -677,6 +691,201 @@ input[type="file"] {
 
 /*
  *
- *  styles for reviews
- *  
+ *  styles for search results
+ *
  */
+
+.search-results {
+    width: 100%;
+    min-width: 500px;
+    max-width: 800px;
+    min-height: 600px;
+    margin-top: 25px;
+    /*border: 1px dotted black;*/
+}
+
+.search-results .grid {
+    width: 100%;
+}
+
+.search-results .row {
+    display: flex;
+}
+
+.col-1-2 {
+    width: 50%;
+    /*border: 1px dotted red;*/
+    margin: 10px;
+}
+
+/*
+ *
+ *  styles for transport profile
+ *
+ */
+
+.transport-profile {
+    width: 100%;
+}
+
+.bunch-of-photos {
+    width: 100%;
+    height: 300px;
+}
+
+/* Transport Title */
+
+.transport-profile .title {
+    width: 70%;
+    margin-top: 20px;
+    padding: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.transport-profile .title .content {
+    width: 100%;
+    display: flex;
+}
+
+.transport-profile .title .name {
+    width: 80%;
+}
+
+.transport-profile .title .owner {
+    width: 20%;
+}
+
+.transport-profile .title .label {
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.transport-profile .under-label {
+    line-height: 24px;
+}
+
+.transport-profile .title .short-info {
+    font-size: 20px;
+    opacity: 0.7;
+    float: left;
+    margin-right: 15px;
+}
+
+.transport-profile .reviews {
+    font-size: 20px;
+    margin-left: 10px;
+    opacity: 0.7;
+}
+
+.transport-profile .owner .photo {
+    width: 70%;
+    height: 70%;
+    margin-bottom: 10px;
+}
+
+.transport-profile .owner a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.transport-profile .owner .photo img {
+    border-radius: 50%;
+}
+
+.transport-profile .owner .user-name {
+    text-align: center;
+}
+
+/* Transport Info */
+
+.transport-profile .info {
+    width: 70%;
+}
+
+.transport-profile .info .content {
+    width: 100%;
+}
+
+.transport-profile .info .description {
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    display: flex;
+}
+
+.transport-profile .row {
+    margin-bottom: 10px;
+}
+
+.transport-profile .row:last-of-type {
+    margin-bottom: 0;
+}
+
+.transport-profile .row .label,
+.transport-profile .address-block address .label {
+    opacity: 0.7;
+}
+
+.transport-profile .address-block {
+    border-bottom: 1px solid lightgray;
+}
+
+.transport-profile .address-block address {
+    font-style: normal;
+    padding: 20px;
+}
+
+.transport-profile .info .owner-notation {
+    border-bottom: 1px solid lightgray;
+    padding: 20px;
+    text-align: justify;
+}
+
+.transport-profile .request-form {
+    width: 100%;
+    padding: 20px;
+}
+
+.transport-profile .request-form .line {
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.transport-profile .request-form .price-block {
+    background: #333333;
+    color: white;
+}
+
+.transport-profile .request-form .price-block .number {
+    font-family: impact;
+    font-size: 24px;
+    text-transform: uppercase;
+    line-height: 60px;
+    padding-left: 20px;
+}
+
+.transport-profile .request-form .contacts,
+.transport-profile .request-form .message  {
+    padding: 10px 20px;
+}
+
+.transport-profile .request-form .message .label {
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+.transport-profile .request-form .message textarea {
+    font-size: 14px;
+    width: 100%;
+    resize: vertical;
+}
+
+.transport-profile .request-form .request_btn {
+    width: 50%;
+}
+
+.transport-profile .request-form .request_btn input {
+    width: 100%;
+    line-height: 40px;
+}

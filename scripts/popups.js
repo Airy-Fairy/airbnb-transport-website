@@ -10,13 +10,13 @@ $.fn.popup = function(id, className, closeClass, divisor) {
     // On link click listener - show popup
     $(id).on('click', function(event) {
         event.preventDefault();
-        
+
         $(className).show();
         $(className).centerPopup(divisor);
 
         // If it's sign up form
         if (id == '#sign-up') {
-            // Fill Day and Year 
+            // Fill Day and Year
             fillBirthday();
 
             // Set listener to check for birthday
@@ -43,9 +43,9 @@ $.fn.popup('#sign-up', '.signup-form', '.signup', 16);
  * @return     {Object}  { centered popup }
  */
 $.fn.centerPopup = function(divisor) {
-    this.css('top', Math.max(0, (($(window).height() - $(this).outerHeight()) / divisor) + 
+    this.css('top', Math.max(0, (($(window).height() - $(this).outerHeight()) / divisor) +
         $(window).scrollTop()) + 'px');
-    this.css('left', Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+    this.css('left', Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
         $(window).scrollLeft()) + 'px');
     return this;
 };
