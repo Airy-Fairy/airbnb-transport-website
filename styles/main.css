@@ -180,6 +180,11 @@ footer a:hover {
 
 .panel-container {
     width: 100%;
+    margin-top: 30px;
+}
+
+.panel-container:first-of-type {
+    margin: 0;
 }
 
 .panel-head {
@@ -283,7 +288,6 @@ textarea {
 }
 
 .birthday {
-    /*width: 376px;*/
     line-height: 30px;
     display: flex;
     margin: 20px auto;
@@ -299,6 +303,7 @@ select {
     border-radius: 2px;
     margin-right: 5px;
     padding: 0 10px;
+    font-size: 1em;
 }
 
 .birthday select {
@@ -583,6 +588,11 @@ input[type="checkbox"]:checked:after {
     margin-left: 5px;
 }
 
+.user-settings-form .form-row .omg {
+    height: 40px;
+    margin-bottom: 10px;
+}
+
 /*
  *
  *  styles for user_photo.html
@@ -651,18 +661,32 @@ input[type="checkbox"]:checked:after {
 
 .form-row .elem {
     width: 65%;
-    height: 100%;
-    margin-left: 10px;
+    display: block;
 }
 
-.form-row select {
-    width: 70%;
-}
-
-#rental-price {
-    width: 30%;
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="tel"] {
+    width: 100%;
     line-height: 20px;
     text-align: center;
+}
+
+.form-row input[id="rental-price"] {
+    width: 30%;
+}
+
+.new-transport-form .form-row {
+    line-height: 40px;
+}
+
+.new-transport-form .form-row select {
+    width: 50%;
+    height: 100%;
+}
+
+.new-transport-form .form-row label.photo {
+    margin-top: 12px;
 }
 
 .save-settings-btn {
@@ -678,6 +702,7 @@ input[type="checkbox"]:checked:after {
 
 input[type="file"] {
     width: 100%;
+    height: 100%;
 }
 
 .custom-file-input {
@@ -721,7 +746,7 @@ input[type="file"] {
     /*height: 300px;*/
     width: 100%;
     height: 100%;
-    border: 1px dotted black;
+    /*border: 1px dotted black;*/
 }
 
 .thumbnail .image {
@@ -778,7 +803,7 @@ input[type="file"] {
 .search-results {
     width: 100%;
     min-width: 500px;
-    max-width: 800px;
+    max-width: 1000px;
     min-height: 600px;
     margin-top: 25px;
 }
