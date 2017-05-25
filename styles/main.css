@@ -34,7 +34,8 @@ header .content {
 }
 
 header ul,
-footer ul {
+footer ul,
+nav ul {
     display: inline-block;
     list-style: none;
     margin: 0;
@@ -282,7 +283,8 @@ textarea {
 }
 
 .birthday {
-    width: 376px;
+    /*width: 376px;*/
+    line-height: 30px;
     display: flex;
     margin: 20px auto;
 }
@@ -293,11 +295,14 @@ textarea {
 }
 
 select {
-    height: 40px;
     border: 1px solid gray;
     border-radius: 2px;
     margin-right: 5px;
     padding: 0 10px;
+}
+
+.birthday select {
+    width: 100%;
 }
 
 .birthday select[id="month"] {
@@ -490,6 +495,7 @@ input[type="checkbox"]:checked:after {
 .left-col {
     width: 25%;
     margin-top: 10px;
+    margin-left: 10px;
 }
 
 .left-col ul {
@@ -553,7 +559,8 @@ input[type="checkbox"]:checked:after {
     width: 25%;
 }
 
-.user-settings-form input {
+.user-settings-form input,
+.user-settings-form select {
     width: 96.5%;
     line-height: 40px;
 }
@@ -628,9 +635,9 @@ input[type="checkbox"]:checked:after {
  *
  */
 
-.new-transport-form {
+/*.new-transport-form {
     width: 40%;
-}
+}*/
 
 .form-row {
     margin: 10px auto;
@@ -644,6 +651,7 @@ input[type="checkbox"]:checked:after {
 
 .form-row .elem {
     width: 65%;
+    height: 100%;
     margin-left: 10px;
 }
 
@@ -653,7 +661,7 @@ input[type="checkbox"]:checked:after {
 
 #rental-price {
     width: 30%;
-    line-height: 40px;
+    line-height: 20px;
     text-align: center;
 }
 
