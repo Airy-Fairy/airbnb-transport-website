@@ -7,6 +7,7 @@
         <title>New transport page</title>
         <link rel="icon" href="../../imgs/icon.png">
         <link rel="stylesheet" href="../../styles/main.css">
+        <script src="../../scripts/jquery-3.2.1.js"></script>
     </head>
 
     <body>
@@ -20,8 +21,9 @@
                                 <label for="transport-type">Transport Type</label>
                                 <div class="elem">
                                     <select id="transport-type" required>
-                                        <option value="vehicle">Vehicle</option>
-                                        <option value="motorcycle">Motorcycle</option>
+                                        <option value="-1">...</option>
+                                        <option value="0">Vehicle</option>
+                                        <option value="1">Motorcycle</option>
                                     </select>
                                 </div>
                             </div>
@@ -29,6 +31,7 @@
                                 <label for="transport-brand">Brand</label>
                                 <div class="elem">
                                     <select id="transport-brand" required>
+                                        <option value="-1">...</option>
                                         <!-- Generated based on type -->
                                     </select>
                                 </div>
@@ -37,6 +40,7 @@
                                 <label for="transport-model">Model</label>
                                 <div class="elem">
                                     <select id="transport-model" required>
+                                        <option value="-1">...</option>
                                         <!-- Generated based on brand -->
                                     </select>
                                 </div>
@@ -95,6 +99,7 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="../../scripts/transport.js"></script>
     </body>
 
 </html>

@@ -593,6 +593,10 @@ input[type="checkbox"]:checked:after {
     margin-bottom: 10px;
 }
 
+.user-settings-form .form-row {
+    margin-bottom: 5px;
+}
+
 /*
  *
  *  styles for user_photo.html

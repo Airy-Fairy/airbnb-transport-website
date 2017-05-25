@@ -33,7 +33,7 @@ $('#help, #user-page').on('click', function(event) {
             $('.left-col li a').on('click', function(event) {
                 event.preventDefault(); // Stop loading new link
                 var url = this.href;    // Get value of href
-                
+
                 // Change style of the clicked link
                 $('li a.current-link').removeClass('current-link');
                 $(this).addClass('current-link');
@@ -57,3 +57,14 @@ $('#help, #user-page').on('click', function(event) {
     // Show the header search
     $('.nav-search').css('visibility', 'visible');
 });
+
+/**
+ * Search!
+ */
+// $('.main-content .search input[type=submit]').on('click', function(event) {
+//     var url = ...;
+//
+//     // Remove previous container and load new
+//     $('.main-content > .container').remove();
+//     $('.main-content').load(url).hide().fadeIn();
+// });
