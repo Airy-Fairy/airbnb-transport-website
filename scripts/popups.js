@@ -7,12 +7,19 @@
  * @param      {integer}  divisor     The divisor of height
  */
 $.fn.popup = function(id, className, closeClass, divisor) {
+    var popup = $(className);
+    var darkScreen = $('.dark-screen');
+
     // On link click listener - show popup
     $(id).on('click', function(event) {
         event.preventDefault();
 
-        $(className).show();
-        $(className).centerPopup(divisor);
+        // Show popup
+        popup.show();
+        popup.centerPopup(divisor);
+
+        // Show dark screen overlay
+        darkScreen.show();
 
         // If it's sign up form
         if (id == '#sign-up') {
@@ -24,9 +31,10 @@ $.fn.popup = function(id, className, closeClass, divisor) {
         }
     });
 
-    // On cross click listener - hide popup
+    // On cross click listener - hide popup and dark screen
     $('.close' + closeClass).on('click', function() {
-        $(className).hide();
+        popup.hide();
+        darkScreen.hide();
     });
 };
 
@@ -66,4 +74,5 @@ $('#forgotpasswd').on('click', function(event) {
  */
 $('.close.passwd').on('click', function() {
     $('.passwd-recovery').hide();
+    $('.dark-screen').hide();
 });

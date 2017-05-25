@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
         <link rel="stylesheet" href="styles/font-awesome-4.7.0/css/font-awesome.css">
         <script src="scripts/jquery-3.2.1.js"></script>
     </head>
+
     <body>
         <!-- Header -->
         <header>
@@ -16,8 +18,8 @@
                 <ul>
                     <li>
                         <a class="logo" href="index.html" id="home">
-                            <img src="imgs/white-car.svg" height="36">
-                        </a>
+                                <img src="imgs/white-car.svg" height="36">
+                            </a>
                     </li>
                     <li>
                         <div class="nav-search">
@@ -56,7 +58,7 @@
                     </section>
                 </div>
                 <section class="picture">
-                    <img src="imgs/wtf.png" alt="car sharing picture">
+                    <img class="cover" src="imgs/wtf.png" alt="car sharing picture">
                 </section>
                 <section class="search">
                     <form action="">
@@ -153,26 +155,26 @@
                 <div class="birthday">
                     <p>Your Birthday</p>
                     <select name="birthday" id="month" required>
-                        <option value="-1">Month</option>
-                        <option value="0">January</option>
-                        <option value="1">February</option>
-                        <option value="2">March</option>
-                        <option value="3">April</option>
-                        <option value="4">May</option>
-                        <option value="5">June</option>
-                        <option value="6">July</option>
-                        <option value="7">August</option>
-                        <option value="8">September</option>
-                        <option value="9">October</option>
-                        <option value="10">November</option>
-                        <option value="11">December</option>
-                    </select>
+                            <option value="-1">Month</option>
+                            <option value="0">January</option>
+                            <option value="1">February</option>
+                            <option value="2">March</option>
+                            <option value="3">April</option>
+                            <option value="4">May</option>
+                            <option value="5">June</option>
+                            <option value="6">July</option>
+                            <option value="7">August</option>
+                            <option value="8">September</option>
+                            <option value="9">October</option>
+                            <option value="10">November</option>
+                            <option value="11">December</option>
+                        </select>
                     <select name="birthday" id="day" required>
-                        <option value="-1">Day</option>
-                    </select>
+                            <option value="-1">Day</option>
+                        </select>
                     <select name="birthday" id="year" required>
-                        <option value="-1">Year</option>=
-                    </select>
+                            <option value="-1">Year</option>=
+                        </select>
                 </div>
                 <div class="checkboxes">
                     <p>
@@ -195,8 +197,12 @@
                 </div>
             </form>
         </div>
+        <!-- Dark screen overlay -->
+        <div class="dark-screen"></div>
+        <!-- Scripts -->
         <script type="text/javascript" src="scripts/index.js"></script>
         <script type="text/javascript" src="scripts/popups.js"></script>
         <script type="text/javascript" src="scripts/birthday.js"></script>
     </body>
+
 </html>
