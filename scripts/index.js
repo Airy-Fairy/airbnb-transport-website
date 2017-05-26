@@ -58,6 +58,11 @@ $('#help, #user-page').on('click', function(event) {
     $('.nav-search').css('visibility', 'visible');
 });
 
+(function calcCurrentYear() {
+    var today = new Date();
+    $('#current-year').text(today.getFullYear());
+}());
+
 /**
  * Search!
  */

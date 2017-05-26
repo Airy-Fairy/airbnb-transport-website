@@ -15,11 +15,11 @@ $.fn.popup = function(id, className, closeClass, divisor) {
         event.preventDefault();
 
         // Show popup
-        popup.show();
+        popup.fadeIn('fast');
         popup.centerPopup(divisor);
 
         // Show dark screen overlay
-        darkScreen.show();
+        darkScreen.fadeIn('fast');
 
         // If it's sign up form
         if (id == '#sign-up') {
