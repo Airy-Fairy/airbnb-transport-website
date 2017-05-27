@@ -15,20 +15,20 @@ function range(start, end) {
  */
 function fillBirthday() {
     // Fill Day
-    var selectDay = $('#day');
+    var $selectDay = $('#day');
     var days = range(1, 32);
 
     $.each(days, function(key, value) {
-        selectDay
+        $selectDay
             .append('<option value="' + key + '">' + value + '</option>');
     });
 
     // Fill Year
-    var selectYear = $('#year');
+    var $selectYear = $('#year');
     var years = range(1900, 2000);
 
     $.each(years, function(key, value) {
-        selectYear
+        $selectYear
             .append('<option value="' + key + '">' + value + '</option>');
     });
 }
