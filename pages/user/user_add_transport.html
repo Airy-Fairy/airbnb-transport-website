@@ -13,15 +13,15 @@
     <body>
         <div class="user-page-container">
             <div class="new-transport-form">
-                <div class="panel-container">
-                    <div class="panel-head">Required</div>
-                    <form action="">
+                <form action="">
+                    <div class="panel-container">
+                        <div class="panel-head">Required</div>
                         <div class="panel-line">
                             <div class="form-row">
                                 <label for="transport-type">Transport Type</label>
                                 <div class="elem">
                                     <select id="transport-type" required>
-                                        <option value="-1">...</option>
+                                        <option value="">...</option>
                                         <option value="0">Vehicle</option>
                                         <option value="1">Motorcycle</option>
                                     </select>
@@ -31,7 +31,7 @@
                                 <label for="transport-brand">Brand</label>
                                 <div class="elem">
                                     <select id="transport-brand" required>
-                                        <option value="-1">...</option>
+                                        <option value="">...</option>
                                         <!-- Generated based on type -->
                                     </select>
                                 </div>
@@ -40,7 +40,7 @@
                                 <label for="transport-model">Model</label>
                                 <div class="elem">
                                     <select id="transport-model" required>
-                                        <option value="-1">...</option>
+                                        <option value="">...</option>
                                         <!-- Generated based on brand -->
                                     </select>
                                 </div>
@@ -69,37 +69,39 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-container">
-                            <div class="panel-head">Additional</div>
-                            <div class="panel-line">
-                                <div class="form-row">
-                                    <label for="">Additional #1</label>
-                                    <div class="elem">
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <label for="">Additional #2</label>
-                                    <div class="elem">
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <label for="">Additional #3</label>
-                                    <div class="elem">
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="save-transport-btn">
-                                    <input type="submit" id="new-transport-btn" value="Save">
+                    </div>
+
+                    <div class="panel-container">
+                        <div class="panel-head">Additional</div>
+                        <div class="panel-line">
+                            <div class="form-row">
+                                <label for="">Additional #1</label>
+                                <div class="elem">
+                                    <input type="text">
                                 </div>
                             </div>
+                            <div class="form-row">
+                                <label for="">Additional #2</label>
+                                <div class="elem">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="">Additional #3</label>
+                                <div class="elem">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="save-transport-btn">
+                                <input type="submit" id="new-transport-btn" value="Save">
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <script type="text/javascript" src="../../scripts/transport.js"></script>
+        <script type="text/javascript" src="../../scripts/common.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../../scripts/transport.js" charset="utf-8"></script>
     </body>
 
 </html>

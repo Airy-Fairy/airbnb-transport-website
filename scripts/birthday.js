@@ -1,16 +1,4 @@
 /**
- * Creates array = [start ... end - 1]
- */
-function range(start, end) {
-    var array = [];
-    for (var i = start; i < end; i++) {
-        array.push(i);
-    }
-    return array;
-}
-
-
-/**
  * Fills Day and Year selects
  */
 function fillBirthday() {
@@ -25,7 +13,9 @@ function fillBirthday() {
 
     // Fill Year
     var $selectYear = $('#year');
-    var years = range(1900, 2000);
+    var high = getCurrentYear() - 17;
+    var low = high - 100;
+    var years = range(low, high);
 
     $.each(years, function(key, value) {
         $selectYear

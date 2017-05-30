@@ -55,3 +55,13 @@
         }
     });
 }());
+
+$(document).ready(function() {
+    var $yearOfManufacture = $('#year-of-manufacture');
+    var years = range(1960, getCurrentYear() + 1);
+
+    $.each(years, function(key, value) {
+        $yearOfManufacture
+            .append('<option value="' + key + '">' + value + '</option>');
+    });
+});

@@ -12,7 +12,7 @@
     </head>
 
     <body>
-        <div class="new-review">
+        <div class="new-review white-back cool-shadow">
             <div class="grid">
                 <div class="left-col">
                     <div class="image"></div>
@@ -22,18 +22,25 @@
                     <div class="transport-choice">
                         <span class="label">Choose transport:</span>
                         <select id="choose-user-transport">
-                            <option value="-1">...</option>
+                            <option value="">...</option>
                         </select>
                     </div>
                     <div class="rating-choice">
                         <span class="label">Rate it:</span>
                         <div class="rating">
                             <div class="star-rating">
-                                <label class="fa fa-star" aria-hidden="true"></label>
-                                <label class="fa fa-star" aria-hidden="true"></label>
-                                <label class="fa fa-star" aria-hidden="true"></label>
-                                <label class="fa fa-star" aria-hidden="true"></label>
-                                <label class="fa fa-star" aria-hidden="true"></label>
+                                <div class="star-rating__wrap">
+                                    <input class="star-rating__input" id="star-rating-5" type="radio" name="rating" value="5">
+                                    <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 out of 5 stars"></label>
+                                    <input class="star-rating__input" id="star-rating-4" type="radio" name="rating" value="4">
+                                    <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 out of 5 stars"></label>
+                                    <input class="star-rating__input" id="star-rating-3" type="radio" name="rating" value="3">
+                                    <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 out of 5 stars"></label>
+                                    <input class="star-rating__input" id="star-rating-2" type="radio" name="rating" value="2">
+                                    <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 out of 5 stars"></label>
+                                    <input class="star-rating__input" id="star-rating-1" type="radio" name="rating" value="1">
+                                    <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 out of 5 stars"></label>
+                                </div>
                             </div>
                         </div>
                     </div>

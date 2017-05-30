@@ -30,7 +30,7 @@ $('#help, #user-page').on('click', function(event) {
             });
 
             // Load new content on click
-            $('.left-col li a').on('click', function(event) {
+            $('.left-col li a.inside').on('click', function(event) {
                 event.preventDefault(); // Stop loading new link
                 var url = this.href;    // Get value of href
 
@@ -51,6 +51,16 @@ $('#help, #user-page').on('click', function(event) {
                     birthdayCheck('#save-btn');
                 });
             });
+
+            // Go to the profile page listener
+            $('.left-col li a.outside').on('click', function(event) {
+                event.preventDefault(); // Stop loading new link
+                var url = this.href;    // Get value of href
+
+                // Remove previous container and load new
+                $('.main-content > .container').remove();
+                $('.main-content').load(url).hide().fadeIn();
+            });
         }
     });
 
@@ -59,8 +69,7 @@ $('#help, #user-page').on('click', function(event) {
 });
 
 (function calcCurrentYear() {
-    var today = new Date();
-    $('#current-year').text(today.getFullYear());
+    $('#current-year').text(getCurrentYear());
 }());
 
 /**
