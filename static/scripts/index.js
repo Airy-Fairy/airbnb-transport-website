@@ -1,7 +1,7 @@
 /**
  * Loads user page
  */
-$('#help, #user-page').on('click', function(event) {
+$('#user-page').on('click', function(event) {
     event.preventDefault(); // Stop loading new link
     var url = this.href;    // Get value of href
 
