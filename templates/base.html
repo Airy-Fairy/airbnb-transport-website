@@ -36,14 +36,14 @@
                 </ul>
                 <ul class="right">
                     <li>
-                        <a href="{{ url_for('help') }}" id="help">Help</a> <!-- Make fucking decorator -->
+                        <a href="{{ url_for('help') }}" id="help">Help</a>
                     </li>
-                    <li>
-                        <a href="#" id="sign-up">Sign up</a> <!-- Make fucking decorator -->
-                    </li>
-                    <li>
-                        <a href="#" id="sign-in">Sign in</a> <!-- Make fucking decorator -->
-                    </li>
+                        <li>
+                            <a href="#" id="sign-up">Sign up</a>
+                        </li>
+                        <li>
+                            <a href="#" id="sign-in">Sign in</a>
+                        </li>
                     <!-- <li>
                         <a href="pages/user/user_main_page.html" id="user-page">User</a>
                     </li> -->
@@ -124,7 +124,7 @@
             <div class="close-block">
                 <a href="#" class="close signup"></a> <!-- Make fucking decorator -->
             </div>
-            <form action="" method="post">
+            <form action="/sign-up" method="post">
                 <div class="signup-creds">
                     <input type="email" id="email" placeholder="Your Email" required><br>
                     <input type="tel" id="phone" placeholder="Your Phone Number" required><br>
