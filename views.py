@@ -18,12 +18,6 @@ def root():
 
 @wheels.route('/index')
 def index():
-	#db.create_all()
-	#u = User(email='admin@example.com', password='cat', first_name='Gleb', last_name='Ignatieff')
-	#db.session.add(u)
-	#db.session.commit()
-	#users = User.query.all()
-	#print(users[0].email, file=sys.stderr)
 	return render_template('index.html', title='Home')
 
 @wheels.route('/help')
@@ -69,7 +63,7 @@ def sign_up():
 					first_name=request.form['name'],
 					last_name=request.form['surname'],
 					password=request.form['password'])
-		db.session.add(User)
+		db.session.add(user)
 		db.session.commit()
 		#token = user.generate_confirmation_token()
 		#send_email

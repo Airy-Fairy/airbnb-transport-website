@@ -3,9 +3,6 @@ from wheels import db
 from werkzeug.security import generate_password_hash, \
      check_password_hash
 
-#from flask_sqlalchemy import SQLAlchemy
-#db = SQLAlchemy()
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -14,7 +11,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
     password_hash = db.Column(db.String(128))
-    
+    #vehicles = db.relationship('Vehicle', backref='owner', lazy='dynamic')
     #confirmed = db.Column(db.Boolean, default=False)
     #remember_me = db.Column(db.Boolean, default=False)
 
@@ -65,3 +62,15 @@ class User(UserMixin, db.Model):
     #    s = Serializer(current_app.config['SECRET_KEY'],
     #                   expires_in=expiration)
     #    return s.dumps({'id': self.id}).decode('ascii')
+
+class Vehicle():
+    __tablename__ = 'vehicles'
+    id = db.Column(db.Integer, primary_key=True)
+    brand = db.Column(db.String(16), index=True)
+    model = db.Column(db.String(16), index=True)
+    year = db.Column(db.Integer, index=True)
+    show_name = db.Column(db.String(64), index=True)    
+    price = db.Column(db.Integer, index=True)
+    rating = db.Column(db.Float, index=True)
+    description = db.Column(db.String(256))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
