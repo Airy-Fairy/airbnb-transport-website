@@ -31,3 +31,11 @@ function getCurrentDate() {
 
     return dateFormat;
 }
+
+
+/**
+ * Calculates current year for the footer
+ */
+(function calcCurrentYear() {
+    $('#current-year').text(getCurrentYear());
+}());

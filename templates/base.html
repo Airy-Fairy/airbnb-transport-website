@@ -80,7 +80,7 @@
         <!-- POPUP sign in form -->
         <div class="popup signin-form">
             <div class="close-block">
-                <a href="#" class="close signin"></a> <!-- Make fucking decorator -->
+                <a href="" class="close signin"></a> <!-- Make fucking decorator -->
             </div>
             <form action="/login" method="post">
                 <div class="signin-creds">
@@ -104,13 +104,13 @@
                 <div class="left">
                     Don't have an account?
                 </div>
-                <a class="go-signup" href="#">Sign up</a> <!-- Make fucking decorator -->
+                <a id="go-signup" class="go-signup" href="">Sign up</a> <!-- Make fucking decorator -->
             </div>
         </div>
         <!-- Password Recovery Popup -->
         <div class="popup passwd-recovery">
             <div class="close-block">
-                <a href="#" class="close passwd"></a> <!-- Make fucking decorator -->
+                <a href="" class="close passwd"></a> <!-- Make fucking decorator -->
             </div>
             <div class="hdr">
                 <h3>Password Recovery</h3>
@@ -120,7 +120,7 @@
             </div>
             <form action="">
                 <div class="email-input" required>
-                    <input type="email" id="recovery_email" placeholder="Your Email">
+                    <input type="email" id="recovery_email" placeholder="Your Email" required>
                 </div>
                 <input type="submit" value="Send Reset Link">
             </form>
@@ -128,21 +128,33 @@
         <!-- POPUP sign up form -->
         <div class="popup signup-form">
             <div class="close-block">
-                <a href="#" class="close signup"></a> <!-- Make fucking decorator -->
+                <a href="" class="close signup"></a> <!-- Make fucking decorator -->
             </div>
             <form action="/sign-up" method="post">
                 <div class="signup-creds">
+<<<<<<< HEAD
+                    <input type="email" id="email" placeholder="Your Email" required><br>
+                    <input type="tel" id="phone" placeholder="Your Phone Number (format: xxx-xxx-xxxx)" pattern="^\d{3}-\d{3}-\d{4}$" required><br>
+                    <input type="text" id="name" placeholder="Your First Name" required><br>
+                    <input type="text" id="surname" placeholder="Your Last Name" required><br>
+                    <input type="password" id="password" placeholder="Password" required><br>
+                    <input type="password" id="confirm_password" placeholder="Confirm password" required>
+                </div>
+                <div class="no_match">
+                    <span id="no_match_msg" hidden="hidden">Passwords don't match!</span>
+=======
                     <input type="email" name="email" placeholder="Your Email" required><br>
                     <input type="tel" name="phone" placeholder="Your Phone Number" required><br>
                     <input type="text" name="name" placeholder="Your First Name" required><br>
                     <input type="text" name="surname" placeholder="Your Last Name" required><br>
                     <input type="password" name="password" placeholder="Password" required><br>
                     <input type="password" name="confirm" placeholder="Confirm password" required>
+>>>>>>> flask-dev
                 </div>
                 <div class="birthday">
                     <p>Your Birthday</p>
                     <select name="birthday" id="month" required>
-                            <option value="-1">Month</option>
+                            <option value="">Month</option>
                             <option value="0">January</option>
                             <option value="1">February</option>
                             <option value="2">March</option>
@@ -157,11 +169,14 @@
                             <option value="11">December</option>
                         </select>
                     <select name="birthday" id="day" required>
-                            <option value="-1">Day</option>
+                            <option value="">Day</option>
                         </select>
                     <select name="birthday" id="year" required>
-                            <option value="-1">Year</option>=
+                            <option value="">Year</option>=
                         </select>
+                </div>
+                <div class="birthday_error">
+                    <span id="birthday_error_msg" hidden="hidden">Wrong birthday!</span>
                 </div>
                 <div class="checkboxes">
                     <p>
@@ -180,7 +195,11 @@
                     <div class="left">
                         Already have an account?
                     </div>
+<<<<<<< HEAD
+                    <a class="go-signin" id="go-signin" href="">Sign in</a> <!-- Make fucking decorator -->
+=======
                     <a class="go-signin" href="#">Sign in</a>
+>>>>>>> flask-dev
                 </div>
             </form>
         </div>
@@ -190,6 +209,7 @@
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/common.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/popups.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/birthday.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/signup_check.js') }}"></script>
         <!-- <script type="text/javascript" src="{{ url_for('static', filename='scripts/index.js') }}"></script> -->
     </body>
 

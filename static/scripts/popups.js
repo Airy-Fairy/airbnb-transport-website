@@ -21,14 +21,6 @@ $.fn.popup = function(id, className, closeClass, divisor) {
         // Show dark screen overlay
         $darkScreen.fadeIn('fast');
 
-        // If it's sign up form
-        if (id == '#sign-up') {
-            // Fill Day and Year
-            fillBirthday();
-
-            // Set listener to check for birthday
-            birthdayCheck('#signup-btn');
-        }
     });
 
     // On cross click listener - hide popup and dark screen
@@ -57,6 +49,25 @@ $.fn.centerPopup = function(divisor) {
         $(window).scrollLeft()) + 'px');
     return this;
 };
+
+
+/**
+ * Go to sign in from from sign up and vice versa
+ */
+$('.go-signin').on('click', function(event) {
+    event.preventDefault();
+    $('.signup-form').hide();
+    $('.signin-form').show();
+    $('.signin-form').centerPopup(4);
+});
+
+$('.go-signup').on('click', function(event) {
+    event.preventDefault();
+    $('.signin-form').hide();
+    $('.signup-form').show();
+    $('.signup-form').centerPopup(16);
+});
+
 
 
 /**

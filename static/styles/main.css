@@ -446,6 +446,17 @@ input[type="submit"]:focus {
     border-radius: 5px;
 }
 
+.no_match,
+.birthday_error {
+    color: red;
+    opacity: 0.7;
+}
+
+.birthday_error {
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
 /* Password recovery popup */
 
 .passwd-recovery .hdr {
