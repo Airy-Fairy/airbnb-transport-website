@@ -42,7 +42,7 @@
                         <li>
                             <a href="{{ url_for('logout') }}" id="sign-out">Sign out</a>
                         </li>
-                    {% else %} 
+                    {% else %}
                         <li>
                             <a href="#" id="sign-up">Sign up</a>
                         </li>
@@ -132,7 +132,6 @@
             </div>
             <form action="/sign-up" method="post">
                 <div class="signup-creds">
-<<<<<<< HEAD
                     <input type="email" id="email" placeholder="Your Email" required><br>
                     <input type="tel" id="phone" placeholder="Your Phone Number (format: xxx-xxx-xxxx)" pattern="^\d{3}-\d{3}-\d{4}$" required><br>
                     <input type="text" id="name" placeholder="Your First Name" required><br>
@@ -142,14 +141,6 @@
                 </div>
                 <div class="no_match">
                     <span id="no_match_msg" hidden="hidden">Passwords don't match!</span>
-=======
-                    <input type="email" name="email" placeholder="Your Email" required><br>
-                    <input type="tel" name="phone" placeholder="Your Phone Number" required><br>
-                    <input type="text" name="name" placeholder="Your First Name" required><br>
-                    <input type="text" name="surname" placeholder="Your Last Name" required><br>
-                    <input type="password" name="password" placeholder="Password" required><br>
-                    <input type="password" name="confirm" placeholder="Confirm password" required>
->>>>>>> flask-dev
                 </div>
                 <div class="birthday">
                     <p>Your Birthday</p>
@@ -195,11 +186,7 @@
                     <div class="left">
                         Already have an account?
                     </div>
-<<<<<<< HEAD
                     <a class="go-signin" id="go-signin" href="">Sign in</a> <!-- Make fucking decorator -->
-=======
-                    <a class="go-signin" href="#">Sign in</a>
->>>>>>> flask-dev
                 </div>
             </form>
         </div>
