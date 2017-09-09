@@ -17,22 +17,24 @@
              <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/wtf.png') }}" alt="car sharing picture">
          </section>
          <section class="search">
-             <form action="">
+             <form action="/search" method="get">
                  <input id="huge-search" class="cool-shadow" type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
                  <div class="detailed-search" hidden="hidden">
                      <div class="row">
                          <div class="col-1-5">
-                             <select name="type">
+                             <select id="transport-type" name="type">
                                  <option value="">Type</option>
+                                 <option value="0">Vehicle</option>
+                                 <option value="1">Motorcycle</option>
                              </select>
                          </div>
                          <div class="col-1-5">
-                             <select name="brand">
+                             <select id="transport-brand" name="brand">
                                  <option value="">Brand</option>
                              </select>
                          </div>
                          <div class="col-1-5">
-                             <select name="model">
+                             <select id="transport-model" name="model">
                                  <option value="">Model</option>
                              </select>
                          </div>
@@ -80,4 +82,5 @@
      </div>
  </div>
  <script type="text/javascript" src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='scripts/transport.js') }}"></script>
 {% endblock %}

@@ -6,7 +6,7 @@
     var jsonData;
 
     // Load JSON data from file on server
-    $.getJSON('../../json/cars-brands-models.json', function(json) {
+    $.getJSON('/static/json/cars-brands-models.json', function(json) {
         jsonData = json;
     });
 
@@ -32,6 +32,7 @@
             // If there's no data - remove brands
             default:
                 $('#transport-brand option:not(:first-child)').remove();
+                $('#transport-model option:not(:first-child)').remove();
                 break;
         }
     });
@@ -42,26 +43,34 @@
         var transportBrand = $('#transport-brand option:selected').val();
         var selectModel = $('#transport-model');
 
-        // If there's not only default option - remove others
-        if (selectModel.children().length !== 1) {
+        // If brand is chosen
+        if (transportBrand != "") {
             $('#transport-model option:not(:first-child)').remove();
-        }
 
-        // Append models
-        for (var i = 0; i < jsonData[transportBrand].models.length; i++) {
-            var modelTitle = jsonData[transportBrand].models[i].title;
-            selectModel
-                .append('<option value="' + i + '">' + modelTitle + '</option>');
+            // Append models
+            for (var i = 0; i < jsonData[transportBrand].models.length; i++) {
+                var modelTitle = jsonData[transportBrand].models[i].title;
+                selectModel
+                    .append('<option value="' + i + '">' + modelTitle + '</option>');
+            }
+        } else {
+            // Clear options
+            if (selectModel.children().length !== 1) {
+                $('#transport-model option:not(:first-child)').remove();
+            }
         }
     });
 }());
 
 $(document).ready(function() {
     var $yearOfManufacture = $('#year-of-manufacture');
-    var years = range(1960, getCurrentYear() + 1);
 
-    $.each(years, function(key, value) {
-        $yearOfManufacture
-            .append('<option value="' + key + '">' + value + '</option>');
-    });
+    if ($yearOfManufacture != undefined) {
+        var years = range(1960, getCurrentYear() + 1);
+
+        $.each(years, function(key, value) {
+            $yearOfManufacture
+                .append('<option value="' + key + '">' + value + '</option>');
+        });
+    }
 });
