@@ -8,6 +8,14 @@
         <title>Search results page</title>
     </head>
     <body>
+        <div class="map-block">
+            <div class="open-map">
+                <div class="button cool-shadow cool-hover white-back">
+                    <a id="open-map" class="link-as-text">View results on the map</a>
+                </div>
+            </div>
+            <div id="map" class="google-map" hidden="hidden"></div>
+        </div>
         <div class="search-results">
             <div class="grid">
                 <div class="row">
@@ -66,8 +74,14 @@
         </div>
         <div class="get-more-results">
             <div class="button cool-shadow cool-hover white-back">
-                <a class="link-as-text" href="">Get more results...</a>
+                <a class="link-as-text">Get more results...</a>
             </div>
         </div>
+        <!-- <script src="../../scripts/jquery-3.2.1.js" charset="utf-8"></script> -->
+        <!-- <script src="../../scripts/google-map.js" charset="utf-8"></script> -->
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/search.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/google-map.js') }}"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWS-6RUB7bs5ceDj-ZKsTOXaIsnHIfT34" charset="utf-8">
+        </script>
     </body>
 </html>
