@@ -18,7 +18,34 @@
          </section>
          <section class="search">
              <form action="">
-                 <input class="cool-shadow" type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
+                 <input id="huge-search" class="cool-shadow" type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
+                 <div class="detailed-search" hidden="hidden">
+                     <div class="row">
+                         <div class="col-1-5">
+                             <select name="type">
+                                 <option value="">Type</option>
+                             </select>
+                         </div>
+                         <div class="col-1-5">
+                             <select name="brand">
+                                 <option value="">Brand</option>
+                             </select>
+                         </div>
+                         <div class="col-1-5">
+                             <select name="model">
+                                 <option value="">Model</option>
+                             </select>
+                         </div>
+                         <div class="col-1-5 fifty-fifty">
+                             <input type="text" name="year_from" placeholder="Year">
+                             <input type="text" name="year_to" placeholder="to">
+                         </div>
+                         <div class="col-1-5 fifty-fifty">
+                             <input type="text" name="price_from" placeholder="Price">
+                             <input type="text" name="price_to" placeholder="to">
+                         </div>
+                     </div>
+                 </div>
                  <input type="submit" name="search-btn">
              </form>
          </section>

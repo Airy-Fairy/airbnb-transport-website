@@ -38,8 +38,8 @@ $('#get-more').click(function() {
  * @param  {json} dataset Vehicles data in json
  */
 function fill_preview(dataset) {
-    for (var data in dataset) {
-        add_thumbnail(data);
+    for (var index in dataset) {
+        add_thumbnail(dataset[index]);
     }
 }
 
@@ -103,3 +103,7 @@ function add_thumbnail(data) {
     $(last_col).append($thumbnail);
     $thumbnail.prop('hidden', false);
 }
+
+$('#huge-search').click(function() {
+    $('.detailed-search').fadeIn();
+});
