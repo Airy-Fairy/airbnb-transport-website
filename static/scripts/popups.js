@@ -20,7 +20,6 @@ $.fn.popup = function(id, className, closeClass, divisor) {
 
         // Show dark screen overlay
         $darkScreen.fadeIn('fast');
-
     });
 
     // On cross click listener - hide popup and dark screen

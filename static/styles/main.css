@@ -918,28 +918,54 @@ input[type="file"] {
     max-height: 300px;
 }
 
+/* Google Maps style */
+.map-block {
+    width: 100%;
+}
+
+.map-block .open-map {
+    border: 1px solid lightgrey;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    text-align: center;
+    width: 50%;
+}
+
+.map-block .open-map .button {
+    padding: 10px 0;
+}
+
+.map-block .google-map {
+    max-height: 400px;
+    min-height: 300px;
+    width: 100%;
+}
+
+/* Get more results button */
 .get-more-results {
     bottom: 0;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     position: absolute;
     text-align: center;
     width: 100%;
 }
 
 .get-more-results .button {
-    border: 1px solid grey;
+    border: 1px solid lightgrey;
     border-radius: 5px;
-    /*display: none;*/
     padding: 10px 0;
-    width:30%;
+    width:40%;
 }
 
 .link-as-text {
     color: inherit;
     text-decoration: none;
+    user-select: none;
 }
 
 .cool-hover:hover {
+    cursor: pointer;
     opacity: 0.7;
 }
 

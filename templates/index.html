@@ -23,74 +23,34 @@
              </form>
          </section>
          <section class="random-content">
-             <div class="grid">
-                 <div class="row">
-                     <div class="col-1-3">
-                         <div class="thumbnail">
-                             <div class="image">
-                                 <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/cars/911.jpg') }}" alt="Transport image"> <!-- Make cars database -->
-                             </div>
-                             <div class="label">Price Name</div>
-                             <div class="short-info">Short description</div>
-                             <div class="rating">
-                                 <div class="star-rating">
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                 </div>
-                                 <div class="reviews-count">
-                                     # reviews
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-1-3">
-                         <div class="thumbnail">
-                             <div class="image">
-                                 <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/cars/mustang.jpg') }}" alt="Transport image"> <!-- Make cars database -->
-                             </div>
-                             <div class="label">Price Name</div>
-                             <div class="short-info">Short description</div>
-                             <div class="rating">
-                                 <div class="star-rating">
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                 </div>
-                                 <div class="reviews-count">
-                                     # reviews
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-1-3">
-                         <div class="thumbnail">
-                             <div class="image">
-                                 <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/cars/camaro.jpg') }}" alt="Transport image"> <!-- Make cars database -->
-                             </div>
-                             <div class="label">Price Name</div>
-                             <div class="short-info">Short description</div>
-                             <div class="rating">
-                                 <div class="star-rating">
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                     <label class="fa fa-star" aria-hidden="true"></label>
-                                 </div>
-                                 <div class="reviews-count">
-                                     # reviews
-                                 </div>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
+             <div class="grid"></div>
          </section>
      </div>
  </div>
+ <div class="get-more-results">
+     <div class="button cool-shadow cool-hover white-back">
+         <a id="get-more" class="link-as-text">Get more results...</a>
+     </div>
+ </div>
+ <!-- Vehicle thumbnail template -->
+ <div class="thumbnail template" hidden="hidden">
+     <div class="image">
+         <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/cars/911.jpg') }}" alt="Transport image"> <!-- Make cars database -->
+     </div>
+     <div class="label">Price Name</div>
+     <div class="short-info">Short description</div>
+     <div class="rating">
+         <div class="star-rating">
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+         </div>
+         <div class="reviews-count">
+             <span class="number">#</span> reviews
+         </div>
+     </div>
+ </div>
+ <script type="text/javascript" src="{{ url_for('static', filename='scripts/index.js') }}"></script>
 {% endblock %}

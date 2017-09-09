@@ -1,80 +1,105 @@
-/**
- * Loads user page
- */
-// $('#user-page').on('click', function(event) {
-//     event.preventDefault(); // Stop loading new link
-//     var url = this.href;    // Get value of href
-//
-//     // Remove previous container and load new
-//     $('.main-content > .container').remove();
-//     $('.main-content').load(url).hide().fadeIn();
-//
-//     // load() callback
-//     $('.main-content').load(url, function() {
-//         // If it's a user page
-//         if($(this).children('.user-page')[0] !== undefined) {
-//             // Load first content from the first link
-//             var a = $('#left-col-list>li>a')[0];
-//
-//             // Make it current
-//             $(a).addClass('current-link');
-//             $('.right-col > .content').load(a.href).hide().fadeIn();
-//
-//             // load() callback
-//             $('.right-col > .content').load(a.href, function() {
-//                 // Fill birthday Day and Year
-//                 fillBirthday();
-//
-//                 // Set listener to check for birthday
-//                 birthdayCheck('#save-btn');
-//             });
-//
-//             // Load new content on click
-//             $('.left-col li a.inside').on('click', function(event) {
-//                 event.preventDefault(); // Stop loading new link
-//                 var url = this.href;    // Get value of href
-//
-//                 // Change style of the clicked link
-//                 $('li a.current-link').removeClass('current-link');
-//                 $(this).addClass('current-link');
-//
-//                 // Remove previous container and load new
-//                 $('.right-col > .container').remove();
-//                 $('.right-col > .content').load(url).hide().fadeIn();
-//
-//                 // load() callback
-//                 $('.right-col > .content').load(url, function() {
-//                     // Fill birthday Day and Year
-//                     fillBirthday();
-//
-//                     // Set listener to check for birthday
-//                     birthdayCheck('#save-btn');
-//                 });
-//             });
-//
-//             // Go to the profile page listener
-//             $('.left-col li a.outside').on('click', function(event) {
-//                 event.preventDefault(); // Stop loading new link
-//                 var url = this.href;    // Get value of href
-//
-//                 // Remove previous container and load new
-//                 $('.main-content > .container').remove();
-//                 $('.main-content').load(url).hide().fadeIn();
-//             });
-//         }
-//     });
-//
-//     // Show the header search
-//     $('.nav-search').css('visibility', 'visible');
-// });
+
+var current = 0;
 
 /**
- * Search!
+ * Requests top 3 vehicles from server
  */
-// $('.main-content .search input[type=submit]').on('click', function(event) {
-//     var url = ...;
-//
-//     // Remove previous container and load new
-//     $('.main-content > .container').remove();
-//     $('.main-content').load(url).hide().fadeIn();
-// });
+$( document ).ready(function() {
+    $.post(
+        '/index',
+        {
+            current: current
+        },
+        function(data) {
+            fill_preview(data);
+            current += 3;
+        }
+    );
+});
+
+/**
+ * Request next top 6 vehicles from server
+ */
+$('#get-more').click(function() {
+    $.post(
+        '/index',
+        {
+            current: current
+        },
+        function(data) {
+            fill_preview(data);
+            current += 6;
+        }
+    );
+});
+
+/**
+ * Fills the preview section with vehicles
+ * @param  {json} dataset Vehicles data in json
+ */
+function fill_preview(dataset) {
+    for (var data in dataset) {
+        add_thumbnail(data);
+    }
+}
+
+/**
+ * Adds one vehicle thumbnail to the preview
+ * @param {json} data One vehicle data in json
+ */
+function add_thumbnail(data) {
+    $grid = $('.grid');
+    var last_row;
+    var i;
+
+    // If grid is empty - add first row and 3 columns
+    if ($grid[0].children.length == 0) {
+        $grid.append('<div class="row"></div>');
+        last_row = $grid[0].children[$grid[0].children.length - 1];
+        for (i = 0; i < 3; i++) {
+            $(last_row).append('<div class="col-1-3"></div>');
+        }
+    }
+
+    // If current row is full - add new row and 3 columns
+    last_row = $grid[0].children[$grid[0].children.length - 1];
+    if (last_row.children[2].children.length != 0) {
+        $grid.append('<div class="row"></div>');
+        last_row = $grid[0].children[$grid[0].children.length - 1];
+        for (i = 0; i < 3; i++) {
+            $(last_row).append('<div class="col-1-3"></div>');
+        }
+    }
+
+    // Pick free cell
+    var last_col;
+    for (i = 0; i < 3; i++) {
+        if (last_row.children[i].children.length == 0) {
+            last_col = last_row.children[i];
+            break;
+        }
+    }
+
+    // Get json data
+    var price = data.price;
+    var show_name = data.show_name;
+    var rating = data.rating;
+    var desc = data.desc;
+    var reviews = data.reviews;
+
+    // Make new thumbnail
+    $thumbnail = $('.thumbnail.template').clone();
+    $thumbnail.removeClass('template');
+    $thumbnail.find('.label').text(price + ' ' + show_name);
+    $thumbnail.find('.short-info').text(desc);
+    $thumbnail.find('.reviews-count > .number').text(String(reviews));
+
+    var stars = $thumbnail.find('.star-rating').children();
+    for (i = 0; i < Math.round(rating); i++) {
+        $(stars[i]).removeClass('fa-star-o');
+        $(stars[i]).addClass('fa-star');
+    }
+
+    $(last_col).append($thumbnail);
+    $thumbnail.prop('hidden', false);
+}

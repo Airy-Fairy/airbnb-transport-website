@@ -127,3 +127,25 @@ $('#day, #month, #year').on('change', function() {
             }
         }
 });
+
+
+/**
+ * Sign up form submit event handler
+ */
+// $('form#signup-form').on('submit', function() {
+//     var password = (new TextEncoder('utf-8')).encode($('#password').val());
+//
+//     var alg = { name: 'SHA-1' };
+//     var data = password;
+//     window.crypto.subtle.digest(
+//         alg, data
+//     ).then(function(hash) {
+//          password_to_send = new Uint8Array(hash);
+//          $('#password').val(password_to_send);
+//     }).catch(function(err) {
+//         alert(err);
+//     });
+//
+//     this.submit();
+//     this.reset();
+// });
