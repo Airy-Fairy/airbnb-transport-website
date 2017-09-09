@@ -4,8 +4,7 @@
 
 
 // Original colour of the submit button
-// Inactive colour - gray
-var prev_color;
+var btn_color = $('#signup-btn').css('background-color');
 
 /**
  * These three functions and dictionary are responsivble
@@ -32,10 +31,8 @@ function make_active($elem, color) {
 }
 
 function make_inactive($elem) {
-    prev_color = $elem.css('background-color');
     $elem.prop('disabled', true);
     $elem.css('background-color', 'grey');
-    return prev_color;
 }
 
 
@@ -61,14 +58,14 @@ function unhide($elem) {
     $signup_btn = $('#signup-btn');
 
     // Makes button inactive
-    prev_color = make_inactive($signup_btn);
+    make_inactive($signup_btn);
     allgood.terms = false;
 
     $('#terms-of-use').on('change', function() {
         if (this.checked) {
             allgood.terms = true;
             if (is_allgood()) {
-                make_active($signup_btn, prev_color);
+                make_active($signup_btn, btn_color);
             }
         } else {
             if (is_allgood()) {
@@ -98,7 +95,7 @@ $('#password, #confirm_password').on('keyup', function() {
         }
         allgood.passwds = true;
         if (is_allgood()) {
-            make_active($('#signup-btn'), prev_color);
+            make_active($('#signup-btn'), btn_color);
         }
     }
 });
@@ -125,7 +122,7 @@ $('#day, #month, #year').on('change', function() {
                 }
                 allgood.birthday = true;
                 if (is_allgood()) {
-                    make_active($('#signup-btn'), prev_color);
+                    make_active($('#signup-btn'), btn_color);
                 }
             }
         }
