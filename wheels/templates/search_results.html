@@ -2,46 +2,9 @@
 
 {% block content %}
     <body>
-        <!-- Template it! -->
-        <section class="search" hidden="hidden">
-            <form id="search-form" action="/search" method="get">
-                <input id="huge-search" class="cool-shadow" type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
-                <div class="detailed-search" hidden="hidden">
-                    <div class="row">
-                        <div class="col-1-5">
-                            <select id="transport-type" name="type">
-                                <option value="">Type</option>
-                                <option value="0">Vehicle</option>
-                                <option value="1">Motorcycle</option>
-                            </select>
-                        </div>
-                        <div class="col-1-5">
-                            <select id="transport-brand" name="brand">
-                                <option value="">Brand</option>
-                            </select>
-                        </div>
-                        <div class="col-1-5">
-                            <select id="transport-model" name="model">
-                                <option value="">Model</option>
-                            </select>
-                        </div>
-                        <div class="col-1-5 fifty-fifty">
-                            <input type="text" id="year_from" name="year_from" placeholder="Year">
-                            <input type="text" id="year_to" name="year_to" placeholder="to">
-                        </div>
-                        <div class="col-1-5 fifty-fifty">
-                            <input type="text" id="price_from" name="price_from" placeholder="Price">
-                            <input type="text" id="price_to" name="price_to" placeholder="to">
-                        </div>
-                    </div>
-                </div>
-                <input type="submit" name="search-btn">
-            </form>
-            <div class="year-price-error" hidden="hidden">
-               <span class="error-msg">Wrong year or price range!</span>
-            </div>
-        </section>
-        <!--  -->
+    <section class="search" hidden="hidden">
+        {% include "search_bar.html" %}
+    </section>
         <div class="map-block">
             <div class="open-map">
                 <div class="button cool-shadow cool-hover white-back">

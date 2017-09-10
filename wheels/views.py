@@ -30,7 +30,6 @@ def index_car_review():
 	current = int(request.form['current'])
 	vehicles = get_top_rated_vehicles(current)
 	return jsonify(vehicles)
-	# return vehicles
 
 @wheels.route('/help')
 def help():
@@ -85,10 +84,8 @@ def sign_up():
 	flash('Something has gone wrong :(')
 	return redirect(url_for('index'))
 
-#@app.before_request
 @wheels.route('/search', methods=['GET'])
 def search():
-	#return redirect(url_for('search_results', query=request.form.get('search')))
 	global all_search_results
 	# advanced search
 	# GET request
@@ -99,6 +96,8 @@ def search():
 	price_from = request.args.get('price_from')
 	price_to = request.args.get('price_to')
 	search_str = request.args.get('search')
+	
+	print (search_str, file=sys.stderr)
 	# POST request
 	#brand = request.form['brand']
 	#model = request.form['model']
@@ -106,39 +105,33 @@ def search():
 	#year_to = request.form['year_to']
 	#price_from = request.form['price_from']
 	#price_to = request.form['price_to']
-	query = Vehicle.query.whoosh_search(search_str)
-	if brand:
-		query = query.filter_by(brand=brand)
-		# print (results, file=sys.stderr)
-	if model:
-		query = query.filter_by(model=model)
-	if year_from:
-		query = query.filter(Vehicle.year >= year_from)
-	if year_to:
-		query = query.filter(Vehicle.year <= year_to)
-	if price_from:
-		query = query.filter(Vehicle.price >= price_from)
-	if price_to:
-		query = query.filter(Vehicle.year >= price_to)
+	query = Vehicle.query
+	# query filters
+	if not (brand == model == year_from == year_to == \
+			price_from == price_to == search_str == ''):
+		query = query.whoosh_search(search_str)
+		if brand:
+			query = query.filter_by(brand=brand)
+		if model:
+			query = query.filter_by(model=model)
+		if year_from:
+			query = query.filter(Vehicle.year >= year_from)
+		if year_to:
+			query = query.filter(Vehicle.year <= year_to)
+		if price_from:
+			query = query.filter(Vehicle.price >= price_from)
+		if price_to:
+			query = query.filter(Vehicle.year >= price_to)
 	all_search_results = query
-	# search_results = get_vehicles_records(all_search_results, 4, 0)
 	search_results = json.dumps(get_vehicles_records(query, 4, 0))
-	#print (search_results, file=sys.stderr)
-	#testing
-	#results = fill_vehicle_array(query.limit(4).offset(0).all())
-	#if results:
-	#	print (results[0]['show_name'], file=sys.stderr)
 	return render_template('search_results.html', results=search_results)
 
 @wheels.route('/search', methods=['POST'])
 def search_more():
-	print ('zdesya', file=sys.stderr)
 	current = int(request.form['current'])
 	global all_search_results
-	# search_results = json.dumps(get_vehicles_records(all_search_results, 6, current))
-	search_results = get_vehicles_records(all_search_results, 6, current)
-	return jsonify(search_results)
-	# return render_template('search_results.html', results=search_results)
+	search_results = jsonify(get_vehicles_records(all_search_results, 6, current))
+	return search_results
 
 def fill_vehicle_array(vehicles):
 	retarray = []
@@ -161,3 +154,11 @@ def get_top_rated_vehicles(current):
 	query = Vehicle.query.order_by(Vehicle.rating.desc())
 	limit = 3 if not current else 6
 	return get_vehicles_records(query, limit, current)
+
+
+@wheels.route('/user_page')
+def user_page():
+	#page = 'user/' + request.form['receive_page'] + '.html'
+	page = 'user/photo.html'
+	return render_template('user/main_page.html',
+					 title='User Page', page=page)

@@ -29,7 +29,7 @@
                         <li>
                             <div class="nav-search">
                                 <form action="/search" method="get">
-                                    <input type="search" placeholder="Search for some wheels">
+                                    <input type="search" name="search" placeholder="Search for some wheels">
                                     <input type="submit" name="search-btn">
                                 </form>
                             </div>
@@ -47,14 +47,17 @@
                     </li>
                     {% if current_user.is_authenticated %}
                         <li>
+                            <a href="{{ url_for('user_page') }}" id="sign-out">Your Profile</a>
+                        </li>
+                        <li>
                             <a href="{{ url_for('logout') }}" id="sign-out">Sign out</a>
                         </li>
                     {% else %}
                         <li>
-                            <a href="#" id="sign-up">Sign up</a>
+                            <a id="sign-up">Sign up</a>
                         </li>
                         <li>
-                            <a href="#" id="sign-in">Sign in</a>
+                            <a id="sign-in">Sign in</a>
                         </li>
                     {% endif %}
                     <!-- <li>
