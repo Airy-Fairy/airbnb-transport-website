@@ -8,14 +8,12 @@
                 <div class="left-col">  <!-- action="/user_page" method="post" -->
                     <div class="content">
                         <ul id="left-col-list">
-                            <li><a name="settings" class="inside">Profile Settings</a></li>
-                            <li><a name="photo" class="inside">Profile Photo</a></li>
-                            <li><a name="transport" class="inside">My Transport</a></li>
-                            <li><a name="add_transport" class="inside">Add a New Transport</a></li>
-                            <li><a name="reviews" class="inside">Reviews</a></li>
-                            <li>
-                                <a href="pages/user/user_profile_page.html" class="outside custom-file-input"></a>
-                            </li>
+                            <li><a href="" name="settings" class="inside">Profile Settings</a></li>
+                            <li><a href="" name="photo" class="inside">Profile Photo</a></li>
+                            <li><a href="" name="transport" class="inside">My Transport</a></li>
+                            <li><a href="" name="add_transport" class="inside">Add a New Transport</a></li>
+                            <li><a href="" name="reviews" class="inside">Reviews</a></li>
+                            <li><a href="pages/user/user_profile_page.html" class="outside custom-file-input"></a></li>
                         </ul>
                     </div>
                 </div>
@@ -28,5 +26,6 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/userpage.js') }}"></script>
     </body>
 {% endblock %}
