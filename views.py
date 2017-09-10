@@ -10,6 +10,8 @@ from datetime import date
 # tests only
 import sys
 
+all_search_results = None
+
 @login_manager.user_loader
 def load_user(user_id):
 	return User.query.get(int(user_id))
@@ -25,13 +27,12 @@ def index():
 @wheels.route('/index', methods=['POST'])
 def index_car_review():
 	current = int(request.form['current'])
-	cars = get_cars(current)
-	if cars != []:
-		return jsonify(cars)
-	else:
-		flash('End of database.')
-		return jsonify(flag='end')
-		#return render_template('index.html', title='Home')
+	vehicles = get_top_rated_vehicles(current)
+	# if not vehicles:
+	# 	flash('End of database.')
+	# #	return jsonify(vehicles)
+	return vehicles
+	#return render_template('index.html', title='Home')
 
 @wheels.route('/help')
 def help():
@@ -69,11 +70,11 @@ def sign_up():
 						int(request.form.get('bd_day')) + 1)
 
 			user_new = User(email=request.form['email'],
-						phone=request.form['phone'],
-						name=request.form['name'],
-						surname=request.form['surname'],
-						bday=bday,
-						password=request.form['password'])
+							phone=request.form['phone'],
+							name=request.form['name'],
+							surname=request.form['surname'],
+							bday=bday,
+							password=request.form['password'])
 			db.session.add(user_new)
 			db.session.commit()
 			flash('A confirmation email has been sent to you by email.')
@@ -87,28 +88,27 @@ def sign_up():
 	return redirect(url_for('index'))
 
 #@app.before_request
-@wheels.route('/search', methods=['POST'])
+@wheels.route('/search', methods=['GET'])
 def search():
-	query = Vehicle.query.whoosh_search(request.form.get('search'))
 	#return redirect(url_for('search_results', query=request.form.get('search')))
-	
+	global all_search_results
 	# advanced search
 	# GET request
-	#brand = request.args.get('brand')
-	#model = request.args.get('model')
-	#year_from = request.args.get('year_from')
-	#year_to = request.args.get('year_to')
-	#price_from = request.args.get('price_from')
-	#price_to = request.args.get('price_to')
-	
+	brand = request.args.get('brand')
+	model = request.args.get('model')
+	year_from = request.args.get('year_from')
+	year_to = request.args.get('year_to')
+	price_from = request.args.get('price_from')
+	price_to = request.args.get('price_to')
+	search_str = request.args.get('search')
 	# POST request
-	brand = request.form['brand']
-	model = request.form['model']
-	year_from = request.form['year_from']
-	year_to = request.form['year_to']
-	price_from = request.form['price_from']
-	price_to = request.form['price_to']
-
+	#brand = request.form['brand']
+	#model = request.form['model']
+	#year_from = request.form['year_from']
+	#year_to = request.form['year_to']
+	#price_from = request.form['price_from']
+	#price_to = request.form['price_to']
+	query = Vehicle.query.whoosh_search(search)
 	if brand:
 		query = query.filter_by(brand=brand)
 		# print (results, file=sys.stderr)
@@ -122,39 +122,37 @@ def search():
 		query = query.filter(Vehicle.price >= price_from)
 	if price_to:
 		query = query.filter(Vehicle.year >= price_to)
-	records = query.all()
-	results = []
-	if not records:
-		flash('Sorry, we have no your type of vehicle')
-	else:
-		for record in records:
-			results.append({'show_name':record.show_name,\
-							'price':record.price, \
-							'rating':record.rating, \
-							'desc':record.description, \
-							'reviews':record.review_count})
-		print (records[0].show_name, file=sys.stderr)
-	return render_template('search_results.html', results=results)
+	all_search_results = query
+	search_results = get_vehicles_records(all_search_results, 4, 0)
+	#if results:
+	#	print (results[0]['show_name'], file=sys.stderr)
+	return render_template('search_results.html', results=search_results)
 
-#@wheels.route('/search?<query>')
-#def search_results(query):
-#    results = Vehicle.query.whoosh_search(query).all()
-#    print (results, file=sys.stderr)
-#    return render_template('search_results.html',
-#        query = query,
-#        results = results)
+@wheels.route('/search', methods=['POST'])
+def search_more():
+	print ('zdesya', file=sys.stderr)
+	current = int(request.form['current'])
+	global all_search_results
+	search_results = get_vehicles_records(all_search_results, 6, current)
+	return render_template('search_results.html', results=search_results)
+	
+def fill_vehicle_array(vehicles):
+	retarray = []
+	for vehicle in vehicles:
+		retarray.append(\
+			{'show_name':vehicle.show_name, \
+			'price':vehicle.price, \
+			'rating':vehicle.rating, \
+			'desc':vehicle.description, \
+			'reviews':vehicle.review_count})
+	return retarray
 
+def get_vehicles_records(query, limit, offset=0):
+	vehicles = query.limit(limit).offset(offset).all()
+	results = fill_vehicle_array(vehicles)
+	return jsonify(results)
 
-def get_cars(current):
-	if current == 0:
-		cars = Vehicle.query.order_by(Vehicle.rating.desc()).limit(3).offset(0).all()
-	else:
-		cars = Vehicle.query.order_by(Vehicle.rating.desc()).limit(6).offset(current).all()
-	if cars is None:
-		return []
-	ret = []
-	for car in cars:
-		ret.append({'show_name':car.show_name, 'price':car.price, \
-					'rating':car.rating, 'desc':car.description, \
-					'reviews':car.review_count})
-	return ret
+def get_top_rated_vehicles(current):
+	query = Vehicle.query.order_by(Vehicle.rating.desc())
+	limit = 3 if not current else 6
+	return get_vehicles_records(query, limit, current)

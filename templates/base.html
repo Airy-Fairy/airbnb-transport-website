@@ -60,6 +60,15 @@
         {% endblock %}
         <!-- Footer -->
         <footer>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
             <div class="content">
                 <ul>
                     <li>
@@ -130,13 +139,13 @@
             <div class="close-block">
                 <a href="" class="close signup"></a> <!-- Make fucking decorator -->
             </div>
-            <form id="signup-form" action="/sign-up" method="post">
+            <form id="signup-form" action="/sign_up" method="post">
                 <div class="signup-creds">
-                    <input type="email" id="email" placeholder="Your Email" required><br>
-                    <input type="tel" id="phone" placeholder="Your Phone Number (format: xxx-xxx-xxxx)" pattern="^\d{3}-\d{3}-\d{4}$" required><br>
-                    <input type="text" id="name" placeholder="Your First Name" required><br>
-                    <input type="text" id="surname" placeholder="Your Last Name" required><br>
-                    <input type="password" id="password" placeholder="Password" required><br>
+                    <input type="email" name="email" id="email" placeholder="Your Email" required><br>
+                    <input type="tel" name="phone" id="phone" placeholder="Your Phone Number (format: xxx-xxx-xxxx)" pattern="^\d{3}-\d{3}-\d{4}$" required><br>
+                    <input type="text" name="name" id="name" placeholder="Your First Name" required><br>
+                    <input type="text" name="surname" id="surname" placeholder="Your Last Name" required><br>
+                    <input type="password" name="password" id="password" placeholder="Password" required><br>
                     <input type="password" id="confirm_password" placeholder="Confirm password" required>
                 </div>
                 <div class="no_match">
@@ -144,7 +153,7 @@
                 </div>
                 <div class="birthday">
                     <p>Your Birthday</p>
-                    <select name="birthday" id="month" required>
+                    <select name="bd_month" id="month" required>
                             <option value="">Month</option>
                             <option value="0">January</option>
                             <option value="1">February</option>
@@ -159,10 +168,10 @@
                             <option value="10">November</option>
                             <option value="11">December</option>
                         </select>
-                    <select name="birthday" id="day" required>
+                    <select name="bd_day" id="day" required>
                             <option value="">Day</option>
                         </select>
-                    <select name="birthday" id="year" required>
+                    <select name="bd_year" id="year" required>
                             <option value="">Year</option>=
                         </select>
                 </div>
