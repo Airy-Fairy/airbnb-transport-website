@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New transport page</title>
+        <link rel="icon" href="../../imgs/icon.png">
+        <link rel="stylesheet" href="../../styles/main.css">
+        <script src="../../scripts/jquery-3.2.1.js"></script>
+    </head>
+
+    <body>
+        <div class="user-page-container">
+            <div class="new-transport-form">
+                <form action="">
+                    <div class="panel-container">
+                        <div class="panel-head">Required</div>
+                        <div class="panel-line">
+                            <div class="form-row">
+                                <label for="transport-type">Transport Type</label>
+                                <div class="elem">
+                                    <select id="transport-type" required>
+                                        <option value="">...</option>
+                                        <option value="0">Vehicle</option>
+                                        <option value="1">Motorcycle</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="transport-brand">Brand</label>
+                                <div class="elem">
+                                    <select id="transport-brand" required>
+                                        <option value="">...</option>
+                                        <!-- Generated based on type -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="transport-model">Model</label>
+                                <div class="elem">
+                                    <select id="transport-model" required>
+                                        <option value="">...</option>
+                                        <!-- Generated based on brand -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="year-of-manufacture">Year of Manufacture</label>
+                                <div class="elem">
+                                    <select id="year-of-manufacture" required>
+                                        <option value="before-1960">Before 1960</option>
+                                        <!-- And more -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="rental-price">Rental Price (a day)</label>
+                                <div class="elem">
+                                    <input type="text" id="rental-price" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-line">
+                            <div class="form-row">
+                                <label class="photo" for="photo">Photo</label>
+                                <div class="elem">
+                                    <input type="file" accept="image/*" class="custom-file-input" id="transport-photo" capture="camera" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-container">
+                        <div class="panel-head">Additional</div>
+                        <div class="panel-line">
+                            <div class="form-row">
+                                <label for="">Additional #1</label>
+                                <div class="elem">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="">Additional #2</label>
+                                <div class="elem">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="">Additional #3</label>
+                                <div class="elem">
+                                    <input type="text">
+                                </div>
+                            </div>
+                            <div class="save-transport-btn">
+                                <input type="submit" id="new-transport-btn" value="Save">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../scripts/common.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../../scripts/transport.js" charset="utf-8"></script>
+    </body>
+
+</html>

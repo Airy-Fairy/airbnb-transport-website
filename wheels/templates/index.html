@@ -1,0 +1,86 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+ <div class="main-content">
+     <div class="container">
+         <div class="title">
+             <section class="name">
+                 Sharing <span class="transport">Wheels</span>
+             </section>
+             <section class="tagline">
+                 Share your transport with everyone
+             </section>
+         </div>
+         <section class="picture">
+             <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/wtf.png') }}" alt="car sharing picture">
+         </section>
+         <section class="search">
+             <form action="/search" method="get">
+                 <input id="huge-search" class="cool-shadow" type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
+                 <div class="detailed-search" hidden="hidden">
+                     <div class="row">
+                         <div class="col-1-5">
+                             <select id="transport-type" name="type">
+                                 <option value="">Type</option>
+                                 <option value="0">Vehicle</option>
+                                 <option value="1">Motorcycle</option>
+                             </select>
+                         </div>
+                         <div class="col-1-5">
+                             <select id="transport-brand" name="brand">
+                                 <option value="">Brand</option>
+                             </select>
+                         </div>
+                         <div class="col-1-5">
+                             <select id="transport-model" name="model">
+                                 <option value="">Model</option>
+                             </select>
+                         </div>
+                         <div class="col-1-5 fifty-fifty">
+                             <input type="text" name="year_from" placeholder="Year">
+                             <input type="text" name="year_to" placeholder="to">
+                         </div>
+                         <div class="col-1-5 fifty-fifty">
+                             <input type="text" name="price_from" placeholder="Price">
+                             <input type="text" name="price_to" placeholder="to">
+                         </div>
+                     </div>
+                 </div>
+                 <input type="submit" name="search-btn">
+             </form>
+         </section>
+         <section class="random-content">
+             <div class="grid"></div>
+         </section>
+     </div>
+ </div>
+ <div class="get-more-results">
+     <div class="button cool-shadow cool-hover white-back">
+         <a id="get-more" class="link-as-text">Get more results...</a>
+     </div>
+ </div>
+ <!-- Vehicle thumbnail template -->
+ <div class="thumbnail template" hidden="hidden">
+     <div class="image">
+         <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/cars/911.jpg') }}" alt="Transport image"> <!-- Make cars database -->
+     </div>
+     <div class="label">Price Name</div>
+     <div class="short-info">Short description</div>
+     <div class="rating">
+         <div class="star-rating">
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+             <label class="fa fa-star-o" aria-hidden="true"></label>
+         </div>
+         <div class="reviews-count">
+             <span class="number">#</span> reviews
+         </div>
+     </div>
+ </div>
+ <script type="text/javascript" src="{{ url_for('static', filename='scripts/thumbnail.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='scripts/transport.js') }}"></script>
+{% endblock %}
