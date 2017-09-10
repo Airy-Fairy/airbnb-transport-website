@@ -116,6 +116,10 @@ header input[type="search"] {
     font-size: 20px;
 }
 
+.main-content .container {
+    margin-bottom: 50px;
+}
+
 .search {
     width: 70%;
     min-width: 700px;
