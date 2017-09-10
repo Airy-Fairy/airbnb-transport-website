@@ -159,12 +159,13 @@ def get_top_rated_vehicles(current):
 @login_required
 def user_page():
 	user = current_user.email.split('@')
-	return redirect(url_for('user', nickname=user[0]))
+	return redirect(url_for('user', nickname=user[0], page='settings'))
 
-@wheels.route('/user/<nickname>')
+@wheels.route('/user=<nickname>?<page>')
 @login_required
-def user(nickname):
-	#page = 'user/' + request.form['receive_page'] + '.html'
-	page = 'user/photo.html'
+def user(nickname, page):
+	page_new = 'user/' + page + '.html'
 	return render_template('user/main_page.html',
-					 title='User Page', page=page)
+					 title='User page',
+					 nick=nickname,
+					 page_new=page_new)

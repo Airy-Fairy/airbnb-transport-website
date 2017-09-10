@@ -5,14 +5,14 @@
     <body>
         <div class="user-page">
             <div class="grid">
-                <div class="left-col">  <!-- action="/user_page" method="post" -->
+                <div class="left-col">
                     <div class="content">
                         <ul id="left-col-list">
-                            <li><a href="" name="settings" class="inside">Profile Settings</a></li>
-                            <li><a href="" name="photo" class="inside">Profile Photo</a></li>
-                            <li><a href="" name="transport" class="inside">My Transport</a></li>
-                            <li><a href="" name="add_transport" class="inside">Add a New Transport</a></li>
-                            <li><a href="" name="reviews" class="inside">Reviews</a></li>
+                            <li><a href="{{ url_for('user', nickname=nick, page='settings') }}"class="inside">Profile Settings</a></li>
+                            <li><a href="{{ url_for('user', nickname=nick, page='photo') }}" class="inside">Profile Photo</a></li>
+                            <li><a href="{{ url_for('user', nickname=nick, page='transport') }}" class="inside">My Transport</a></li>
+                            <li><a href="{{ url_for('user', nickname=nick, page='add_transport') }}" class="inside">Add a New Transport</a></li>
+                            <li><a href="{{ url_for('user', nickname=nick, page='reviews') }}" class="inside">Reviews</a></li>
                             <li><a href="pages/user/user_profile_page.html" class="outside custom-file-input"></a></li>
                         </ul>
                     </div>
@@ -20,12 +20,11 @@
                 <div class="right-col">
                     <div class="content">
                         <div class="container">
-                            {% include page %}
+                            {% include page_new %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="{{ url_for('static', filename='scripts/userpage.js') }}"></script>
     </body>
 {% endblock %}
