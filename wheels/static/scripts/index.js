@@ -6,15 +6,13 @@ var current = 0;
  */
 $( document ).ready(function() {
     $('.nav-search-block').hide();
+
     $.post(
         '/index',
         {
             current: current
         },
-        function(data) {
-            fill_preview(data);
-            current += 3;
-        }
+        handleResults
     );
 });
 
@@ -27,18 +25,28 @@ $('#get-more').click(function() {
         {
             current: current
         },
-        function(data) {
-            fill_preview(data);
-            current += 6;
-        }
+        handleResults
     );
 });
+
+/**
+ * Handles post request
+ */
+function handleResults(data) {
+    if (data.length) {
+        fillPreview(data);
+        current += data.length;
+    }
+    else {
+        $('.get-more-results').hide();
+    }
+}
 
 /**
  * Fills the preview section with vehicles
  * @param  {json} dataset Vehicles data in json
  */
-function fill_preview(dataset) {
+function fillPreview(dataset) {
     for (var index in dataset) {
         add_thumbnail(dataset[index], n_columns=3);
     }

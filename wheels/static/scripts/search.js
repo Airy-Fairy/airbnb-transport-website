@@ -9,14 +9,14 @@ $( document ).ready(function() {
 
     var data = $('.search-results').data('results');
 
-    if (data.length != 0) {
+    if (data.length) {
         appendResults(data);
         current += data.length;
     }
 });
 
 /**
- * Request next 4 search results from server
+ * Request next search results from server
  */
 $('#get-more').click(function() {
     $.post(
@@ -24,14 +24,22 @@ $('#get-more').click(function() {
         {
             current: current
         },
-        function(data) {
-            if (data.length != 0) {
-                appendResults(data);
-                current += data.length;
-            }
-        }
+        handleResults
     );
 });
+
+/**
+ * Handles post request
+ */
+function handleResults(data) {
+    if (data.length) {
+        appendResults(data);
+        current += data.length;
+    }
+    else {
+        $('.get-more-results').hide();
+    }
+}
 
 /**
  * Appends results to the end of search page

@@ -135,9 +135,10 @@ def search_more():
 	print ('zdesya', file=sys.stderr)
 	current = int(request.form['current'])
 	global all_search_results
-	search_results = json.dumps(get_vehicles_records(all_search_results, 6, current))
-	# search_results = get_vehicles_records(all_search_results, 6, current)
-	return render_template('search_results.html', results=search_results)
+	# search_results = json.dumps(get_vehicles_records(all_search_results, 6, current))
+	search_results = get_vehicles_records(all_search_results, 6, current)
+	return jsonify(search_results)
+	# return render_template('search_results.html', results=search_results)
 
 def fill_vehicle_array(vehicles):
 	retarray = []

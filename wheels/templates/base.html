@@ -22,8 +22,8 @@
                 <ul>
                     <li>
                         <a class="logo" href="{{ url_for('index') }}" id="home">
-                                <img src="{{ url_for('static', filename='imgs/white-car.svg') }}" height="36">
-                            </a>
+                            <img src="{{ url_for('static', filename='imgs/white-car.svg') }}" height="36">
+                        </a>
                     </li>
                     <span class="nav-search-block" hidden="hidden">
                         <li>
@@ -156,7 +156,7 @@
                     <input type="password" id="confirm_password" placeholder="Confirm password" required>
                 </div>
                 <div class="no_match">
-                    <span id="no_match_msg" hidden="hidden">Passwords don't match!</span>
+                    <span id="no_match_msg" class="error-msg" hidden="hidden">Passwords don't match!</span>
                 </div>
                 <div class="birthday">
                     <p>Your Birthday</p>
@@ -183,7 +183,7 @@
                         </select>
                 </div>
                 <div class="birthday_error">
-                    <span id="birthday_error_msg" hidden="hidden">Wrong birthday date!</span>
+                    <span id="birthday_error_msg" class="error-msg" hidden="hidden">Wrong birthday date!</span>
                 </div>
                 <div class="checkboxes">
                     <p>

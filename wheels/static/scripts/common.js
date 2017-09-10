@@ -39,3 +39,30 @@ function getCurrentDate() {
 (function calcCurrentYear() {
     $('#current-year').text(getCurrentYear());
 }());
+
+
+/**
+ * Takes care of proper year and price ranges
+ */
+$('#search-form').submit(function() {
+    yearFrom = parseInt($('#year_from').val());
+    yearTo = parseInt($('#year_to').val());
+    priceFrom = parseInt($('#price_from').val());
+    priceTo = parseInt($('#price_to').val());
+
+    if (!isNaN(yearTo)) {
+        if (yearFrom > yearTo) {
+            $('.year-price-error').show();
+            return false;
+        }
+    }
+
+    if (!isNaN(priceTo)) {
+        if (priceFrom > priceTo) {
+            $('.year-price-error').show();
+            return false;
+        }
+    }
+
+    return true;
+});
