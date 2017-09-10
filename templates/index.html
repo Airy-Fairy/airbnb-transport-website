@@ -2,7 +2,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Main part -->
  <div class="main-content">
      <div class="container">
          <div class="title">
@@ -17,7 +16,7 @@
              <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/wtf.png') }}" alt="car sharing picture">
          </section>
          <section class="search">
-             <form action="/search" method="get">
+             <form action="/search" method="post">
                  <input id="huge-search" class="cool-shadow" type="search" name="search" placeholder="Search for a transport type, brand, model, etc.">
                  <div class="detailed-search" hidden="hidden">
                      <div class="row">

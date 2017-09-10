@@ -26,7 +26,7 @@
                 for (var i = 0; i < jsonData.length; i++) {
                     var brandTitle = jsonData[i].title;
                     selectBrand
-                        .append('<option value="' + i + '">' + brandTitle + '</option>');
+                        .append('<option value="' + brandTitle + '">' + brandTitle + '</option>');
                 }
                 break;
             // If there's no data - remove brands
@@ -40,7 +40,7 @@
     // When user selects another brand
     // you need to load models according to the brand
     $('#transport-brand').on('change', function() {
-        var transportBrand = $('#transport-brand option:selected').val();
+        var transportBrand = $('#transport-brand option:selected').index();
         var selectModel = $('#transport-model');
 
         // If brand is chosen
@@ -48,10 +48,10 @@
             $('#transport-model option:not(:first-child)').remove();
 
             // Append models
-            for (var i = 0; i < jsonData[transportBrand].models.length; i++) {
-                var modelTitle = jsonData[transportBrand].models[i].title;
+            for (var i = 0; i < jsonData[transportBrand - 1].models.length; i++) {
+                var modelTitle = jsonData[transportBrand - 1].models[i].title;
                 selectModel
-                    .append('<option value="' + i + '">' + modelTitle + '</option>');
+                    .append('<option value="' + modelTitle + '">' + modelTitle + '</option>');
             }
         } else {
             // Clear options

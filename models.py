@@ -1,19 +1,21 @@
 from flask_login import UserMixin
-from wheels import db
+from wheels import wheels, db
+import flask_whooshalchemy as wa
 from werkzeug.security import generate_password_hash, \
      check_password_hash
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     phone = db.Column(db.String(32), index=True)
-    first_name = db.Column(db.String(64))
-    last_name = db.Column(db.String(64))
+    name = db.Column(db.String(64))
+    surname = db.Column(db.String(64))
+    bday = db.Column(db.Date)
     password_hash = db.Column(db.String(128))
-    #vehicles = db.relationship('Vehicle', backref='owner', lazy='dynamic')
+    vehicles = db.relationship('Vehicle', backref='owner', lazy='dynamic')
     #confirmed = db.Column(db.Boolean, default=False)
-    #remember_me = db.Column(db.Boolean, default=False)
 
     @property
     def password(self):
@@ -21,7 +23,7 @@ class User(UserMixin, db.Model):
 
     @password.setter
     def password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password, method='pbkdf2:sha512')
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -63,14 +65,21 @@ class User(UserMixin, db.Model):
     #                   expires_in=expiration)
     #    return s.dumps({'id': self.id}).decode('ascii')
 
-class Vehicle():
+class Vehicle(db.Model):
     __tablename__ = 'vehicles'
+    __searchable__ = ['show_name', 'description']
     id = db.Column(db.Integer, primary_key=True)
-    brand = db.Column(db.String(16), index=True)
-    model = db.Column(db.String(16), index=True)
-    year = db.Column(db.Integer, index=True)
-    show_name = db.Column(db.String(64), index=True)    
-    price = db.Column(db.Integer, index=True)
-    rating = db.Column(db.Float, index=True)
+    brand = db.Column(db.String(16))
+    model = db.Column(db.String(16))
+    year = db.Column(db.Integer)
+    show_name = db.Column(db.String(64))
+    price = db.Column(db.Integer)
+    rating = db.Column(db.Float)
+    review_count = db.Column(db.Integer)
     description = db.Column(db.String(256))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+wa.whoosh_index(wheels, Vehicle)
+
+def db_whoosh():
+    wa.whoosh_index(wheels, Vehicle)

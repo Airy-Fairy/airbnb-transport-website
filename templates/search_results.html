@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <body>
+        <div class="map-block">
+            <div class="open-map">
+                <div class="button cool-shadow cool-hover white-back">
+                    <a id="open-map" class="link-as-text">View results on the map</a>
+                </div>
+            </div>
+            <div id="map" class="google-map" hidden="hidden"></div>
+        </div>
+        <div class="search-results">
+            <div class="grid"></div>
+        </div>
+        <div class="get-more-results">
+            <div class="button cool-shadow cool-hover white-back">
+                <a id="get-more" class="link-as-text">Get more results...</a>
+            </div>
+        </div>
+        <!-- Vehicle thumbnail template -->
+        <div class="thumbnail template" hidden="hidden">
+            <div class="image">
+                <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/cars/911.jpg') }}" alt="Transport image"> 
+            </div>
+            <div class="label">Price Name</div>
+            <div class="short-info">Short description</div>
+            <div class="rating">
+                <div class="star-rating">
+                    <label class="fa fa-star-o" aria-hidden="true"></label>
+                    <label class="fa fa-star-o" aria-hidden="true"></label>
+                    <label class="fa fa-star-o" aria-hidden="true"></label>
+                    <label class="fa fa-star-o" aria-hidden="true"></label>
+                    <label class="fa fa-star-o" aria-hidden="true"></label>
+                </div>
+                <div class="reviews-count">
+                    <span class="number">#</span> reviews
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/thumbnail.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/search.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/google-map.js') }}"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWS-6RUB7bs5ceDj-ZKsTOXaIsnHIfT34" charset="utf-8">
+        </script>
+    </body>
+{% endblock %}
