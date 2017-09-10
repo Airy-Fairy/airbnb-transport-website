@@ -25,14 +25,21 @@
                                 <img src="{{ url_for('static', filename='imgs/white-car.svg') }}" height="36">
                             </a>
                     </li>
-                    <li>
-                        <div class="nav-search">
-                            <form action="">
-                                <input type="search" placeholder="Search for some wheels">
-                                <input type="submit" name="search-btn">
-                            </form>
-                        </div>
-                    </li>
+                    <span class="nav-search-block" hidden="hidden">
+                        <li>
+                            <div class="nav-search">
+                                <form action="/search" method="get">
+                                    <input type="search" placeholder="Search for some wheels">
+                                    <input type="submit" name="search-btn">
+                                </form>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="go-detailed">
+                                <a id="go-detailed-btn" class="link-as-text cool-hover">Go detailed search</a>
+                            </div>
+                        </li>
+                    </span>
                 </ul>
                 <ul class="right">
                     <li>

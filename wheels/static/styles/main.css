@@ -1,6 +1,7 @@
 html {
     height: 100%;
     box-sizing: border-box;
+    min-width: 782px;
 }
 
 * {
@@ -75,8 +76,7 @@ header .logo {
 /* search input in header */
 
 .nav-search {
-    width: 200%;
-    visibility: hidden;
+    width: 100%;
 }
 
 .nav-search input[type="submit"] {
@@ -121,7 +121,6 @@ header input[type="search"] {
     min-width: 700px;
     max-width: 900px;
     margin-top: 20px;
-    margin-bottom: 50px;
 }
 
 .search input[type="search"] {
@@ -185,11 +184,11 @@ header input[type="search"] {
 }
 
 .random-content {
+    margin-top: 50px;
     width: 80%;
 }
 
 .random-content .grid {
-    /*width: 100%;*/
     display: block;
 }
 

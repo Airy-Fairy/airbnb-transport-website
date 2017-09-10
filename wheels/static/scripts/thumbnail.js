@@ -18,7 +18,7 @@ function add_thumbnail(data, n_columns) {
 
     // If current row is full - add new row and 3 columns
     last_row = $grid[0].children[$grid[0].children.length - 1];
-    if (last_row.children[2].children.length != 0) {
+    if (last_row.children[n_columns - 1].children.length != 0) {
         $grid.append('<div class="row"></div>');
         last_row = $grid[0].children[$grid[0].children.length - 1];
         for (i = 0; i < n_columns; i++) {

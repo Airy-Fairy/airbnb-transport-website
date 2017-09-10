@@ -6,6 +6,7 @@ from flask_login import login_user, logout_user, \
 						login_required, current_user
 from models import User, Vehicle
 from datetime import date
+import json
 
 # tests only
 import sys
@@ -28,7 +29,8 @@ def index():
 def index_car_review():
 	current = int(request.form['current'])
 	vehicles = get_top_rated_vehicles(current)
-	return vehicles
+	return jsonify(vehicles)
+	# return vehicles
 
 @wheels.route('/help')
 def help():
@@ -78,7 +80,7 @@ def sign_up():
 			flash('This email is already registered.')
 		#token = user.generate_confirmation_token()
 		#send_email
-		
+
 		return redirect(url_for('index'))
 	flash('Something has gone wrong :(')
 	return redirect(url_for('index'))
@@ -119,7 +121,8 @@ def search():
 	if price_to:
 		query = query.filter(Vehicle.year >= price_to)
 	all_search_results = query
-	search_results = get_vehicles_records(all_search_results, 4, 0)
+	# search_results = get_vehicles_records(all_search_results, 4, 0)
+	search_results = json.dumps(get_vehicles_records(query, 4, 0))
 	#print (search_results, file=sys.stderr)
 	#testing
 	#results = fill_vehicle_array(query.limit(4).offset(0).all())
@@ -132,9 +135,10 @@ def search_more():
 	print ('zdesya', file=sys.stderr)
 	current = int(request.form['current'])
 	global all_search_results
-	search_results = get_vehicles_records(all_search_results, 6, current)
+	search_results = json.dumps(get_vehicles_records(all_search_results, 6, current))
+	# search_results = get_vehicles_records(all_search_results, 6, current)
 	return render_template('search_results.html', results=search_results)
-	
+
 def fill_vehicle_array(vehicles):
 	retarray = []
 	for vehicle in vehicles:
@@ -149,7 +153,8 @@ def fill_vehicle_array(vehicles):
 def get_vehicles_records(query, limit, offset=0):
 	vehicles = query.limit(limit).offset(offset).all()
 	results = fill_vehicle_array(vehicles)
-	return jsonify(results)
+	return results
+	# return jsonify(results)
 
 def get_top_rated_vehicles(current):
 	query = Vehicle.query.order_by(Vehicle.rating.desc())
