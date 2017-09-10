@@ -29,14 +29,14 @@
                         <li>
                             <div class="nav-search">
                                 <form action="/search" method="get">
-                                    <input type="search" name="search" placeholder="Search for some wheels">
+                                    <input type="search" name="search" placeholder="Search for some wheels...">
                                     <input type="submit" name="search-btn">
                                 </form>
                             </div>
                         </li>
                         <li>
                             <div class="go-detailed">
-                                <a id="go-detailed-btn" class="link-as-text cool-hover">Go detailed search</a>
+                                <a href="{{ url_for('search') }}" id="go-detailed-btn" class="link-as-text cool-hover">Go detailed search</a>
                             </div>
                         </li>
                     </span>

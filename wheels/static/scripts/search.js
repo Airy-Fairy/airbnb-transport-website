@@ -5,7 +5,7 @@ var current = 0;
  * Appends first search results from server
  */
 $( document ).ready(function() {
-    $('.nav-search-block').show();
+    // $('.nav-search-block').show();
 
     var data = $('.search-results').data('results');
 
@@ -50,9 +50,3 @@ function appendResults(dataset) {
         add_thumbnail(dataset[index], n_columns=2);
     }
 }
-
-
-$('#go-detailed-btn').click(function() {
-    $('.nav-search-block').fadeOut();
-    $('.search').slideDown("slow");
-});
