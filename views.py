@@ -28,11 +28,7 @@ def index():
 def index_car_review():
 	current = int(request.form['current'])
 	vehicles = get_top_rated_vehicles(current)
-	# if not vehicles:
-	# 	flash('End of database.')
-	# #	return jsonify(vehicles)
 	return vehicles
-	#return render_template('index.html', title='Home')
 
 @wheels.route('/help')
 def help():
@@ -108,7 +104,7 @@ def search():
 	#year_to = request.form['year_to']
 	#price_from = request.form['price_from']
 	#price_to = request.form['price_to']
-	query = Vehicle.query.whoosh_search(search)
+	query = Vehicle.query.whoosh_search(search_str)
 	if brand:
 		query = query.filter_by(brand=brand)
 		# print (results, file=sys.stderr)
@@ -124,6 +120,9 @@ def search():
 		query = query.filter(Vehicle.year >= price_to)
 	all_search_results = query
 	search_results = get_vehicles_records(all_search_results, 4, 0)
+	#print (search_results, file=sys.stderr)
+	#testing
+	#results = fill_vehicle_array(query.limit(4).offset(0).all())
 	#if results:
 	#	print (results[0]['show_name'], file=sys.stderr)
 	return render_template('search_results.html', results=search_results)
