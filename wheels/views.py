@@ -155,9 +155,15 @@ def get_top_rated_vehicles(current):
 	limit = 3 if not current else 6
 	return get_vehicles_records(query, limit, current)
 
-
-@wheels.route('/user_page')
+@wheels.route('/user')
+@login_required
 def user_page():
+	user = current_user.email.split('@')
+	return redirect(url_for('user', nickname=user[0]))
+
+@wheels.route('/user/<nickname>')
+@login_required
+def user(nickname):
 	#page = 'user/' + request.form['receive_page'] + '.html'
 	page = 'user/photo.html'
 	return render_template('user/main_page.html',

@@ -1,118 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>User settings page</title>
-        <link rel="icon" href="../../imgs/icon.png">
-        <link rel="stylesheet" href="../../styles/main.css">
-    </head>
-
-    <body>
-        <div class="user-page-container">
-            <div class="user-settings-form" id="user-settings">
-                <form class="panel-container" action="">
-                    <div class="panel-head">Your account settings</div>
-                    <div class="panel-line">
-                        <div class="form-row">
-                            <label for="name">First Name</label>
-                            <div class="elem">
-                                <input type="text" id="name" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="surname">Last Name</label>
-                            <div class="elem">
-                                <input type="text" id="surname" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="gender">Gender</label>
-                            <div class="elem">
-                                <select class="omg" id="gender">
-                                    <option>Gender</option>
-                                    <option value="man">Masculine</option>
-                                    <option value="woman">Feminine</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="birthday">Birthday</label>
-                            <div class="elem">
-                                <div class="birthday">
-                                    <select class="omg" name="birthday" id="month">
-                                        <option value="-1">Month</option>
-                                        <option value="0">January</option>
-                                        <option value="1">February</option>
-                                        <option value="2">March</option>
-                                        <option value="3">April</option>
-                                        <option value="4">May</option>
-                                        <option value="5">June</option>
-                                        <option value="6">July</option>
-                                        <option value="7">August</option>
-                                        <option value="8">September</option>
-                                        <option value="9">October</option>
-                                        <option value="10">November</option>
-                                        <option value="11">December</option>
-                                    </select>
-                                    <select class="omg" name="birthday" id="day" required>
-                                        <option value="-1">Day</option>
-                                    </select>
-                                    <select class="omg" name="birthday" id="year" required>
-                                        <option value="-1">Year</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="email">Email</label>
-                            <div class="elem">
-                                <input type="email" id="email" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="phone">Phone Number</label>
-                            <div class="elem">
-                                <input type="tel" id="phone" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-line">
-                        <div class="form-row">
-                            <label for="currency">Currency</label>
-                            <div class="elem">
-                                <select class="omg" id="currency">
-                                    <option value="rub">RUB</option>
-                                    <option value="usd">USD</option>
-                                    <option value="eur">EUR</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-line">
-                        <div class="form-row">
-                            <label for="address">Address</label>
-                            <div class="elem">
-                                <input type="text" id="address">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-line">
-                        <div class="form-row">
-                            <label for="aboutme">About me</label>
-                            <div class="elem">
-                                <textarea id="aboutme"></textarea>
-                            </div>
-                        </div>
-                        <div class="save-settings-btn">
-                            <input type="submit" id="save-btn" value="Save">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </body>
-
-</html>
+	<div class="user-page-container">
+		<div class="user-settings-form" id="user-settings">
+			<form class="panel-container" action="">
+				<div class="panel-head">Your account settings</div>
+				<div class="panel-line">
+					<div class="form-row">
+						<label for="name">First Name</label>
+						<div class="elem">
+							<input type="text" id="name" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<label for="surname">Last Name</label>
+						<div class="elem">
+							<input type="text" id="surname" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<label for="gender">Gender</label>
+						<div class="elem">
+							<select class="omg" id="gender">
+								<option>Gender</option>
+								<option value="man">Masculine</option>
+								<option value="woman">Feminine</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<label for="birthday">Birthday</label>
+						<div class="elem">
+							<div class="birthday">
+								<select class="omg" name="birthday" id="month">
+									<option value="-1">Month</option>
+									<option value="0">January</option>
+									<option value="1">February</option>
+									<option value="2">March</option>
+									<option value="3">April</option>
+									<option value="4">May</option>
+									<option value="5">June</option>
+									<option value="6">July</option>
+									<option value="7">August</option>
+									<option value="8">September</option>
+									<option value="9">October</option>
+									<option value="10">November</option>
+									<option value="11">December</option>
+								</select>
+								<select class="omg" name="birthday" id="day" required>
+									<option value="-1">Day</option>
+								</select>
+								<select class="omg" name="birthday" id="year" required>
+									<option value="-1">Year</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-row">
+						<label for="email">Email</label>
+						<div class="elem">
+							<input type="email" id="email" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<label for="phone">Phone Number</label>
+						<div class="elem">
+							<input type="tel" id="phone" required>
+						</div>
+					</div>
+				</div>
+				<div class="panel-line">
+					<div class="form-row">
+						<label for="currency">Currency</label>
+						<div class="elem">
+							<select class="omg" id="currency">
+								<option value="rub">RUB</option>
+								<option value="usd">USD</option>
+								<option value="eur">EUR</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="panel-line">
+					<div class="form-row">
+						<label for="address">Address</label>
+						<div class="elem">
+							<input type="text" id="address">
+						</div>
+					</div>
+				</div>
+				<div class="panel-line">
+					<div class="form-row">
+						<label for="aboutme">About me</label>
+						<div class="elem">
+							<textarea id="aboutme"></textarea>
+						</div>
+					</div>
+					<div class="save-settings-btn">
+						<input type="submit" id="save-btn" value="Save">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
