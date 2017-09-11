@@ -23,6 +23,7 @@ def init_user_db():
 
 	with open('vehicle_base.json') as f:
 		cars = json.load(f)
+		i = 1
 		for car in cars:
 			v = Vehicle(brand=car['brand'],
 						model=car['model'],
@@ -32,8 +33,10 @@ def init_user_db():
 						rating=uniform(1.0, 5.0),
 						review_count=randint(1, 30),
 						description=car['description'],
-						photo=car['show_name'] + '.jpg',
+						photo=str(i) + '.jpg', #car['show_name'].replace(' ', '_') + '.jpg',
 						owner=admin)
+			print v.photo
+			i += 1
 			print v.show_name, v.price, v.rating
 			db.session.add(v)
 		db.session.commit()

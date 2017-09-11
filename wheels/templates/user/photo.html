@@ -5,11 +5,11 @@
                 <div class="panel-line">
                     <div class="photo-upload-block">
                         <div class="image">
-                            {% if not current_user.avatar %}
-                            <img class="cover round" src="{{ url_for('uploaded_file', filename='default.jpg') }}">
-                            {% else %}
-                            <img class="cover round" src="{{ url_for('uploaded_file', filename=current_user.avatar) }}">
-                            {% endif %}
+                        {% if not current_user.avatar %}
+                            <img class="cover round" src="{{ url_for('upload_user_avatar', upload_type=0, filename='default.jpg') }}">
+                        {% else %}
+                            <img class="cover round" src="{{ url_for('upload_user_avatar', upload_type=0, filename=current_user.avatar) }}">
+                        {% endif %}
                         </div>
                         <form class="upload-form" action="/upload_avatar" method="post" enctype="multipart/form-data">
                             <div class="upload-btn">

@@ -25,6 +25,9 @@ def root():
 
 @wheels.route('/index')
 def index():
+	vehicles = get_top_rated_vehicles(3)
+	for vehicle in vehicles:
+		url_for('upload_vehicle', filename=vehicle['photo'])
 	return render_template('index.html', title='Home')
 
 @wheels.route('/index', methods=['POST'])
@@ -32,6 +35,8 @@ def index_car_review():
 	current = int(request.form['current'])
 	if current != None:
 		vehicles = get_top_rated_vehicles(current)
+		for vehicle in vehicles:
+			url_for('upload_vehicle', filename=vehicle['photo'])
 		return jsonify(vehicles)
 
 @wheels.route('/help')
@@ -100,17 +105,8 @@ def search():
 	price_from = request.args.get('price_from')
 	price_to = request.args.get('price_to')
 	search_str = request.args.get('search')
-	
-	print (search_str, file=sys.stderr)
-	# POST request
-	#brand = request.form['brand']
-	#model = request.form['model']
-	#year_from = request.form['year_from']
-	#year_to = request.form['year_to']
-	#price_from = request.form['price_from']
-	#price_to = request.form['price_to']
-	query = Vehicle.query
 	# query filters
+	query = Vehicle.query
 	if not (brand == model == year_from == year_to == \
 			price_from == price_to == search_str == ''):
 		query = query.whoosh_search(search_str)
@@ -146,14 +142,14 @@ def fill_vehicle_array(vehicles):
 			'rating':vehicle.rating, \
 			'desc':vehicle.description, \
 			'reviews':vehicle.review_count, \
-			'photo':vehicle.photo})
+			'photo':vehicle.photo,
+			'owner':vehicle.owner.email})
 	return retarray
 
 def get_vehicles_records(query, limit, offset=0):
 	vehicles = query.limit(limit).offset(offset).all()
 	results = fill_vehicle_array(vehicles)
 	return results
-	# return jsonify(results)
 
 def get_top_rated_vehicles(current):
 	query = Vehicle.query.order_by(Vehicle.rating.desc())
@@ -170,23 +166,22 @@ def user_page():
 @login_required
 def user(nickname, page):
 	page_new = 'user/' + page + '.html'
-	#bday = str(current_user.bday).split('-')
 	return render_template('user/main_page.html',
 					 title='User page',
 					 nick=nickname,
-					 page_new=page_new)#,
-					 #bday=[int(bday[0]), int(bday[1]), int(bday[2])])
+					 page_new=page_new)
 
 #@wheels.route('/vehicle')
 #def vehicle_page():
 #	return redirect(url_for('vehicle', name='link'))
 #
-#@wheels.route('/vehicle=<name>')
+#@wheels.route('/vehicle/<brand>/<model>+<year>')
 #def vehicle(name):
 #	return render_template('vehicle/main_page.html',
 #							vehicle=name)
 
 @wheels.route('/upload_avatar', methods=['POST'])
+@login_required
 def upload_avatar():
 	if 'avatar' not in request.files:
 		flash('No file part in request.')
@@ -212,24 +207,27 @@ def upload_avatar():
 		return redirect(url_for('user', nickname=user_name, page='photo'))
 	flash('Sorry, server can\'t upload this file.')
 	return redirect(url_for('user_page'))
-	#return redirect(request.url)
 
-@wheels.route('/uploaded_image/<filename>')
-def uploaded_file(filename, upload_type=0):
-	# if upload_type == 0 -- loading avatars
-	# if upload_type == 1 -- loading vehicle's photo
-	print (current_user.avatar == '', file=sys.stderr)
-	if upload_type == 0:
-		if current_user.avatar != '':
-			load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], current_user.email)
-			return send_from_directory(load_path, filename)
-	if upload_type == 1:
-		vehicle = Vehicle.query.filter_by(Vehicle.photo == filename)
-		owner = vehicle.owner
-		load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], owner.email)
-		load_path = os.path.join(load_path, vehicles)
+@wheels.route('/upload/avatar=<filename>')
+@login_required
+def upload_user_avatar(filename):
+	if current_user.avatar != '':
+		load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], current_user.email)
 		return send_from_directory(load_path, filename)
 	return send_from_directory(default_avatar_path, 'default.jpg')
+
+@wheels.route('/upload/vehicle=<filename>')
+def upload_vehicle(filename):
+	if filename != '':
+		# base64 need
+		vehicle = Vehicle.query.filter_by(photo=filename).first()
+		owner = vehicle.owner
+		load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], owner.email)
+		load_path = os.path.join(load_path, 'vehicles')
+		print (load_path, file=sys.stderr)
+		return send_from_directory(load_path, filename)
+	else:
+		return send_from_directory(default_avatar_path, 'default.jpg')
 
 def allowed_file(filename):
 	return '.' in filename and \

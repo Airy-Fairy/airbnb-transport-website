@@ -49,7 +49,7 @@ function add_thumbnail(data, n_columns) {
     $thumbnail.find('.label').text('$' + price + '  ' + show_name);
     $thumbnail.find('.short-info').text(desc);
     $thumbnail.find('.reviews-count > .number').text(String(reviews));
-    $thumbnail.find('img').attr('src', imgName);
+    $thumbnail.find('img').attr('src', '/upload/vehicle=' + imgName);
 
     var stars = $thumbnail.find('.star-rating').children();
     for (i = 0; i < Math.round(rating); i++) {
