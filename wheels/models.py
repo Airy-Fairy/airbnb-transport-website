@@ -12,6 +12,7 @@ class User(UserMixin, db.Model):
     phone = db.Column(db.String(32), index=True)
     name = db.Column(db.String(64))
     surname = db.Column(db.String(64))
+    reg_date = db.Column(db.Date)
     bday = db.Column(db.Date)
     password_hash = db.Column(db.String(128))
     avatar = db.Column(db.String(32))

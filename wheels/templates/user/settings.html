@@ -29,8 +29,8 @@
 					<div class="form-row">
 						<label for="birthday">Birthday</label>
 						<div class="elem">
-							<div class="birthday">
-								<select class="omg" name="birthday" id="month">
+							<div class="birthday" data-birthday="{{ current_user.bday }}">
+								<select class="omg" name="birthday" id="month" required>
 									<option value="-1">Month</option>
 									<option value="0">January</option>
 									<option value="1">February</option>
@@ -48,7 +48,7 @@
 								<select class="omg" name="birthday" id="day" required>
 									<option value="-1">Day</option>
 								</select>
-								<select class="omg" name="birthday" id="year"  required>
+								<select class="omg" name="birthday" id="year" required>
 									<option value="-1">Year</option>
 								</select>
 							</div>
@@ -57,7 +57,7 @@
 					<div class="form-row">
 						<label for="email">Email</label>
 						<div class="elem">
-							<input type="email" id="email" value="{{ current_user.email }}" required>
+							<input type="email" id="email" value="{{ current_user.email }}" disabled>
 						</div>
 					</div>
 					<div class="form-row">

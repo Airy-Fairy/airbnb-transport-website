@@ -1,7 +1,7 @@
 import sys
 import json
 from random import uniform, randint
-from datetime import datetime
+from datetime import datetime, date
 from wheels import db
 from wheels.models import User, Vehicle, db_whoosh
 
@@ -9,13 +9,14 @@ def init_user_db():
 	db.drop_all()
 	db_whoosh()
 	db.create_all()
-	admin = User(email='admin@example.com',
+	admin = User(email='glebignatieff@gmail.com',
 					 phone='333-333-3333',
-					 name='Admin',
-					 surname='Admin',
+					 name='Gleb',
+					 surname='Ignatiev',
 					 password='pass123',
 					 avatar='admin.png',
-					 bday=datetime.strptime(datetime.now().strftime("%y-%m-%d"), '%y-%m-%d').date())
+					 reg_date=datetime.utcnow(),
+					 bday=date(1995, 03, 31))
 	db.session.add(admin)
 	db.session.commit()
 	users = User.query.all()
@@ -35,7 +36,6 @@ def init_user_db():
 						description=car['description'],
 						photo=str(i) + '.jpg', #car['show_name'].replace(' ', '_') + '.jpg',
 						owner=admin)
-			print v.photo
 			i += 1
 			print v.show_name, v.price, v.rating
 			db.session.add(v)
