@@ -1,21 +1,12 @@
 
 /**
- * Sends clicked link name to the server
- * @param  {object} event Redirect event object
+ * On document loading
  */
-// $('#left-col-list a').click(function(event) {
-//     event.preventDefault();
-//     var linkName = this.name;
-//     var userName = document.URL.split('/').pop();
-//     $.post(
-//         '/user/' + userName + '/' + linkName,
-//         {
-//             page_name: linkName
-//         }
-//     );
-// });
-
-
 $( document ).ready(function() {
+    // Show search bar in header
     $('.nav-search-block').show();
+
+    // Changes current link style
+    currentLink = '#' + document.URL.split('%3F').pop() + '-link';
+    $(currentLink).addClass('current-link');
 });

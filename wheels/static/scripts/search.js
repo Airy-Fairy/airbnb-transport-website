@@ -5,8 +5,6 @@ var current = 0;
  * Appends first search results from server
  */
 $( document ).ready(function() {
-    // $('.nav-search-block').show();
-
     var data = $('.search-results').data('results');
 
     if (data.length) {

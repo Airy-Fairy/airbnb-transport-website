@@ -17,3 +17,20 @@ $(document).ready(function() {
 $(window).resize(function() {
     squareImages();
 });
+
+/**
+ * Displays modal image
+ */
+(function modalImages() {
+    $modal = $('#modal');
+    $modalImg = $('#modal-img');
+
+    $('#small-img').click(function() {
+        $modal.show();
+        $modalImg.attr('src', this.src);
+    });
+
+    $('.dark-screen').click(function() {
+        $modal.hide();
+    });
+}());

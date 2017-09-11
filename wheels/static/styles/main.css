@@ -293,6 +293,11 @@ footer a:hover {
     margin: 10px;
 }
 
+.col-2-3 {
+    width: 66.6%;
+    margin: 10px;
+}
+
 .col-1-4 {
     width: 25%;
     margin: 10px;
@@ -320,8 +325,11 @@ footer a:hover {
      top: 0;
      left: 0;
      z-index: 1000;
-     opacity: .8;
-     filter: alpha(opacity=80);
+     overflow: auto; /* Enable scroll if needed */
+     background-color: rgb(0,0,0); /* Fallback color */
+     background-color: rgba(0,0,0,0.85); /* Black w/ opacity */
+     /*opacity: .8;
+     filter: alpha(opacity=80);*/
  }
 
 .popup {
@@ -593,8 +601,8 @@ input[type="checkbox"]:checked:after {
 
  .user-page-container {
      width: 100%;
-     min-width: 400px;
-     max-width: 550px;
+     min-width: 500px;
+     max-width: 650px;
  }
 
 .user-page {
@@ -603,17 +611,6 @@ input[type="checkbox"]:checked:after {
     max-width: 800px;
     margin-top: 25px;
 }
-
-/*.user-page .grid {
-    width: 100%;
-    display: flex;
-}*/
-
-/*.left-col {
-    width: 25%;
-    min-width: 200px;
-    max-width: 300px;
-}*/
 
 .user-page .left-col {
     min-width: 200px;
@@ -798,7 +795,7 @@ input[type="checkbox"]:checked:after {
 .form-row input[type="tel"] {
     width: 100%;
     line-height: 20px;
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .form-row input[id="rental-price"] {
@@ -1406,4 +1403,60 @@ input[type="file"] {
 }
 .new-review .add input.cancel:hover {
     border-color: gray;
+}
+
+/**
+ *
+ * transport.html styles: user's transport blocks
+ *
+ */
+
+.transport-preview {
+    position: relative;
+}
+
+.transport-preview .row {
+    margin-bottom: 10px;
+}
+
+.transport-preview .desc {
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.transport-preview .edit-remove {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+
+/**
+ *
+ * Modal images style
+ *
+ */
+
+/* Modal Content (image) */
+.modal-content {
+    margin: 100px auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    z-index: 1001;
+}
+
+/* Animation */
+.modal-content {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+.clickable {
+    cursor: pointer;
 }
