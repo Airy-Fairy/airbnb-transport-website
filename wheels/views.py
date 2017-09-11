@@ -1,12 +1,14 @@
 from __future__ import print_function
-from wheels import wheels, login_manager, db
+from wheels import wheels, login_manager, db, \
+				   ALLOWED_EXTENSIONS, default_avatar_path
 from flask import render_template, redirect, url_for, request, flash, \
-				  jsonify
+				  jsonify, send_from_directory
 from flask_login import login_user, logout_user, \
 						login_required, current_user
+from werkzeug.utils import secure_filename
 from models import User, Vehicle
 from datetime import date
-import json
+import json, os
 
 # tests only
 import sys
@@ -23,6 +25,9 @@ def root():
 
 @wheels.route('/index')
 def index():
+	user = User.query.first() #.extract('year', User.bday)#.all()
+	bday = str(user.bday).split('-')
+	print (bday[0], file=sys.stderr)
 	return render_template('index.html', title='Home')
 
 @wheels.route('/index', methods=['POST'])
@@ -63,7 +68,7 @@ def sign_up():
 		user = User.query.filter_by(email=request.form['email']).first()
 		if user is None:
 			bday = date(int(request.form.get('bd_year')),  \
-					    int(request.form.get('bd_month')) + 1, \
+						int(request.form.get('bd_month')) + 1, \
 						int(request.form.get('bd_day')) + 1)
 
 			user_new = User(email=request.form['email'],
@@ -72,6 +77,9 @@ def sign_up():
 							surname=request.form['surname'],
 							bday=bday,
 							password=request.form['password'])
+			user_directory = os.path.join(wheels.config['UPLOAD_FOLDER'], current_user.email)
+			if not os.path.exists(user_directory):
+				os.makedirs(user_directory)
 			db.session.add(user_new)
 			db.session.commit()
 			flash('A confirmation email has been sent to you by email.')
@@ -141,7 +149,8 @@ def fill_vehicle_array(vehicles):
 			'price':vehicle.price, \
 			'rating':vehicle.rating, \
 			'desc':vehicle.description, \
-			'reviews':vehicle.review_count})
+			'reviews':vehicle.review_count, \
+			'photo':vehicle.photo})
 	return retarray
 
 def get_vehicles_records(query, limit, offset=0):
@@ -165,7 +174,54 @@ def user_page():
 @login_required
 def user(nickname, page):
 	page_new = 'user/' + page + '.html'
+	#bday = str(current_user.bday).split('-')
 	return render_template('user/main_page.html',
 					 title='User page',
 					 nick=nickname,
-					 page_new=page_new)
+					 page_new=page_new)#,
+					 #bday=[int(bday[0]), int(bday[1]), int(bday[2])])
+
+
+def allowed_file(filename):
+	return '.' in filename and \
+		   filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@wheels.route('/upload_avatar', methods=['POST'])
+def upload_avatar():
+	if 'avatar' not in request.files:
+		flash('No file part')
+		return redirect(request.url)
+	file = request.files['avatar']
+	if file.filename == '':
+			flash('No selected file')
+			return redirect(request.url)
+	if file and allowed_file(file.filename):
+		filename = secure_filename(file.filename)
+		user_name = current_user.email.split('@')[0]
+		save_path = wheels.config['UPLOAD_FOLDER'] + '/' + current_user.email					 
+		file.save(os.path.join(save_path, filename))
+		# remove old avatar
+		avatar_path = os.path.join(save_path, current_user.avatar)
+		if os.path.exists(avatar_path):
+			os.remove(avatar_path)
+		# change db avatar value
+		current_user.avatar = filename
+		db.session.commit()
+		return redirect(url_for('user', nickname=user_name, page='photo'))
+	return redirect(request.url)
+
+@wheels.route('/uploads/<filename>')
+def uploaded_file(filename, upload_type=0):
+	# if upload_type == 0 -- loading avatars
+	# if upload_type == 1 -- loading vehicle's photo
+	if upload_type == 0:
+		if current_user.avatar != '':
+			load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], current_user.email)
+			return send_from_directory(load_path, filename)
+	if upload_type == 1:
+		vehicle = Vehicle.query.filter_by(Vehicle.photo == filename)
+		owner = vehicle.owner
+		load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], owner.email)
+		load_path = os.path.join(load_path, vehicles)
+		return send_from_directory(load_path, filename)
+	return send_from_directory(default_avatar_path, 'default.jpg')

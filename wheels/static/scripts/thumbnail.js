@@ -45,7 +45,7 @@ function add_thumbnail(data, n_columns) {
     // Make new thumbnail
     $thumbnail = $('.thumbnail.template').clone();
     $thumbnail.removeClass('template');
-    $thumbnail.find('.label').text(price + '$ ' + show_name);
+    $thumbnail.find('.label').text('$' + price + '  ' + show_name);
     $thumbnail.find('.short-info').text(desc);
     $thumbnail.find('.reviews-count > .number').text(String(reviews));
 

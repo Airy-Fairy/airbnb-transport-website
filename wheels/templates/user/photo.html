@@ -5,11 +5,11 @@
                 <div class="panel-line">
                     <div class="photo-upload-block">
                         <div class="image">
-                            <img class="cover round" src="{{ url_for('static', filename='imgs/admin.png') }}">
+                            <img class="cover round" src="{{ url_for('uploaded_file', filename=current_user.avatar) }}">
                         </div>
-                        <form class="upload-form" action="#" method="post">
+                        <form class="upload-form" action="/upload_avatar" method="post" enctype="multipart/form-data">
                             <div class="upload-btn">
-                                <input type="file" accept="image/*" class="custom-file-input" id="upload-photo" capture="camera">
+                                <input type="file" name="avatar" accept="image/*" class="custom-file-input" id="upload-photo" capture="camera">
                             </div>
                             <div class="save-btn">
                                 <input type="submit" id="upload-photo-btn" value="Save">

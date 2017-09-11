@@ -14,6 +14,7 @@ class User(UserMixin, db.Model):
     surname = db.Column(db.String(64))
     bday = db.Column(db.Date)
     password_hash = db.Column(db.String(128))
+    avatar = db.Column(db.String(32))
     vehicles = db.relationship('Vehicle', backref='owner', lazy='dynamic')
     #confirmed = db.Column(db.Boolean, default=False)
 
@@ -77,6 +78,7 @@ class Vehicle(db.Model):
     rating = db.Column(db.Float)
     review_count = db.Column(db.Integer)
     description = db.Column(db.String(256))
+    photo = db.Column(db.String(32))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 wa.whoosh_index(wheels, Vehicle)
