@@ -214,7 +214,7 @@ def upload_avatar():
 	return redirect(url_for('user_page'))
 	#return redirect(request.url)
 
-@wheels.route('/avatars/<filename>')
+@wheels.route('/uploaded_image/<filename>')
 def uploaded_file(filename, upload_type=0):
 	# if upload_type == 0 -- loading avatars
 	# if upload_type == 1 -- loading vehicle's photo

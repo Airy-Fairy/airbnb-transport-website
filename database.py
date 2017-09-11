@@ -14,6 +14,7 @@ def init_user_db():
 					 name='Admin',
 					 surname='Admin',
 					 password='pass123',
+					 avatar='admin.png',
 					 bday=datetime.strptime(datetime.now().strftime("%y-%m-%d"), '%y-%m-%d').date())
 	db.session.add(admin)
 	db.session.commit()
@@ -31,6 +32,7 @@ def init_user_db():
 						rating=uniform(1.0, 5.0),
 						review_count=randint(1, 30),
 						description=car['description'],
+						photo=car['show_name'] + '.jpg',
 						owner=admin)
 			print v.show_name, v.price, v.rating
 			db.session.add(v)
