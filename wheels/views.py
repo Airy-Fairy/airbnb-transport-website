@@ -21,20 +21,18 @@ def load_user(user_id):
 
 @wheels.route('/')
 def root():
-	return render_template('index.html', title='Home')
+	return redirect(url_for('index'))
 
 @wheels.route('/index')
 def index():
-	user = User.query.first() #.extract('year', User.bday)#.all()
-	bday = str(user.bday).split('-')
-	print (bday[0], file=sys.stderr)
 	return render_template('index.html', title='Home')
 
 @wheels.route('/index', methods=['POST'])
 def index_car_review():
 	current = int(request.form['current'])
-	vehicles = get_top_rated_vehicles(current)
-	return jsonify(vehicles)
+	if current != None:
+		vehicles = get_top_rated_vehicles(current)
+		return jsonify(vehicles)
 
 @wheels.route('/help')
 def help():
@@ -76,18 +74,16 @@ def sign_up():
 							name=request.form['name'],
 							surname=request.form['surname'],
 							bday=bday,
-							password=request.form['password'])
-			user_directory = os.path.join(wheels.config['UPLOAD_FOLDER'], current_user.email)
+							password=request.form['password'],
+							avatar='')
+			user_directory = os.path.join(wheels.config['UPLOAD_FOLDER'], request.form['email'])
 			if not os.path.exists(user_directory):
-				os.makedirs(user_directory)
+				os.mkdir(user_directory)
 			db.session.add(user_new)
 			db.session.commit()
 			flash('A confirmation email has been sent to you by email.')
 		else:
 			flash('This email is already registered.')
-		#token = user.generate_confirmation_token()
-		#send_email
-
 		return redirect(url_for('index'))
 	flash('Something has gone wrong :(')
 	return redirect(url_for('index'))
@@ -181,20 +177,26 @@ def user(nickname, page):
 					 page_new=page_new)#,
 					 #bday=[int(bday[0]), int(bday[1]), int(bday[2])])
 
-
-def allowed_file(filename):
-	return '.' in filename and \
-		   filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+#@wheels.route('/vehicle')
+#def vehicle_page():
+#	return redirect(url_for('vehicle', name='link'))
+#
+#@wheels.route('/vehicle=<name>')
+#def vehicle(name):
+#	return render_template('vehicle/main_page.html',
+#							vehicle=name)
 
 @wheels.route('/upload_avatar', methods=['POST'])
 def upload_avatar():
 	if 'avatar' not in request.files:
-		flash('No file part')
-		return redirect(request.url)
+		flash('No file part in request.')
+		return redirect(url_for('user_page'))
+		#return redirect(request.url)
 	file = request.files['avatar']
 	if file.filename == '':
-			flash('No selected file')
-			return redirect(request.url)
+		flash('Please select any file again.')
+		return redirect(url_for('user_page'))
+			#return redirect(request.url)
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
 		user_name = current_user.email.split('@')[0]
@@ -208,12 +210,15 @@ def upload_avatar():
 		current_user.avatar = filename
 		db.session.commit()
 		return redirect(url_for('user', nickname=user_name, page='photo'))
-	return redirect(request.url)
+	flash('Sorry, server can\'t upload this file.')
+	return redirect(url_for('user_page'))
+	#return redirect(request.url)
 
-@wheels.route('/uploads/<filename>')
+@wheels.route('/avatars/<filename>')
 def uploaded_file(filename, upload_type=0):
 	# if upload_type == 0 -- loading avatars
 	# if upload_type == 1 -- loading vehicle's photo
+	print (current_user.avatar == '', file=sys.stderr)
 	if upload_type == 0:
 		if current_user.avatar != '':
 			load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], current_user.email)
@@ -225,3 +230,7 @@ def uploaded_file(filename, upload_type=0):
 		load_path = os.path.join(load_path, vehicles)
 		return send_from_directory(load_path, filename)
 	return send_from_directory(default_avatar_path, 'default.jpg')
+
+def allowed_file(filename):
+	return '.' in filename and \
+		   filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
