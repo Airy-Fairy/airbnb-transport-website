@@ -1,7 +1,7 @@
 var content =
-            "<h3>Ford Mustang</h3>" +
-            "<p>Ford Mustang — культовый автомобиль класса Pony Car производства Ford Motor Company. </p>";
-var title = "Ford Mustang";
+            "<h3>In development!</h3>" +
+            "<p>Right here we're trying to make google maps support come true!</p>";
+var title = "Development point";
 
 function initMap() {
     var pos = { lat: 59.857597, lng: 30.212425};

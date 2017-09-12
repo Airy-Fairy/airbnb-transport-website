@@ -4,14 +4,18 @@
 {% block content %}
         <div class="transport-profile">
             <div class="bunch-of-photos">
-                <img class="cover" src="{{ url_for('upload_vehicle_photo', filename=vehicle.photo) }}" alt="911">
+                <img class="cover clickable" id="normal-img" src="{{ url_for('upload_vehicle_photo', filename=vehicle.photo) }}" alt="911">
+            </div>
+            <!-- Modal image -->
+            <div class="dark-screen" id="modal">
+                <img class="modal-content" id="modal-img">
             </div>
             <div class="title">
                 <div class="content">
                     <div class="name">
                         <div class="label">{{ vehicle.show_name }}</div>
                         <div class="under-label">
-                            <div class="short-info">#SUDA_NADO_TEXT</div>
+                            <div class="short-info">[Super Short Description]</div>
                         <div class="rating">
                             <div class="star-rating">
                             {% for i in range(rating) %}
@@ -32,7 +36,7 @@
                             <div class="photo">
                                 <img class="cover round" src="{{ url_for('upload_user_avatar', filename=vehicle.owner.avatar) }}" alt="User Photo is here">
                             </div>
-                            <div class="user-name">{{ vehicle.owner.name }}</div>
+                            <div class="user-name ">{{ vehicle.owner.name }} {{ vehicle.owner.surname }}</div>
                         </a>
                     </div>
                 </div>
@@ -42,13 +46,13 @@
                     <div class="description">
                         <div class="col-1-2">
                             <div class="row">
-                                <span class="label">Brand: {{ vehicle.brand }}</span>
+                                <span class="label">Brand:</span> {{ vehicle.brand }}
                             </div>
                             <div class="row">
-                                <span class="label">Model: {{ vehicle.model }}</span>
+                                <span class="label">Model:</span> {{ vehicle.model }}
                             </div>
                             <div class="row">
-                                <span class="label">Year of Manufacture: {{ vehicle.year }}</span>
+                                <span class="label">Year of Manufacture:</span>  {{ vehicle.year }}
                             </div>
                             <div class="row">
                                 <span class="label">Haulage (usage):</span>
@@ -104,10 +108,10 @@
                             <div class="panel-line">
                                 <div class="contacts">
                                     <div class="row">
-                                        <span class="label">Email: {{ vehicle.owner.email }}</span>
+                                        <span class="label">Email:</span> {{ vehicle.owner.email }}
                                     </div>
                                     <div class="row">
-                                        <span class="label">Phone: {{ vehicle.owner.phone }}</span>
+                                        <span class="label">Phone:</span> {{ vehicle.owner.phone }}
                                     </div>
                                 </div>
                             </div>
@@ -117,9 +121,9 @@
                                         <div class="label">
                                             Write a message to the owner:
                                         </div>
-                                        <textarea placeholder="Enter a message or leave it empty"></textarea>
+                                        <textarea placeholder="Enter a message or leave it empty [IN DEVELOPMENT]" disabled></textarea>
                                         <div class="request_btn">
-                                            <input type="submit" value="Send request">
+                                            <input type="submit" value="Send request" disabled>
                                         </div>
                                     </form>
                                 </div>

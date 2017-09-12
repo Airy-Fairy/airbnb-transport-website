@@ -25,7 +25,7 @@ $(window).resize(function() {
     $modal = $('#modal');
     $modalImg = $('#modal-img');
 
-    $('#small-img').click(function() {
+    $('#normal-img').click(function() {
         $modal.show();
         $modalImg.attr('src', this.src);
     });

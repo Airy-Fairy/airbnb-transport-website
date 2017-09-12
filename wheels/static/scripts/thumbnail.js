@@ -36,13 +36,13 @@ function addThumbnail(data, n_columns) {
     }
 
     // Get json data
-    var transportId = data.id;
     var price = data.price;
     var show_name = data.show_name;
     var rating = data.rating;
     var desc = data.desc;
     var reviews = data.reviews;
     var imgName = data.photo;
+    var transportId = data.id;
 
     // Make new thumbnail
     $thumbnail = $('.thumbnail.template').clone().hide();
