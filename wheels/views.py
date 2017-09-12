@@ -27,7 +27,7 @@ def root():
 def index():
 	vehicles = get_top_rated_vehicles(3)
 	for vehicle in vehicles:
-		url_for('upload_vehicle', filename=vehicle['photo'])
+		url_for('upload_vehicle_photo', filename=vehicle['photo'])
 	return render_template('index.html', title='Home')
 
 @wheels.route('/index', methods=['POST'])
@@ -36,7 +36,7 @@ def index_car_review():
 	if current != None:
 		vehicles = get_top_rated_vehicles(current)
 		for vehicle in vehicles:
-			url_for('upload_vehicle', filename=vehicle['photo'])
+			url_for('upload_vehicle_photo', filename=vehicle['photo'])
 		return jsonify(vehicles)
 
 @wheels.route('/help')
@@ -137,7 +137,8 @@ def fill_vehicle_array(vehicles):
 	retarray = []
 	for vehicle in vehicles:
 		retarray.append(\
-			{'show_name':vehicle.show_name, \
+			{'id':vehicle.id,
+			'show_name':vehicle.show_name, \
 			'price':vehicle.price, \
 			'rating':vehicle.rating, \
 			'desc':vehicle.description, \
@@ -169,12 +170,15 @@ def user(nickname, page):
 	return render_template('user/main_page.html',
 			nick=nickname, page_new=page_new)
 
-@wheels.route('/user_profile')
-@login_required
-def user_profile():
-	rate = get_user_rating(current_user)
-	reviews = get_user_reviews(current_user)
+# @wheels.route('/user_profile')
+# @login_required
+@wheels.route('/users/id<id>')
+def user_profile(id):
+	user = User.query.filter_by(id=id).first()
+	rate = get_user_rating(user)
+	reviews = get_user_reviews(user)
 	return render_template('user/profile_page.html',
+							user=user,
 							rating=rate,
 							reviews=reviews)
 
@@ -193,14 +197,12 @@ def get_user_reviews(user):
 		reviews += vehicle.review_count
 	return reviews
 
-#@wheels.route('/vehicle')
-#def vehicle_page():
-#	return redirect(url_for('vehicle', name='link'))
-#
-#@wheels.route('/vehicle/<brand>/<model>+<year>')
-#def vehicle(name):
-#	return render_template('vehicle/main_page.html',
-#							vehicle=name)
+@wheels.route('/vehicles/id<id>')
+def vehicle_profile(id):
+	current = Vehicle.query.filter_by(id=id).first()
+	return render_template('transport_info.html',
+		vehicle=current,
+		rating=int(round(current.rating)))
 
 @wheels.route('/upload_avatar', methods=['POST'])
 @login_required
@@ -239,7 +241,7 @@ def upload_user_avatar(filename):
 	return send_from_directory(default_avatar_path, 'default.jpg')
 
 @wheels.route('/upload/vehicle=<filename>')
-def upload_vehicle(filename):
+def upload_vehicle_photo(filename):
 	if filename != '':
 		# base64 need
 		vehicle = Vehicle.query.filter_by(photo=filename).first()

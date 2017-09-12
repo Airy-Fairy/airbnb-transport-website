@@ -36,6 +36,7 @@ function addThumbnail(data, n_columns) {
     }
 
     // Get json data
+    var transportId = data.id;
     var price = data.price;
     var show_name = data.show_name;
     var rating = data.rating;
@@ -50,6 +51,7 @@ function addThumbnail(data, n_columns) {
     $thumbnail.find('.short-info').text(desc);
     $thumbnail.find('.reviews-count > .number').text(String(reviews));
     $thumbnail.find('img').attr('src', '/upload/vehicle=' + imgName);
+    $thumbnail.find('a').attr('href', '/vehicles/id' + transportId);
 
     var stars = $thumbnail.find('.star-rating').children();
     for (i = 0; i < Math.round(rating); i++) {

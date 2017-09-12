@@ -33,11 +33,11 @@
 			</div>
 			<div class="right-col">
 				<div class="title">
-					Hello, my name is {{ current_user.name }}!
+					Hello, my name is {{ user.name }}!
 				</div>
 				<div class="row">
 					<div class="since">
-						On the website since <span id="#since">{{ current_user.reg_date }}</span>
+						On the website since <span id="#since">{{ user.reg_date }}</span>
 					</div>
 				</div>
 				<div class="row split">
@@ -56,10 +56,10 @@
 					</div>
 				</div>
 				<div class="row">
-					<span class="label">Phone: {{ current_user.phone }}</span>
+					<span class="label">Phone: {{ user.phone }}</span>
 				</div>
 				<div class="row split">
-					<span class="label">Email: {{ current_user.email }}</span>
+					<span class="label">Email: {{ user.email }}</span>
 				</div>
 				<div class="row split">
 					<span class="label">About me:</span> I wanna get my diploma...
@@ -68,6 +68,7 @@
 					<ul class="reviews-list">
 						<!-- Don't show it if you came from 'Your Profile' -->
 						{% include "user/new_review.html" %}
+						<!-- Maybe some template this shit? -->
 						<li>
 							<div class="review template white-back cool-shadow" hidden="hidden">
 								<div class="grid">

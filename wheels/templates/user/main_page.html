@@ -12,8 +12,7 @@
                             <li><a id="photo-link" href="{{ url_for('user', nickname=nick, page='photo') }}" class="inside">Profile Photo</a></li>
                             <li><a id="transport-link" href="{{ url_for('user', nickname=nick, page='transport') }}" class="inside">My Transport</a></li>
                             <li><a id="add_transport-link" href="{{ url_for('user', nickname=nick, page='add_transport') }}" class="inside">Add a New Transport</a></li>
-                            <!-- <li><a id="reviews-link" href="{{ url_for('user', nickname=nick, page='reviews') }}" class="inside">Reviews</a></li> -->
-                            <li><a href="{{ url_for('user_profile') }}" class="outside custom-file-input"></a></li>
+                            <li><a href="{{ url_for('user_profile', id=current_user.id) }}" class="outside custom-file-input"></a></li>
                         </ul>
                     </div>
                 </div>

@@ -1,46 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- extend base layout -->
+{% extends "base.html" %}
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="../../styles/main.css">
-        <link rel="stylesheet" href="../../styles/font-awesome-4.7.0/css/font-awesome.min.css">
-        <title>Transport Profile</title>
-    </head>
-
-    <body>
+{% block content %}
         <div class="transport-profile">
             <div class="bunch-of-photos">
-                <img class="cover" src="../../imgs/cars/911.jpg" alt="911">
+                <img class="cover" src="{{ url_for('upload_vehicle_photo', filename=vehicle.photo) }}" alt="911">
             </div>
             <div class="title">
                 <div class="content">
                     <div class="name">
-                        <div class="label">Porsche 911</div>
+                        <div class="label">{{ vehicle.show_name }}</div>
                         <div class="under-label">
-                            <div class="short-info">Short description</div>
-                            <div class="rating">
-                                <div class="star-rating">
-                                    <label class="fa fa-star" aria-hidden="true"></label>
-                                    <label class="fa fa-star" aria-hidden="true"></label>
-                                    <label class="fa fa-star" aria-hidden="true"></label>
-                                    <label class="fa fa-star" aria-hidden="true"></label>
-                                    <label class="fa fa-star" aria-hidden="true"></label>
-                                </div>
-                                <div class="reviews-count">
-                                    # reviews
-                                </div>
+                            <div class="short-info">#SUDA_NADO_TEXT</div>
+                        <div class="rating">
+                            <div class="star-rating">
+                            {% for i in range(rating) %}
+                                <label class="fa fa-star" aria-hidden="true"></label>
+                            {% endfor %}
+                            {% for i in range(5 - rating) %}
+                                <label class="fa fa-star-o" aria-hidden="true"></label>
+                            {% endfor %}
                             </div>
+                            <div class="reviews-count">
+                                {{ vehicle.review_count }} reviews
+                            </div>
+                        </div>
                         </div>
                     </div>
                     <div class="owner">
-                        <a href="#">
+                        <a href="{{ url_for('user_profile', id=vehicle.owner.id) }}">
                             <div class="photo">
-                                <img class="cover round" src="../../imgs/luffy.png" alt="User Photo is here">
+                                <img class="cover round" src="{{ url_for('upload_user_avatar', filename=vehicle.owner.avatar) }}" alt="User Photo is here">
                             </div>
-                            <div class="user-name">User</div>
+                            <div class="user-name">{{ vehicle.owner.name }}</div>
                         </a>
                     </div>
                 </div>
@@ -50,13 +42,13 @@
                     <div class="description">
                         <div class="col-1-2">
                             <div class="row">
-                                <span class="label">Brand:</span>
+                                <span class="label">Brand: {{ vehicle.brand }}</span>
                             </div>
                             <div class="row">
-                                <span class="label">Model:</span>
+                                <span class="label">Model: {{ vehicle.model }}</span>
                             </div>
                             <div class="row">
-                                <span class="label">Year of Manufacture:</span>
+                                <span class="label">Year of Manufacture: {{ vehicle.year }}</span>
                             </div>
                             <div class="row">
                                 <span class="label">Haulage (usage):</span>
@@ -68,7 +60,7 @@
                                 <span class="label">Number of Seats:</span>
                             </div>
                             <div class="row">
-                                <span class="label">Colour:</span>
+                                <span class="label">Color:</span>
                             </div>
                         </div>
                         <div class="col-1-2">
@@ -102,20 +94,20 @@
                         </address>
                     </div>
                     <div class="owner-notation">
-                        Porsche 911 (нем. Neunelfer) — спортивный автомобиль производства немецкой компании Porsche AG в кузове двухдверное купе или кабриолет на его основе, в разных поколениях производящегося с 1964 года по наши дни.
+                        {{ vehicle.description }}
                     </div>
                     <div class="request-form">
                         <div class="panel-container">
                             <div class="panel-head">
-                                <span class="number">666$</span> per day
+                                <span class="number">${{ vehicle.price }} </span> per day
                             </div>
                             <div class="panel-line">
                                 <div class="contacts">
                                     <div class="row">
-                                        <span class="label">Email:</span>
+                                        <span class="label">Email: {{ vehicle.owner.email }}</span>
                                     </div>
                                     <div class="row">
-                                        <span class="label">Phone:</span>
+                                        <span class="label">Phone: {{ vehicle.owner.phone }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +129,5 @@
                 </div>
             </div>
         </div>
-
-    </body>
-
-</html>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/image.js') }}"></script>
+{% endblock %}
