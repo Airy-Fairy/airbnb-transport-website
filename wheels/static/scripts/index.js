@@ -6,20 +6,20 @@ var current = 0;
  */
 $( document ).ready(function() {
     $('.nav-search-block').hide();
-
-    $.post(
-        '/index',
-        {
-            current: current
-        },
-        handleResults
-    );
+    getMoreCarsPost();
 });
 
 /**
  * Request next top 6 vehicles from server
  */
 $('#get-more').click(function() {
+    getMoreCarsPost();
+});
+
+/**
+ * Post request to get more cars
+ */
+function getMoreCarsPost() {
     $.post(
         '/index',
         {
@@ -27,7 +27,7 @@ $('#get-more').click(function() {
         },
         handleResults
     );
-});
+}
 
 /**
  * Handles post request
@@ -48,8 +48,9 @@ function handleResults(data) {
  */
 function fillPreview(dataset) {
     for (var index in dataset) {
-        add_thumbnail(dataset[index], n_columns=3);
+        addThumbnail(dataset[index], n_columns=3);
     }
+    marginFix();
 }
 
 $('#huge-search').click(function() {

@@ -698,7 +698,9 @@ input[type="checkbox"]:checked:after {
     padding: 0;
 }
 
-.user-settings-form textarea {
+.user-settings-form textarea,
+.new-transport-form textarea {
+    /*font-size: 16px;*/
     min-height: 100px;
     width: 100%;
     resize: vertical;
@@ -771,13 +773,9 @@ input[type="checkbox"]:checked:after {
  *
  */
 
-/*.new-transport-form {
-    width: 40%;
-}*/
-
 .form-row {
-    margin: 10px auto;
     display: flex;
+    margin: 10px auto;
 }
 
 .form-row label {
@@ -786,16 +784,15 @@ input[type="checkbox"]:checked:after {
 }
 
 .form-row .elem {
-    width: 65%;
     display: block;
+    width: 65%;
 }
 
 .form-row input[type="text"],
 .form-row input[type="email"],
 .form-row input[type="tel"] {
-    width: 100%;
     line-height: 20px;
-    /*text-align: center;*/
+    width: 100%;
 }
 
 .form-row input[id="rental-price"] {
@@ -807,8 +804,8 @@ input[type="checkbox"]:checked:after {
 }
 
 .new-transport-form .form-row select {
-    width: 50%;
     height: 100%;
+    width: 50%;
 }
 
 .new-transport-form .form-row label.photo {
@@ -822,19 +819,19 @@ input[type="checkbox"]:checked:after {
 
 .new-transport-form input[type="submit"],
 .user-settings-form input[type="submit"] {
-    width: 100%;
     height: 60px;
+    width: 100%;
 }
 
 input[type="file"] {
-    width: 100%;
     height: 100%;
+    width: 100%;
 }
 
 .custom-file-input {
+    position: relative;
     visibility: hidden;
     width: 0;
-    position: relative;
 }
 .custom-file-input::before {
     text-align: center;
@@ -947,22 +944,21 @@ input[type="file"] {
  */
 
 .search-results {
-    width: 100%;
-    min-width: 500px;
+    margin-top: 25px;
     max-width: 1000px;
     min-height: 600px;
-    margin-top: 25px;
+    min-width: 500px;
+    width: 100%;
 }
 
 .search-results .grid {
-    /*width: 100%;*/
     display: block;
 }
 
 .search-results .row {
     display: flex;
-    min-height: 200px;
     max-height: 300px;
+    min-height: 200px;
 }
 
 /* Google Maps style */
@@ -1027,22 +1023,22 @@ input[type="file"] {
 }
 
 .bunch-of-photos {
-    width: 100%;
     height: 300px;
+    width: 100%;
 }
 
 /* Transport Title */
 
 .transport-profile .title {
-    width: 70%;
+    border-bottom: 1px solid lightgray;
     margin-top: 20px;
     padding: 10px;
-    border-bottom: 1px solid lightgray;
+    width: 70%;
 }
 
 .transport-profile .title .content {
-    width: 100%;
     display: flex;
+    width: 100%;
 }
 
 .transport-profile .title .name {
@@ -1064,10 +1060,10 @@ input[type="file"] {
 }
 
 .transport-profile .title .short-info {
-    font-size: 20px;
-    opacity: 0.7;
     float: left;
+    font-size: 20px;
     margin-right: 15px;
+    opacity: 0.7;
 }
 
 /*.transport-profile .reviews {*/
@@ -1078,9 +1074,9 @@ input[type="file"] {
 }
 
 .transport-profile .owner .photo {
-    width: 70%;
     height: 70%;
     margin-bottom: 10px;
+    width: 70%;
 }
 
 .transport-profile .owner a {
@@ -1108,8 +1104,8 @@ input[type="file"] {
 
 .transport-profile .info .description {
     border-bottom: 1px solid lightgray;
-    padding: 10px;
     display: flex;
+    padding: 10px;
 }
 
 .transport-profile .row {
@@ -1147,15 +1143,15 @@ input[type="file"] {
 }
 
 .transport-profile .request-form .message .label {
-    opacity: 0.7;
     margin-bottom: 10px;
+    opacity: 0.7;
 }
 
 .transport-profile .request-form .message textarea {
     font-size: 14px;
-    width: 100%;
     height: 100px;
     resize: none;
+    width: 100%;
 }
 
 .transport-profile .request-form .request_btn {
@@ -1163,8 +1159,8 @@ input[type="file"] {
 }
 
 .transport-profile .request-form .request_btn input {
-    width: 100%;
     line-height: 40px;
+    width: 100%;
 }
 
 /*
@@ -1174,10 +1170,10 @@ input[type="file"] {
  */
 
 .profile-page {
-    width: 70%;
-    min-width: 700px;
-    max-width: 900px;
     margin-top: 25px;
+    max-width: 900px;
+    min-width: 700px;
+    width: 70%;
 }
 
 /*.profile-page .grid {
@@ -1199,8 +1195,8 @@ input[type="file"] {
 }
 
 .profile-page .left-col a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
 }
 .profile-page .left-col a:hover {
     color: darkcyan;
@@ -1229,7 +1225,7 @@ input[type="file"] {
     text-align: justify;
 }
 
-.profile-page .right-col .row.split {
+.profile-page .split {
     border-bottom: 1px solid lightgray;
     padding-bottom: 10px;
 }
@@ -1247,17 +1243,14 @@ input[type="file"] {
  */
 
 .review {
-    /*display: none;*/
-    width: 100%;
-    height: 100%;
     border: 1px solid lightgray;
+    height: 100%;
     padding: 10px;
+    width: 100%;
 }
 
 .review .grid {
     height: inherit;
-    /*min-height: 130px;
-    max-height: 200px;*/
 }
 
 .review .left-col {
@@ -1269,14 +1262,8 @@ input[type="file"] {
 }
 
 .review .left-col .image {
-    /*width: 100px;
-    height: 100px;*/
     margin-bottom: 0;
 }
-
-/*.review .left-col .image img {
-    border-radius: 50%;
-}*/
 
 .review .left-col .user-name {
     padding-top: 10px;
@@ -1328,10 +1315,6 @@ input[type="file"] {
 
 .reviews-list li {
     margin-bottom: 10px;
-}
-
-.reviews-list .review.template {
-    display: none;
 }
 
 .new-review {

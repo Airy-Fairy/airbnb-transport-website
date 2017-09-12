@@ -45,6 +45,7 @@ function handleResults(data) {
  */
 function appendResults(dataset) {
     for (var index in dataset) {
-        add_thumbnail(dataset[index], n_columns=2);
+        addThumbnail(dataset[index], n_columns=2);
     }
+    marginFix();
 }

@@ -19,7 +19,6 @@
                             <div class="elem">
                                 <select id="transport-brand" required>
                                     <option value="">...</option>
-                                    <!-- Generated based on type -->
                                 </select>
                             </div>
                         </div>
@@ -28,7 +27,6 @@
                             <div class="elem">
                                 <select id="transport-model" required>
                                     <option value="">...</option>
-                                    <!-- Generated based on brand -->
                                 </select>
                             </div>
                         </div>
@@ -47,6 +45,12 @@
                                 <input type="text" id="rental-price" required>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <label for="description">Description</label>
+                            <div class="elem">
+                                <textarea id="description" placeholder="Tell us about your transport in 256 symbols" required></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-line">
                         <div class="form-row">
@@ -55,9 +59,13 @@
                                 <input type="file" accept="image/*" class="custom-file-input" id="transport-photo" capture="camera" required>
                             </div>
                         </div>
+                        <div class="save-transport-btn">
+                            <input type="submit" id="new-transport-btn" value="Save">
+                        </div>
                     </div>
+
                 </div>
-                <div class="panel-container">
+                <!-- <div class="panel-container">
                     <div class="panel-head">Additional</div>
                     <div class="panel-line">
                         <div class="form-row">
@@ -82,7 +90,7 @@
                             <input type="submit" id="new-transport-btn" value="Save">
                         </div>
                     </div>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>

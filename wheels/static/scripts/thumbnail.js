@@ -2,7 +2,7 @@
  * Adds one vehicle thumbnail to the preview
  * @param {json} data One vehicle data in json
  */
-function add_thumbnail(data, n_columns) {
+function addThumbnail(data, n_columns) {
     $grid = $('.grid');
     var last_row;
     var i;
@@ -44,7 +44,7 @@ function add_thumbnail(data, n_columns) {
     var imgName = data.photo;
 
     // Make new thumbnail
-    $thumbnail = $('.thumbnail.template').clone();
+    $thumbnail = $('.thumbnail.template').clone().hide();
     $thumbnail.removeClass('template');
     $thumbnail.find('.label').text('$' + price + '  ' + show_name);
     $thumbnail.find('.short-info').text(desc);
@@ -59,8 +59,33 @@ function add_thumbnail(data, n_columns) {
 
     $(last_col).append($thumbnail);
     $thumbnail.prop('hidden', false);
+    $thumbnail.fadeIn("slow");
 }
 
 $('#huge-search').click(function() {
     $('.detailed-search').fadeIn();
 });
+
+/**
+ * Applies marginFix on resize event
+ */
+$(window).resize(function() {
+    marginFix();
+});
+
+/**
+ * Fixes
+ * @return {[type]} [description]
+ */
+function marginFix() {
+    $labels = $('.label').slice(0, $('.label').length - 1);
+    var labelsHeight = parseInt($labels.css('height').replace('px', ''));
+    for (var i = 0; i < $labels.length; i++) {
+        if (labelsHeight < $labels[i].getClientRects()[0].height) {
+            $($labels).parents('.col-1-3').stop().animate({'marginBottom': '+40px'}, 1000);
+            marginChanged = true;
+            return;
+        }
+    }
+    $($labels).parents('.col-1-3').stop().animate({'marginBottom': '10px'}, 1000);
+}
