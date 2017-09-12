@@ -3,11 +3,9 @@
  * On document loading
  */
 $( document ).ready(function() {
-    // Show search bar in header
-    $('.nav-search-block').show();
-
     // Changes current link style
-    var currentPage = document.URL.split('%3F').pop();
+    var currentURL = document.URL;
+    var currentPage = currentURL.match(/%3F(\w+)/)[1];
     var currentLink = '#' + currentPage + '-link';
     $(currentLink).addClass('current-link');
 
@@ -17,5 +15,18 @@ $( document ).ready(function() {
         $('#day').val(parseInt(birthDay[2]) - 1);
         $('#month').val(parseInt(birthDay[1]) - 1);
         $('#year').val(parseInt(birthDay[0]) - 1900);
+    }
+});
+
+
+$('#transport-photo').change(function() {
+    $('.no-photo').hide();
+});
+
+$('#new-transport-btn, #upload-photo-btn').click(function() {
+    if ($('#transport-photo').val() | $('#upload-photo-btn').val()) {
+        this.submit();
+    } else {
+        $('.no-photo').show();
     }
 });

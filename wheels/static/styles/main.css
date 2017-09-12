@@ -679,7 +679,7 @@ input[type="checkbox"]:checked:after {
 }
 
 .user-settings-form select[id="gender"] {
-    width: 35%;
+    width: 40%;
 }
 
 .user-settings-form select[id="currency"] {
@@ -852,6 +852,10 @@ input[type="file"] {
 
 .new-transport-form .custom-file-input::before {
     content: 'Upload your transport photo';
+}
+
+.new-transport-form .no-photo {
+    text-align: center;
 }
 
 .save-transport-btn {

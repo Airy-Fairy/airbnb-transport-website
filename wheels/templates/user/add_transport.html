@@ -1,6 +1,6 @@
     <div class="user-page-container">
         <div class="new-transport-form">
-            <form action="">
+            <form action="" method="post">
                 <div class="panel-container">
                     <div class="panel-head">Required</div>
                     <div class="panel-line">
@@ -42,13 +42,13 @@
                         <div class="form-row">
                             <label for="rental-price">Rental Price (a day)</label>
                             <div class="elem">
-                                <input type="text" id="rental-price" required>
+                                <input type="text" id="rental-price" maxlength="5" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="description">Description</label>
                             <div class="elem">
-                                <textarea id="description" placeholder="Tell us about your transport in 256 symbols" required></textarea>
+                                <textarea id="description" maxlength="256" placeholder="Tell us about your transport in 256 symbols" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -59,6 +59,9 @@
                                 <input type="file" accept="image/*" class="custom-file-input" id="transport-photo" capture="camera" required>
                             </div>
                         </div>
+                        <div class="no-photo" hidden="hidden">
+                    	   <span class="error-msg">You must load a photo!</span>
+                    	</div>
                         <div class="save-transport-btn">
                             <input type="submit" id="new-transport-btn" value="Save">
                         </div>

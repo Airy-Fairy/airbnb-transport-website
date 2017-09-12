@@ -66,3 +66,15 @@ $('#search-form').submit(function() {
 
     return true;
 });
+
+
+/**
+ * Show search bar in navigation panel
+ * if it's not /index or /search
+ */
+$(document).ready(function() {
+    var url = document.URL.split('/').pop().slice(0, 6);
+    if (url != 'index' && url != 'search') {
+        $('.nav-search-block').show();
+    }
+});

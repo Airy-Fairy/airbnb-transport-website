@@ -4,8 +4,7 @@ var current = 0;
 /**
  * Requests top 3 vehicles from server
  */
-$( document ).ready(function() {
-    $('.nav-search-block').hide();
+$(document).ready(function() {
     getMoreCarsPost();
 });
 
