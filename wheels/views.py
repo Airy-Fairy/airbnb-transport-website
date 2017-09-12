@@ -158,7 +158,7 @@ def get_top_rated_vehicles(current):
 
 @wheels.route('/user')
 @login_required
-def user_page():
+def user_menu():
 	user = current_user.email.split('@')
 	return redirect(url_for('user', nickname=user[0], page='settings'))
 
@@ -167,9 +167,31 @@ def user_page():
 def user(nickname, page):
 	page_new = 'user/' + page + '.html'
 	return render_template('user/main_page.html',
-					 title='User page',
-					 nick=nickname,
-					 page_new=page_new)
+			nick=nickname, page_new=page_new)
+
+@wheels.route('/user_profile')
+@login_required
+def user_profile():
+	rate = get_user_rating(current_user)
+	reviews = get_user_reviews(current_user)
+	return render_template('user/profile_page.html',
+							rating=rate,
+							reviews=reviews)
+
+def get_user_rating(user):
+	vehicles = Vehicle.query.filter_by(owner=user).all()
+	rate = 0.0
+	for vehicle in vehicles:
+		rate += vehicle.rating
+	rate /= float(len(vehicles))
+	return int(round(rate))
+
+def get_user_reviews(user):
+	vehicles = Vehicle.query.filter_by(owner=user).all()
+	reviews = 0
+	for vehicle in vehicles:
+		reviews += vehicle.review_count
+	return reviews
 
 #@wheels.route('/vehicle')
 #def vehicle_page():

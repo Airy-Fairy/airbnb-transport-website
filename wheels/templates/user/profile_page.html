@@ -1,8 +1,12 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
 	<div class="profile-page">
 		<div class="grid">
 			<div class="left-col">
 				<div class="image">
-					<img class="cover square" src="{{ url_for('static', filename='imgs/luffy.png') }}" alt="Luffy">
+					<img class="cover square" src="{{ url_for('upload_user_avatar', filename=current_user.avatar) }}" alt="Luffy">
 				</div>
 				<div class="transport-info">
 					<div class="panel-container">
@@ -29,35 +33,36 @@
 			</div>
 			<div class="right-col">
 				<div class="title">
-					Hello, my name is Luffy!
+					Hello, my name is {{ current_user.name }}!
 				</div>
 				<div class="row">
 					<div class="since">
-						On the website since <span id="#since">[Registration date]</span>
+						On the website since <span id="#since">{{ current_user.reg_date }}</span>
 					</div>
 				</div>
 				<div class="row split">
 					<div class="rating">
 						<div class="star-rating">
-							<label class="fa fa-star" aria-hidden="true"></label>
-							<label class="fa fa-star" aria-hidden="true"></label>
-							<label class="fa fa-star" aria-hidden="true"></label>
-							<label class="fa fa-star" aria-hidden="true"></label>
-							<label class="fa fa-star" aria-hidden="true"></label>
+							{% for i in range(rating) %}
+								<label class="fa fa-star" aria-hidden="true"></label>
+							{% endfor %}
+							{% for i in range(5 - rating) %}
+								<label class="fa fa-star-o" aria-hidden="true"></label>
+							{% endfor %}
 						</div>
 						<div class="reviews-count">
-							# reviews
+							{{ reviews }} reviews
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<span class="label">Phone:</span>
+					<span class="label">Phone: {{ current_user.phone }}</span>
 				</div>
 				<div class="row split">
-					<span class="label">Email:</span>
+					<span class="label">Email: {{ current_user.email }}</span>
 				</div>
 				<div class="row split">
-					<span class="label">About me:</span> I'm gonna be king of the pirates!
+					<span class="label">About me:</span> I wanna get my diploma...
 				</div>
 				<div class="row">
 					<ul class="reviews-list">
@@ -66,7 +71,7 @@
 								<div class="grid">
 									<div class="left-col">
 										<div class="image"></div>
-										<img class="cover round square" src="../../imgs/zoro.png" alt="user-picture">
+										<img class="cover round square" src="{{ url_for('static', filename='imgs/lil_zeg.jpg') }}" alt="user-picture">
 									</div>
 									<div class="right-col">
 										<form class="" action="" method="">
@@ -115,7 +120,7 @@
 								<div class="grid">
 									<div class="left-col">
 										<div class="image">
-											<img class="cover round square" src="../../imgs/sanji.png" alt="Luffy">
+											<img class="cover round square" src="{{ url_for('static', filename='imgs/sanji.png') }}" alt="Luffy">
 										</div>
 										<div class="user-name">Sanji</div>
 									</div>
@@ -146,3 +151,5 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/image.js') }}"></script>
+{% endblock %}

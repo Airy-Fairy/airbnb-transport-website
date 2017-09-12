@@ -47,7 +47,7 @@
                     </li>
                     {% if current_user.is_authenticated %}
                         <li>
-                            <a href="{{ url_for('user_page') }}" id="your-profile">Your Profile</a>
+                            <a href="{{ url_for('user_menu') }}" id="your-profile">Your Profile</a>
                         </li>
                         <li>
                             <a href="{{ url_for('logout') }}" id="sign-out">Sign out</a>
@@ -96,119 +96,11 @@
                 </ul>
             </div>
         </footer>
-        <!-- POPUP sign in form -->
-        <div class="popup signin-form">
-            <div class="close-block">
-                <a href="" class="close signin"></a> <!-- Make fucking decorator -->
-            </div>
-            <form action="/login" method="post">
-                <div class="signin-creds">
-                    <input type="email" name="email" placeholder="Your Email" required><br>
-                    <input type="password" name="password" placeholder="Your Password" required><br>
-                </div>
-                <div class="rememberme-forgotpasswd">
-                    <div class="rememberme">
-                        <input type="checkbox" name="remember"> Remember me
-                    </div>
-                    <div class="forgotpasswd">
-                        <a class="colored-link" href="pages/templates/password_recovery.html" id="forgotpasswd">Forgot your password?</a> <!-- Make fucking decorator -->
-                    </div>
-                </div>
-                <div class="signin-btn">
-                    <input type="submit" name="signin-btn" value="Sign in">
-                </div>
-            </form>
-            <hr>
-            <div class="no-account">
-                <div class="left">
-                    Don't have an account?
-                </div>
-                <a id="go-signup" class="go-signup" href="">Sign up</a> <!-- Make fucking decorator -->
-            </div>
-        </div>
-        <!-- Password Recovery Popup -->
-        <div class="popup passwd-recovery">
-            <div class="close-block">
-                <a href="" class="close passwd"></a> <!-- Make fucking decorator -->
-            </div>
-            <div class="hdr">
-                <h3>Password Recovery</h3>
-            </div>
-            <div class="msg">
-                <p>Enter the email address associated with your account, and we’ll email you a link to reset your password.</p>
-            </div>
-            <form action="">
-                <div class="email-input" required>
-                    <input type="email" id="recovery_email" placeholder="Your Email" required>
-                </div>
-                <input type="submit" value="Send Reset Link">
-            </form>
-        </div>
-        <!-- POPUP sign up form -->
-        <div class="popup signup-form">
-            <div class="close-block">
-                <a href="" class="close signup"></a> <!-- Make fucking decorator -->
-            </div>
-            <form id="signup-form" action="/sign_up" method="post">
-                <div class="signup-creds">
-                    <input type="email" name="email" id="email" placeholder="Your Email" required><br>
-                    <input type="tel" name="phone" id="phone" placeholder="Your Phone Number (format: xxx-xxx-xxxx)" pattern="^\d{3}-\d{3}-\d{4}$" required><br>
-                    <input type="text" name="name" id="name" placeholder="Your First Name" required><br>
-                    <input type="text" name="surname" id="surname" placeholder="Your Last Name" required><br>
-                    <input type="password" name="password" id="password" placeholder="Password" required><br>
-                    <input type="password" id="confirm_password" placeholder="Confirm password" required>
-                </div>
-                <div class="no_match">
-                    <span id="no_match_msg" class="error-msg" hidden="hidden">Passwords don't match!</span>
-                </div>
-                <div class="birthday">
-                    <p>Your Birthday</p>
-                    <select name="bd_month" id="month" required>
-                            <option value="">Month</option>
-                            <option value="0">January</option>
-                            <option value="1">February</option>
-                            <option value="2">March</option>
-                            <option value="3">April</option>
-                            <option value="4">May</option>
-                            <option value="5">June</option>
-                            <option value="6">July</option>
-                            <option value="7">August</option>
-                            <option value="8">September</option>
-                            <option value="9">October</option>
-                            <option value="10">November</option>
-                            <option value="11">December</option>
-                        </select>
-                    <select name="bd_day" id="day" required>
-                            <option value="">Day</option>
-                        </select>
-                    <select name="bd_year" id="year" required>
-                            <option value="">Year</option>=
-                        </select>
-                </div>
-                <div class="birthday_error">
-                    <span id="birthday_error_msg" class="error-msg" hidden="hidden">Wrong birthday date!</span>
-                </div>
-                <div class="checkboxes">
-                    <p>
-                        <input type="checkbox" id="terms-of-use"> I agree to the
-                        <a class="colored-link" href="{{ url_for('terms_of_use') }}">Terms of Use</a>.
-                    </p>
-                    <p>
-                        <input type="checkbox" id="spam"> I wanna get a bunch of spam from Sharing Wheels everyday!
-                    </p>
-                </div>
-                <div class="signup-btn">
-                    <input type="submit" id="signup-btn" value="Sign up">
-                </div>
-                <hr>
-                <div class="account-exists">
-                    <div class="left">
-                        Already have an account?
-                    </div>
-                    <a class="go-signin" id="go-signin" href="">Sign in</a> <!-- Make fucking decorator -->
-                </div>
-            </form>
-        </div>
+        {% if not current_user.is_authenticated %}
+            {% include "popup-forms/sign_up.html" %}
+            {% include "popup-forms/sign_in.html" %}
+            {% include "popup-forms/password_recovery.html" %}
+        {% endif %}
         <!-- Dark screen overlay -->
         <div class="dark-screen"></div>
         <!-- Scripts -->

@@ -6,9 +6,9 @@
                     <div class="photo-upload-block">
                         <div class="image">
                         {% if not current_user.avatar %}
-                            <img class="cover round" src="{{ url_for('upload_user_avatar', upload_type=0, filename='default.jpg') }}">
+                            <img class="cover round" src="{{ url_for('upload_user_avatar', filename='default.jpg') }}">
                         {% else %}
-                            <img class="cover round" src="{{ url_for('upload_user_avatar', upload_type=0, filename=current_user.avatar) }}">
+                            <img class="cover round" src="{{ url_for('upload_user_avatar', filename=current_user.avatar) }}">
                         {% endif %}
                         </div>
                         <form class="upload-form" action="/upload_avatar" method="post" enctype="multipart/form-data">
