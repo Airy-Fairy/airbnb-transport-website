@@ -735,10 +735,6 @@ input[type="checkbox"]:checked:after {
     width: 50%;
 }
 
-/*.user-photo-container .image img {
-    border-radius: 50%;
-}*/
-
 .user-photo-container .upload-form {
     width: 50%;
     display: block;
@@ -1088,10 +1084,6 @@ input[type="file"] {
     text-decoration: none;
 }
 
-/*.transport-profile .owner .photo img {
-    border-radius: 50%;
-}*/
-
 .transport-profile .owner .user-name {
     text-align: center;
 }
@@ -1180,11 +1172,6 @@ input[type="file"] {
     width: 70%;
 }
 
-/*.profile-page .grid {
-    width: 100%;
-    display: flex;
-}*/
-
 .profile-page .left-col {
     margin-right: 10px;
 }
@@ -1238,6 +1225,19 @@ input[type="file"] {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
+}
+
+.profile-page .arrow-block {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.profile-page .arrow-btn {
+    border: 1px solid lightgray;
+    height: 50px;
+    margin: auto;
+    padding: 10px;
+    width: 100px;
 }
 
 /*
