@@ -11,6 +11,7 @@ function squareImages() {
 // Crop images when document is ready
 $(document).ready(function() {
     squareImages();
+    modalImages();
 });
 
 // On window resize images have to stay square
@@ -21,11 +22,11 @@ $(window).resize(function() {
 /**
  * Displays modal image
  */
-(function modalImages() {
-    $modal = $('#modal');
-    $modalImg = $('#modal-img');
+function modalImages() {
+    $modal = $('.modal');
+    $modalImg = $('.modal-img');
 
-    $('#normal-img').click(function() {
+    $('.normal-img').click(function() {
         $modal.show();
         $modalImg.attr('src', this.src);
     });
@@ -33,4 +34,4 @@ $(window).resize(function() {
     $('.dark-screen').click(function() {
         $modal.hide();
     });
-}());
+}

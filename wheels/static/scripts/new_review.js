@@ -6,20 +6,20 @@
 
  // Shows 'Add review' and 'Cancel' buttons on focus
  $('.new-review .right-col .message').focusin(function() {
-     $('.new-review .add').show();
+     $('.new-review .add').slideDown();
  });
 
  // Hides 'Add review' and 'Cancel' buttons on 'Cancel' click
- $('.new-review .add input#cancel-button').on('click', function() {
-     $('.new-review .add').hide();
+ $('#cancel-button').click(function() {
+     event.preventDefault();
+     $('.new-review .add').slideUp();
  });
 
- // Adds new review on 'Add review' click
- // TODO: rating, image, username
- $('.new-review .add input#add-button').on('click', function(event) {
-
-     event.preventDefault();
-
+/**
+ * Adds new review on 'Add review' click
+ */
+ // $('.new-review .add input#add-button').on('click', function(event) {
+function addReview() {
      var chosenTransport = $('#choose-user-transport option:selected').text();
      var message = $('#message').val();
      var rating = $('.rating-choice .star-rating input:checked').val();
@@ -55,7 +55,7 @@
      $('<li>' + $newReview[0].outerHTML + '</li>').insertAfter('ul.reviews-list>li:first-of-type');
 
      // Clear form
-     $('#choose-user-transport').val('');
-     $('#message').val('');
-     $('.rating-choice .star-rating input:checked').prop('checked', false);
- });
+    //  $('#choose-user-transport').val('');
+    //  $('#message').val('');
+    //  $('.rating-choice .star-rating input:checked').prop('checked', false);
+ }

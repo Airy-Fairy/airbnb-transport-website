@@ -51,8 +51,6 @@ function addMyTransport(data) {
     $transportList = $('ul.my-transport-list');
     $transportList.append('<li>' + $tranportTemplate[0].outerHTML + '</li>');
     $transportList.children('li').children().fadeIn("fast", function() {
-        // TODO: do it for a one car!
         squareImages();
-        modalImages();
     });
 }

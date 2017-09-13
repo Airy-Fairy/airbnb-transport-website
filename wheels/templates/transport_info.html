@@ -4,11 +4,11 @@
 {% block content %}
         <div class="transport-profile">
             <div class="bunch-of-photos">
-                <img class="cover clickable" id="normal-img" src="{{ url_for('upload_vehicle_photo', vid=vehicle.id, filename=vehicle.photo) }}" alt="No image found">
+                <img class="cover clickable normal-img" src="{{ url_for('upload_vehicle_photo', vid=vehicle.id, filename=vehicle.photo) }}" alt="No image found">
             </div>
             <!-- Modal image -->
-            <div class="dark-screen" id="modal">
-                <img class="modal-content" id="modal-img">
+            <div class="dark-screen modal">
+                <img class="modal-content modal-img">
             </div>
             <div class="title">
                 <div class="content">

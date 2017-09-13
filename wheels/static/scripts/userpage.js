@@ -5,16 +5,20 @@
 $( document ).ready(function() {
     // Changes current link style
     var currentURL = document.URL;
-    var currentPage = currentURL.match(/%3F(\w+)/)[1];
-    var currentLink = '#' + currentPage + '-link';
-    $(currentLink).addClass('current-link');
+    var match =  currentURL.match(/%3F(\w+)/);
+    var currentPage;
+    if (match !== undefined) {
+        currentPage = match[1];
+        currentLink = '#' + currentPage + '-link';
+        $(currentLink).addClass('current-link');
 
-    // Birthday handling
-    if (currentPage == 'settings') {
-        var birthDay = $('.birthday').data('birthday').split('-');
-        $('#day').val(parseInt(birthDay[2]) - 1);
-        $('#month').val(parseInt(birthDay[1]) - 1);
-        $('#year').val(parseInt(birthDay[0]) - 1900);
+        // Birthday handling
+        if (currentPage == 'settings') {
+            var birthDay = $('.birthday').data('birthday').split('-');
+            $('#day').val(parseInt(birthDay[2]) - 1);
+            $('#month').val(parseInt(birthDay[1]) - 1);
+            $('#year').val(parseInt(birthDay[0]) - 1900);
+        }
     }
 });
 
