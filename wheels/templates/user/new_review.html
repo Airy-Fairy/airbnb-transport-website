@@ -7,13 +7,13 @@
             </div>
             <div class="right-col">
             <!-- Add post request for database updating -->
-                <form action="" method="">
+                <form class="" action="/add_review" method="post">
                     <div class="transport-choice">
                         <span class="label">Choose transport:</span>
-                        <select id="choose-user-transport">
+                        <select name="choose_transport" id="choose-user-transport">
                             <option value="">...</option>
                             {% for i in range(vehicles|length) %}
-                                <option value="{{ i }}">{{ vehicles[i][1] }}</option>
+                                <option value="{{ vehicles[i][0] }}">{{ vehicles[i][1] }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="message">
-                        <textarea id="message" name="text" placeholder="Write your review here..."></textarea>
+                        <textarea name="text_review" id="message" placeholder="Write your review here..."></textarea>
                     </div>
                     <div class="add">
                     <!-- Cancel POST request??? -->

@@ -3,7 +3,7 @@ import json
 from random import uniform, randint
 from datetime import datetime, date
 from wheels import db
-from wheels.models import User, Vehicle, db_whoosh
+from wheels.models import User, Vehicle, Review, db_whoosh
 
 def init_user_db():
 	db.drop_all()
@@ -40,6 +40,15 @@ def init_user_db():
 			print v.show_name, v.price, v.rating
 			db.session.add(v)
 		db.session.commit()
+
+	the_review = Review(rating=1,
+						text='sample review',
+						timestamp=datetime.utcnow(),
+						uid=1, ownid=1, vid=1)
+	db.session.add(the_review)
+	db.session.commit()
+	db.session.delete(the_review)
+	db.session.commit()
 
 if __name__ == "__main__":
 	if len(sys.argv) > 1:

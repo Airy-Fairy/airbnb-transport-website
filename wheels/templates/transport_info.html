@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="owner">
-                        <a href="{{ url_for('user_profile', id=vehicle.owner.id) }}">
+                        <a href="{{ url_for('user_profile', uid=vehicle.owner.id) }}">
                             <div class="photo">
                                 <img class="cover round" src="{{ url_for('upload_user_avatar', uid=vehicle.owner.id, filename=vehicle.owner.avatar) }}" alt="User Photo is here">
                             </div>
