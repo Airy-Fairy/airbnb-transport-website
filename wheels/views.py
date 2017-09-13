@@ -2,12 +2,12 @@ from __future__ import print_function
 from wheels import wheels, login_manager, db, \
 				   ALLOWED_EXTENSIONS, default_avatar_path
 from flask import render_template, redirect, url_for, request, flash, \
-				  jsonify, send_from_directory
+				  jsonify, send_from_directory, abort
 from flask_login import login_user, logout_user, \
 						login_required, current_user
 from werkzeug.utils import secure_filename
 from models import User, Vehicle
-from datetime import date
+from datetime import date, datetime
 import json, os
 
 # tests only
@@ -27,7 +27,7 @@ def root():
 def index():
 	vehicles = get_top_rated_vehicles(3)
 	for vehicle in vehicles:
-		url_for('upload_vehicle_photo', filename=vehicle['photo'])
+		url_for('upload_vehicle_photo', vid=vehicle['id'], filename=vehicle['photo'])
 	return render_template('index.html', title='Home')
 
 @wheels.route('/index', methods=['POST'])
@@ -36,7 +36,7 @@ def index_car_review():
 	if current != None:
 		vehicles = get_top_rated_vehicles(current)
 		for vehicle in vehicles:
-			url_for('upload_vehicle_photo', filename=vehicle['photo'])
+			url_for('upload_vehicle_photo', vid=vehicle['id'], filename=vehicle['photo'])
 		return jsonify(vehicles)
 
 @wheels.route('/help')
@@ -70,17 +70,17 @@ def sign_up():
 	if request.method == 'POST':
 		user = User.query.filter_by(email=request.form['email']).first()
 		if user is None:
-			bday = date(int(request.form.get('bd_year')),  \
+			bday = date(int(request.form.get('bd_year')) + 1900,  \
 						int(request.form.get('bd_month')) + 1, \
 						int(request.form.get('bd_day')) + 1)
-
 			user_new = User(email=request.form['email'],
 							phone=request.form['phone'],
 							name=request.form['name'],
 							surname=request.form['surname'],
 							bday=bday,
 							password=request.form['password'],
-							avatar='')
+							avatar='default',
+							reg_date=datetime.utcnow())
 			user_directory = os.path.join(wheels.config['UPLOAD_FOLDER'], request.form['email'])
 			if not os.path.exists(user_directory):
 				os.mkdir(user_directory)
@@ -168,10 +168,8 @@ def user_menu():
 def user(nickname, page):
 	page_new = 'user/' + page + '.html'
 	if page == 'transport':
-		#global all_search_results
 		query = Vehicle.query.filter_by(owner=current_user)
 		query = query.order_by(Vehicle.id.desc())
-		#all_search_results = query
 		mytransport = get_vehicles_records(query, 3, 0)
 		return render_template('user/main_page.html',
 				nick=nickname, page_new=page_new,
@@ -180,36 +178,49 @@ def user(nickname, page):
 		return render_template('user/main_page.html',
 				nick=nickname, page_new=page_new)
 
-# @wheels.route('/user_profile')
-# @login_required
+@wheels.route('/user=<nickname>?transport', methods=['POST'])
+@login_required
+def mytransport_more():
+	return 'nothing to say to you'
+
 @wheels.route('/users/id<id>')
 def user_profile(id):
 	user = User.query.filter_by(id=id).first()
+	if user == None:
+		return abort(404)
 	rate = get_user_rating(user)
 	reviews = get_user_reviews(user)
+	vs = Vehicle.query.filter_by(owner=user)
+	vehicles = [(v.id, v.show_name) for v in vs]
+	print (vehicles, file=sys.stderr)
 	return render_template('user/profile_page.html',
 							user=user,
 							rating=rate,
-							reviews=reviews)
+							reviews=reviews,
+							vehicles=vehicles)
 
 def get_user_rating(user):
 	vehicles = Vehicle.query.filter_by(owner=user).all()
 	rate = 0.0
-	for vehicle in vehicles:
-		rate += vehicle.rating
-	rate /= float(len(vehicles))
+	if vehicles != []:
+		for vehicle in vehicles:
+			rate += vehicle.rating
+		rate /= float(len(vehicles))
 	return int(round(rate))
 
 def get_user_reviews(user):
 	vehicles = Vehicle.query.filter_by(owner=user).all()
 	reviews = 0
-	for vehicle in vehicles:
-		reviews += vehicle.review_count
+	if vehicles != []:
+		for vehicle in vehicles:
+			reviews += vehicle.review_count
 	return reviews
 
-@wheels.route('/vehicles/id<id>')
-def vehicle_profile(id):
-	current = Vehicle.query.filter_by(id=id).first()
+@wheels.route('/vehicles/id<vid>')
+def vehicle_profile(vid):
+	current = Vehicle.query.filter_by(id=vid).first()
+	if current == None:
+		return abort(404)
 	return render_template('transport_info.html',
 		vehicle=current,
 		rating=int(round(current.rating)))
@@ -220,12 +231,10 @@ def upload_avatar():
 	if 'avatar' not in request.files:
 		flash('No file part in request.')
 		return redirect(url_for('user_page'))
-		#return redirect(request.url)
 	file = request.files['avatar']
 	if file.filename == '':
 		flash('Please select any file again.')
 		return redirect(url_for('user_page'))
-			#return redirect(request.url)
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
 		user_name = current_user.email.split('@')[0]
@@ -242,27 +251,30 @@ def upload_avatar():
 	flash('Sorry, server can\'t upload this file.')
 	return redirect(url_for('user_page'))
 
-@wheels.route('/upload/avatar=<filename>')
+@wheels.route('/upload/avatar=<uid>/<filename>')
 @login_required
-def upload_user_avatar(filename):
-	if current_user.avatar != '':
-		load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], current_user.email)
+def upload_user_avatar(uid, filename):
+	#print (filename, file=sys.stderr)
+	if filename != 'default':
+		user = User.query.filter_by(id=uid).first()
+		if user == None:
+			return abort(404)
+		load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], user.email)
 		return send_from_directory(load_path, filename)
-	return send_from_directory(default_avatar_path, 'default.jpg')
+	return send_from_directory(default_avatar_path, 'default.png')
 
-@wheels.route('/upload/vehicle=<filename>')
-def upload_vehicle_photo(filename):
-	if filename != '':
-		# base64 need
-		vehicle = Vehicle.query.filter_by(photo=filename).first()
-		owner = vehicle.owner
-		load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], owner.email)
-		load_path = os.path.join(load_path, 'vehicles')
-		print (load_path, file=sys.stderr)
-		return send_from_directory(load_path, filename)
-	else:
-		return send_from_directory(default_avatar_path, 'default.jpg')
+@wheels.route('/upload/vehicle=<vid>/<filename>')
+def upload_vehicle_photo(vid, filename):
+	vehicle = Vehicle.query.filter_by(id=vid).first()
+	owner = vehicle.owner
+	load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], owner.email)
+	load_path = os.path.join(load_path, 'vehicles')
+	return send_from_directory(load_path, filename)
 
 def allowed_file(filename):
 	return '.' in filename and \
 		   filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@wheels.route('/create_transport', methods=['POST'])
+def create_transport(filename):
+	return 'nothing to say to you'

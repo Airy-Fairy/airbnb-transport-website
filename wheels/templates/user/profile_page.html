@@ -6,28 +6,20 @@
 		<div class="grid">
 			<div class="left-col">
 				<div class="image">
-					<img class="cover square" src="{{ url_for('upload_user_avatar', filename=current_user.avatar) }}" alt="Luffy">
+					<img class="cover square" src="{{ url_for('upload_user_avatar', uid=user.id, filename=user.avatar) }}" alt="User Avatar">
 				</div>
 				<div class="transport-info">
 					<div class="panel-container">
 						<div class="panel-head">
 							My Transport
 						</div>
-						<div class="panel-line">
+						{% for i in range(vehicles|length) %}
+                        <div class="panel-line">
 							<div class="row">
-								<a href="../templates/transport_info_page.html">Porsche 911</a>
+								<a href="{{ url_for('vehicle_profile', vid=vehicles[i][0]) }}">{{ vehicles[i][1] }}</a>
 							</div>
 						</div>
-						<div class="panel-line">
-							<div class="row">
-								<a href="">Ford Mustang</a>
-							</div>
-						</div>
-						<div class="panel-line">
-							<div class="row">
-								<a href="">Chevrolet Camaro SS</a>
-							</div>
-						</div>
+                        {% endfor %}
 					</div>
 				</div>
 			</div>
@@ -37,7 +29,7 @@
 				</div>
 				<div class="row">
 					<div class="since">
-						On the website since <span id="#since">{{ user.reg_date }}</span>
+						Joined in <span id="#since">{{ user.reg_date.strftime("%B %Y") }}</span>
 					</div>
 				</div>
 				<div class="row split">
@@ -62,12 +54,16 @@
 					<span class="label">Email:</span> {{ user.email }}
 				</div>
 				<div class="row split">
-					<span class="label">About me:</span> I wanna get my diploma...
+					<span class="label">About me: </span>За Печенкина и двор стреляю в упор!
 				</div>
 				<div class="row">
 					<ul class="reviews-list">
 						<!-- Don't show it if you came from 'Your Profile' -->
-						{% include "user/new_review.html" %}
+						{% if current_user.is_authenticated %}
+							{% if current_user.id != user.id %}
+								{% include "user/new_review.html" %}
+							{% endif %}
+						{% endif %}
 						<!-- Maybe some template this shit? -->
 						<li>
 							<div class="review template white-back cool-shadow" hidden="hidden">

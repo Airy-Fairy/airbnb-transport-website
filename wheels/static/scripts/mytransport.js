@@ -40,7 +40,7 @@ function addMyTransport(data) {
     $tranportTemplate.find('.panel-head').text(transportName);
     $tranportTemplate.find('.reviews-count > .number').text(String(reviews));
     $tranportTemplate.find('.desc').text(desc);
-    $tranportTemplate.find('img').first().attr('src', '/upload/vehicle=' + imgName);
+    $tranportTemplate.find('img').first().attr('src', '/upload/vehicle=' + transportId +'/' + imgName);
 
     var stars = $tranportTemplate.find('.star-rating').children();
     for (i = 0; i < Math.round(rating); i++) {
