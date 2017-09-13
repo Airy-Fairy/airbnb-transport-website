@@ -1,4 +1,10 @@
 /**
+ *
+ * [INDEX/SEARCH TRANSPORT THUMBNAILS]
+ *
+ */
+
+/**
  * Adds one vehicle thumbnail to the preview
  * @param {json} data One vehicle data in json
  */
@@ -76,8 +82,7 @@ $(window).resize(function() {
 });
 
 /**
- * Fixes
- * @return {[type]} [description]
+ * Fixes margin bug caused by window resize
  */
 function marginFix() {
     $labels = $('.label').slice(0, $('.label').length - 1);

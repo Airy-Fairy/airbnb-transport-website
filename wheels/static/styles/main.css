@@ -1398,6 +1398,19 @@ input[type="file"] {
  *
  */
 
+.user-transport ul {
+    padding: 0;
+}
+
+.user-transport li:first-of-type {
+    margin: 0;
+}
+
+.user-transport li {
+    display: inline-block;
+    margin-top: 30px;
+}
+
 .transport-preview {
     position: relative;
 }

@@ -1,3 +1,8 @@
+/**
+ *
+ * Handles search results
+ *
+ */
 
 var current = 0;
 

@@ -167,8 +167,18 @@ def user_menu():
 @login_required
 def user(nickname, page):
 	page_new = 'user/' + page + '.html'
-	return render_template('user/main_page.html',
-			nick=nickname, page_new=page_new)
+	if page == 'transport':
+		#global all_search_results
+		query = Vehicle.query.filter_by(owner=current_user)
+		query = query.order_by(Vehicle.id.desc())
+		#all_search_results = query
+		mytransport = get_vehicles_records(query, 3, 0)
+		return render_template('user/main_page.html',
+				nick=nickname, page_new=page_new,
+				mytransport=json.dumps(mytransport))
+	else:
+		return render_template('user/main_page.html',
+				nick=nickname, page_new=page_new)
 
 # @wheels.route('/user_profile')
 # @login_required
@@ -219,7 +229,7 @@ def upload_avatar():
 	if file and allowed_file(file.filename):
 		filename = secure_filename(file.filename)
 		user_name = current_user.email.split('@')[0]
-		save_path = wheels.config['UPLOAD_FOLDER'] + '/' + current_user.email					 
+		save_path = wheels.config['UPLOAD_FOLDER'] + '/' + current_user.email
 		file.save(os.path.join(save_path, filename))
 		# remove old avatar
 		avatar_path = os.path.join(save_path, current_user.avatar)
