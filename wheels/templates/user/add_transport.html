@@ -1,6 +1,6 @@
     <div class="user-page-container">
         <div class="new-transport-form">
-            <form action="/add_transport" method="post">
+            <form action="/add_transport" method="post" enctype=multipart/form-data>
                 <div class="panel-container">
                     <div class="panel-head">Required</div>
                     <div class="panel-line">
@@ -17,7 +17,7 @@
                         <div class="form-row">
                             <label for="transport-brand">Brand</label>
                             <div class="elem">
-                                <select id="transport-brand" required>
+                                <select id="transport-brand" name="brand" required>
                                     <option value="">...</option>
                                 </select>
                             </div>
@@ -25,7 +25,7 @@
                         <div class="form-row">
                             <label for="transport-model">Model</label>
                             <div class="elem">
-                                <select id="transport-model" required>
+                                <select id="transport-model" name="model" required>
                                     <option value="">...</option>
                                 </select>
                             </div>
@@ -33,7 +33,7 @@
                         <div class="form-row">
                             <label for="year-of-manufacture">Year of Manufacture</label>
                             <div class="elem">
-                                <select id="year-of-manufacture" required>
+                                <select id="year-of-manufacture" name="year" required>
                                     <option value="before-1960">Before 1960</option>
                                     <!-- And more -->
                                 </select>
@@ -42,13 +42,13 @@
                         <div class="form-row">
                             <label for="rental-price">Rental Price (a day)</label>
                             <div class="elem">
-                                <input type="text" id="rental-price" maxlength="5" required>
+                                <input type="text" id="rental-price" name="price" maxlength="5" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="description">Description</label>
                             <div class="elem">
-                                <textarea id="description" maxlength="256" placeholder="Tell us about your transport in 256 symbols" required></textarea>
+                                <textarea id="description" name="desc" maxlength="256" placeholder="Tell us about your transport in 256 symbols" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="form-row">
                             <label class="photo" for="photo">Photo</label>
                             <div class="elem">
-                                <input type="file" accept="image/*" class="custom-file-input" id="transport-photo" capture="camera" required>
+                                <input type="file" accept="image/*" class="custom-file-input" id="transport-photo" name="photo" capture="camera" required>
                             </div>
                         </div>
                         <div class="no-photo" hidden="hidden">

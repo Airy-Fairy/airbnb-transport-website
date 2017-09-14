@@ -5,14 +5,13 @@ from flask import render_template, redirect, url_for, request, flash, \
 				  jsonify, send_from_directory, abort
 from flask_login import login_user, logout_user, \
 						login_required, current_user
-#from flask.ext.session import Session
 from werkzeug.utils import secure_filename
 from models import User, Vehicle, Review
 from datetime import date, datetime
-import json, os
+import json, os, base64
 
 # tests only
-import sys
+import sys # sys.stderr
 
 all_search_results = None
 
@@ -85,6 +84,7 @@ def sign_up():
 			user_directory = os.path.join(wheels.config['UPLOAD_FOLDER'], request.form['email'])
 			if not os.path.exists(user_directory):
 				os.mkdir(user_directory)
+				os.mkdir(os.path.join(user_directory, 'vehicles'))
 			db.session.add(user_new)
 			db.session.commit()
 			flash('A confirmation email has been sent to you by email.')
@@ -124,7 +124,6 @@ def search():
 		if price_to:
 			query = query.filter(Vehicle.year >= price_to)
 	all_search_results = query
-	# search_results = json.dumps(get_vehicles_records(query, 4, 0))
 	search_results = json.dumps(fill_vehicle_array(get_records(query, 4)))
 	return render_template('search_results.html', results=search_results)
 
@@ -132,7 +131,6 @@ def search():
 def search_more():
 	current = int(request.form['current'])
 	global all_search_results
-	# search_results = jsonify(get_vehicles_records(all_search_results, 6, current))
 	search_results = fill_vehicle_array(get_records(all_search_results, 6, current))
 	return jsonify(search_results)
 
@@ -153,11 +151,6 @@ def fill_vehicle_array(vehicles):
 def get_records(query, limit, offset=0):
 	return query.limit(limit).offset(offset).all()
 
-#def get_vehicles_records(query, limit, offset=0):
-#	vehicles = query.limit(limit).offset(offset).all()
-#	results = fill_vehicle_array(vehicles)
-#	return results
-
 def get_top_rated_vehicles(current):
 	query = Vehicle.query.order_by(Vehicle.rating.desc())
 	limit = 3 if not current else 6
@@ -176,7 +169,7 @@ def user(nickname, page):
 	if page == 'transport':
 		query = Vehicle.query.filter_by(owner=current_user)
 		query = query.order_by(Vehicle.id.desc())
-		mytransport = fill_vehicle_array(get_records(query, 3)) #get_vehicles_records(query, 3, 0)
+		mytransport = fill_vehicle_array(get_records(query, 3))
 		return render_template('user/main_page.html',
 				nick=nickname, page_new=page_new,
 				mytransport=json.dumps(mytransport))
@@ -196,13 +189,10 @@ def user_profile(uid):
 		return abort(404)
 	rate = user.get_rating()
 	reviews_count = user.get_reviews_count()
-	print (rate, file=sys.stderr)
-	print (reviews_count, file=sys.stderr)
 	review_query = Review.query.filter_by(ownid=user.id).order_by(Review.id.desc())
 	reviews = json.dumps(fill_reviews_list(get_records(review_query, 3)))
 	vs = Vehicle.query.filter_by(owner=user)
 	vehicles = [(v.id, v.show_name) for v in vs]
-	# print (vehicles, file=sys.stderr)
 	return render_template('user/profile_page.html',
 							user=user,
 							rating=rate,
@@ -213,7 +203,7 @@ def user_profile(uid):
 @wheels.route('/users/id<uid>', methods=['POST'])
 def get_more_reviews(uid):
 	current = request.form['current']
-	return 'shit'
+	return 'nothing to say to you'
 
 def fill_reviews_list(reviews):
 	retarray = []
@@ -238,7 +228,7 @@ def fill_reviews_list(reviews):
 
 @wheels.route('/vehicles/id<vid>')
 def vehicle_profile(vid):
-	current = Vehicle.query.get_or_404(vid) #filter_by(id=vid).first()
+	current = Vehicle.query.get_or_404(vid)
 	if current == None:
 		return abort(404)
 	return render_template('transport_info.html',
@@ -250,11 +240,8 @@ def vehicle_profile(vid):
 def upload_avatar():
 	if 'avatar' not in request.files:
 		flash('No file part in request.')
-		return redirect(url_for('user_page'))
+		return redirect(url_for('user_menu'))
 	file = request.files['avatar']
-	if file.filename == '':
-		flash('Please select any file again.')
-		return redirect(url_for('user_page'))
 	if file and allowed_file(file.filename):
 		save_path = wheels.config['UPLOAD_FOLDER'] + '/' + current_user.email
 		# remove old avatar
@@ -263,18 +250,17 @@ def upload_avatar():
 			os.remove(avatar_path)
 		# save new avatar
 		filename = secure_filename(file.filename)
-		user_name = current_user.email.split('@')[0]
 		file.save(os.path.join(save_path, filename))
 		# change db avatar value
 		current_user.avatar = filename
 		db.session.commit()
+		user_name = current_user.email.split('@')[0]
 		return redirect(url_for('user', nickname=user_name, page='photo'))
 	flash('Sorry, server can\'t upload this file.')
-	return redirect(url_for('user_page'))
+	return redirect(url_for('user_menu'))
 
 @wheels.route('/upload/avatar=<uid>/<filename>')
 def upload_user_avatar(uid, filename):
-	#print (filename, file=sys.stderr)
 	if filename == 'default':
 		return send_from_directory(default_avatar_path, 'default.png')
 	user = User.query.get_or_404(uid) # filter_by(id=uid).first()
@@ -295,11 +281,6 @@ def allowed_file(filename):
 	return '.' in filename and \
 		   filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@wheels.route('/add_transport', methods=['POST'])
-@login_required
-def add_transport():
-	return 'nothing to say to you'
-
 @wheels.route('/add_review', methods=['POST'])
 @login_required
 def add_review():
@@ -309,7 +290,6 @@ def add_review():
 	# get vehicle's owner id
 	chosen = Vehicle.query.get_or_404(vid)
 	owner_id = chosen.owner.id
-	#db.session.close()
 	# creating new review record
 	review = Review.query.filter_by(uid=current_user.id).filter_by(vid=vid).first()
 	if review is None:
@@ -320,24 +300,50 @@ def add_review():
 							ownid=owner_id,
 							vid=vid)
 		db.session.add(review_new)
-		db.session.commit()
 		# update transport info
 		chosen = Vehicle.query.get_or_404(vid)
-		print (chosen.rating, chosen.review_count, file=sys.stderr)
 		chosen.rating = (chosen.rating * chosen.review_count + rating) \
 						/ (chosen.review_count + 1)
 		db.session.merge(chosen)
 		chosen.review_count += 1
 		db.session.merge(chosen)
-		print (chosen.rating, chosen.review_count, file=sys.stderr)
+		db.session.commit()
 	else:
 		flash('You already rated this vehicle.')
 	return redirect(url_for('user_profile', uid=owner_id))
 
-#query.get_or_404(id) -- nado dobavit' vezde
-
-@wheels.route('/test')
-def test():
-	v = Vehicle.query.get(6)
-	print (v.rating, v.review_count, file=sys.stderr)
-	return abort(404)
+@wheels.route('/add_transport', methods=['POST'])
+@login_required
+def add_transport():
+	brand = request.form.get('brand')
+	model = request.form.get('model')
+	year = 1900 if request.form.get('year') == 'before-1960' else int(request.form.get('year')) + 1960
+	price = int(request.form['price'])
+	desc = request.form['desc']
+	show_name = '{0} {1} ({2})'.format(brand, model, 'before 1960' if year < 1960 else year)
+	print (show_name, file=sys.stderr)
+	# vehicle photo uploading
+	if 'photo' not in request.files:
+		flash('No file part in request.')
+		return redirect(url_for('user_menu'))
+	file = request.files['photo']
+	if file and allowed_file(file.filename):
+		save_path = wheels.config['UPLOAD_FOLDER'] + '/' + current_user.email + '/vehicles'
+		filename = base64.b64encode(secure_filename(file.filename)) + '.jpg'
+		file.save(os.path.join(save_path, filename))
+		vehicle = Vehicle(brand=brand,
+						  model=model,
+						  year=year,
+						  show_name=show_name,
+						  price=price,
+						  rating=0.0,
+						  review_count=0,
+						  description=desc,
+						  photo=filename,
+						  owner=current_user)
+		db.session.add(vehicle)
+		db.session.commit()
+		user_name = current_user.email.split('@')[0]
+		return redirect(url_for('user', nickname=user_name, page='transport'))
+	flash('Sorry, server can\'t upload this file.')
+	return redirect(url_for('user_menu'))

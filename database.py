@@ -26,10 +26,11 @@ def init_user_db():
 		cars = json.load(f)
 		i = 1
 		for car in cars:
+			show_name = '{0} {1} ({2})'.format(car['brand'], car['model'], 'before 1960' if car['year'] < 1960 else car['year'])
 			v = Vehicle(brand=car['brand'],
 						model=car['model'],
 						year=car['year'],
-						show_name=car['show_name'],
+						show_name=show_name,
 						price=car['price'],
 						rating=uniform(1.0, 5.0),
 						review_count=randint(1, 30),
