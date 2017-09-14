@@ -69,12 +69,14 @@
 				</div>
 				<div class="row">
 					<ul class="reviews-list">
-						<!-- Don't show it if you came from 'Your Profile' -->
-						{% if current_user.is_authenticated %}
-							{% if current_user.id != user.id %}
-								{% include "user/new_review.html" %}
+						<li>
+							<!-- Don't show it if you came from 'Your Profile' -->
+							{% if current_user.is_authenticated %}
+								{% if current_user.id != user.id %}
+									{% include "user/new_review.html" %}
+								{% endif %}
 							{% endif %}
-						{% endif %}
+						</li>
 					</ul>
 				</div>
 			</div>

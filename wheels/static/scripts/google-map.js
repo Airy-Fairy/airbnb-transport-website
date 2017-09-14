@@ -32,7 +32,7 @@ var map_btn_text = {
 };
 
 $('#open-map').on('click', function() {
-    $map = $('#map');
+    var $map = $('#map');
     if ($map.css('display') == 'none') {
         $map.fadeIn('fast', function() {
             if (!inited) {

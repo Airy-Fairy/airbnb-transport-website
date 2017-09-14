@@ -18,6 +18,30 @@ $(document).ready(function() {
     }
 });
 
+/**
+ * Asks server to send more of my transport
+ */
+$('#get-more').click(function() {
+    $.post(
+        '/' + decodeURIComponent(document.URL.split('/').pop()),
+        {
+            current: current
+        },
+        function(data) {
+            if (data.length) {
+                fillMyTransport(data);
+                current += data.length;
+            }
+            else {
+                $('.get-more-results').hide();
+            }
+        }
+    );
+});
+
+/**
+ * Dont know why have I even make this as function
+ */
 function fillMyTransport(dataset) {
     for (var index in dataset) {
         addMyTransport(dataset[index]);
@@ -36,7 +60,7 @@ function addMyTransport(data) {
     var reviews = data.reviews;
     var desc = data.desc;
 
-    $tranportTemplate = $('.my-transport-template').children('.panel-container').clone().hide();
+    var $tranportTemplate = $('.my-transport-template').children('.panel-container').clone().hide();
     $tranportTemplate.find('.panel-head').text(transportName);
     $tranportTemplate.find('.reviews-count > .number').text(String(reviews));
     $tranportTemplate.find('.desc').text(desc);
@@ -48,7 +72,7 @@ function addMyTransport(data) {
         $(stars[i]).addClass('fa-star');
     }
 
-    $transportList = $('ul.my-transport-list');
+    var $transportList = $('ul.my-transport-list');
     $transportList.append('<li>' + $tranportTemplate[0].outerHTML + '</li>');
     $transportList.children('li').children().fadeIn("fast", function() {
         squareImages();

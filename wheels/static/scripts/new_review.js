@@ -10,7 +10,7 @@
  });
 
  // Hides 'Add review' and 'Cancel' buttons on 'Cancel' click
- $('#cancel-button').click(function() {
+ $('#cancel-button').click(function(event) {
      event.preventDefault();
      $('.new-review .add').slideUp();
  });
@@ -46,7 +46,9 @@ $(document).ready(function() {
 //     );
 // });
 
-
+/**
+ * Same stuff as on almost every .js -.-
+ */
 function appendReviews(dataset) {
     for (var index in dataset) {
         addReview(dataset[index]);
@@ -57,21 +59,7 @@ function appendReviews(dataset) {
 /**
  * Adds new review on 'Add review' click
  */
- // $('.new-review .add input#add-button').on('click', function(event) {
 function addReview(reviewInfo) {
-    //  var chosenTransport = $('#choose-user-transport option:selected').text();
-    //  var message = $('#message').val();
-    //  var rating = $('.rating-choice .star-rating input:checked').val();
-    //  var image = '../../imgs/zoro.png';
-    //  var username = 'User';
-     //
-    //  // 'required' check
-    //  if ($('#choose-user-transport option:selected').val() === "" ||
-    //      rating === undefined) {
-    //      alert('Fill the form (transport and rating at least)!');
-    //      return;
-    //  }
-
     var userName = reviewInfo.user_name;
     var userImg = '/upload/avatar=' + reviewInfo.uid + '/' + reviewInfo.user_avatar;
     var userLink = '/users/id' + reviewInfo.uid;
@@ -101,7 +89,7 @@ function addReview(reviewInfo) {
     }
 
     // Add the new review
-    $reviewstList = $('ul.reviews-list');
+    var $reviewstList = $('ul.reviews-list');
     $reviewstList.append('<li>' + $newReview[0].outerHTML + '</li>');
     $reviewstList.children('li:not(:first-child)').children().fadeIn("fast", function() {
         squareImages();

@@ -213,7 +213,7 @@ def fill_reviews_list(reviews):
 		user_avatar = user.avatar
   		veh_name = Vehicle.query.get_or_404(review.vid).show_name
 		# Fixes timestamp from UTC to Moscow
-		timestamp = review.timestamp.replace(hour=review.timestamp.hour + 3)
+		timestamp = review.timestamp.replace(hour=(review.timestamp.hour + 3) % 24)
 		print(review.timestamp, file=sys.stderr)
 		retarray.append(\
 			{'timestamp':timestamp.strftime('%H:%M:%S %b %d, %Y'), \

@@ -23,8 +23,8 @@ $(window).resize(function() {
  * Displays modal image
  */
 function modalImages() {
-    $modal = $('.modal');
-    $modalImg = $('.modal-img');
+    var $modal = $('.modal');
+    var $modalImg = $('.modal-img');
 
     $('.normal-img').click(function() {
         $modal.show();

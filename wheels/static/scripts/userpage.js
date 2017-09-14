@@ -9,7 +9,7 @@ $( document ).ready(function() {
     var currentPage;
     if (match != null) {
         currentPage = match[1];
-        currentLink = '#' + currentPage + '-link';
+        var currentLink = '#' + currentPage + '-link';
         $(currentLink).addClass('current-link');
 
         // Birthday handling
@@ -29,7 +29,7 @@ $( document ).ready(function() {
     //  In the end shows up 'arrow down' to slide it down
      var transportNumber = $('.transport-info .panel-line').length;
      if (transportNumber > 3) {
-         $transportToHide = $('.transport-info .panel-line').slice(3, transportNumber);
+         var $transportToHide = $('.transport-info .panel-line').slice(3, transportNumber);
          $transportToHide.animate({ height: 'toggle', opacity: 'toggle' }, 'slow', function() {
              $('.arrow-block').fadeIn(function() {
                  $('.arrow-down').fadeIn();

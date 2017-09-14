@@ -45,10 +45,10 @@ function getCurrentDate() {
  * Takes care of proper year and price ranges
  */
 $('#search-form').submit(function() {
-    yearFrom = parseInt($('#year_from').val());
-    yearTo = parseInt($('#year_to').val());
-    priceFrom = parseInt($('#price_from').val());
-    priceTo = parseInt($('#price_to').val());
+    var yearFrom = parseInt($('#year_from').val());
+    var yearTo = parseInt($('#year_to').val());
+    var priceFrom = parseInt($('#price_from').val());
+    var priceTo = parseInt($('#price_to').val());
 
     if (!isNaN(yearTo)) {
         if (yearFrom > yearTo) {

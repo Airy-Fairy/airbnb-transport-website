@@ -96,17 +96,16 @@
                 </ul>
             </div>
         </footer>
+        <!-- Dark screen overlay -->
+        <div class="dark-screen"></div>
         {% if not current_user.is_authenticated %}
             {% include "popup-forms/sign_up.html" %}
             {% include "popup-forms/sign_in.html" %}
             {% include "popup-forms/password_recovery.html" %}
+            <script type="text/javascript" src="{{ url_for('static', filename='scripts/popups.js') }}"></script>
+            <script type="text/javascript" src="{{ url_for('static', filename='scripts/signup.js') }}"></script>
         {% endif %}
-        <!-- Dark screen overlay -->
-        <div class="dark-screen"></div>
-        <!-- Scripts -->
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/common.js') }}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='scripts/signup.js') }}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='scripts/popups.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/birthday.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/transport.js') }}"></script>
     </body>

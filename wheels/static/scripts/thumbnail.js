@@ -9,7 +9,7 @@
  * @param {json} data One vehicle data in json
  */
 function addThumbnail(data, n_columns) {
-    $grid = $('.grid');
+    var $grid = $('.grid');
     var last_row;
     var i;
 
@@ -51,7 +51,7 @@ function addThumbnail(data, n_columns) {
     var imgName = data.photo;
 
     // Make new thumbnail
-    $thumbnail = $('.thumbnail.template').clone().hide();
+    var $thumbnail = $('.thumbnail.template').clone().hide();
     $thumbnail.removeClass('template');
     $thumbnail.find('.label').text('$' + price + '  ' + show_name);
     $thumbnail.find('.short-info').text(desc);
@@ -85,7 +85,7 @@ $(window).resize(function() {
  * Fixes margin bug caused by window resize
  */
 function marginFix() {
-    $labels = $('.label').slice(0, $('.label').length - 1);
+    var $labels = $('.label').slice(0, $('.label').length - 1);
     var labelsHeight = parseInt($labels.css('height').replace('px', ''));
     for (var i = 0; i < $labels.length; i++) {
         if (labelsHeight < $labels[i].getClientRects()[0].height) {
