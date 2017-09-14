@@ -202,7 +202,7 @@ def user_profile(uid):
 	reviews = json.dumps(fill_reviews_list(get_records(review_query, 3)))
 	vs = Vehicle.query.filter_by(owner=user)
 	vehicles = [(v.id, v.show_name) for v in vs]
-	#print (vehicles, file=sys.stderr)
+	# print (vehicles, file=sys.stderr)
 	return render_template('user/profile_page.html',
 							user=user,
 							rating=rate,
@@ -218,12 +218,22 @@ def get_more_reviews(uid):
 def fill_reviews_list(reviews):
 	retarray = []
 	for review in reviews:
+		user = User.query.get(review.uid)
+		user_name = user.name + ' ' + user.surname
+		user_avatar = user.avatar
+  		veh_name = Vehicle.query.get_or_404(review.vid).show_name
+		# Fixes timestamp from UTC to Moscow
+		timestamp = review.timestamp.replace(hour=review.timestamp.hour + 3)
+		print(review.timestamp, file=sys.stderr)
 		retarray.append(\
-			{'timestamp':review.timestamp, \
+			{'timestamp':timestamp.strftime('%H:%M:%S %b %d, %Y'), \
 			'text':review.text, \
 			'rating':review.rating, \
 			'vid':review.vid, \
-			'uid':review.uid})
+			'uid':review.uid, \
+			'veh_name':veh_name, \
+			'user_name':user_name, \
+			'user_avatar':user_avatar})
 	return retarray
 
 @wheels.route('/vehicles/id<vid>')
@@ -313,7 +323,7 @@ def add_review():
 		db.session.commit()
 		# update transport info
 		chosen = Vehicle.query.get_or_404(vid)
-		print (chosen.rating, chosen.review_count, file=sys.stderr)	
+		print (chosen.rating, chosen.review_count, file=sys.stderr)
 		chosen.rating = (chosen.rating * chosen.review_count + rating) \
 						/ (chosen.review_count + 1)
 		db.session.merge(chosen)

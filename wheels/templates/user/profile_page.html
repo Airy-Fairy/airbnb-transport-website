@@ -75,43 +75,51 @@
 								{% include "user/new_review.html" %}
 							{% endif %}
 						{% endif %}
-						<!-- Maybe some template this shit? -->
-						<li>
-							<div class="review template white-back cool-shadow" hidden="hidden">
-								<div class="grid">
-									<div class="left-col">
-										<div class="image">
-											<img class="cover round square" src="" alt="Your avatar">
-										</div>
-										<div class="user-name">Sanji</div>
-									</div>
-									<div class="right-col">
-										<div class="top">
-											<div class="transport">Porsche 911</div>
-											<div class="rating">
-												<div class="star-rating">
-													<label class="fa fa-star-o" aria-hidden="true"></label>
-													<label class="fa fa-star-o" aria-hidden="true"></label>
-													<label class="fa fa-star-o" aria-hidden="true"></label>
-													<label class="fa fa-star-o" aria-hidden="true"></label>
-													<label class="fa fa-star-o" aria-hidden="true"></label>
-												</div>
-											</div>
-										</div>
-										<div class="message">Nice car mate! Love it!</div>
-										<div class="bottom">
-											<span class="label">Posted:</span>
-											<span class="post-time">14:24 27.05.2017</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- Maybe some template this shit? -->
+	<div class="review template white-back cool-shadow">
+		<div class="grid">
+			<div class="left-col">
+				<a class="link-as-text">
+					<div class="image">
+						<img class="cover round square" alt="Your avatar">
+					</div>
+					<div class="user-name"></div>
+				</a>
+				<!-- <div class="image">
+					<img class="cover round square" src="" alt="Your avatar">
+				</div>
+				<div class="user-name">Sanji</div> -->
+			</div>
+			<div class="right-col">
+				<div class="top">
+					<a class="link-as-text" style="margin: 0">
+						<div class="transport"></div>
+					</a>
+					<div class="rating">
+						<div class="star-rating">
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+						</div>
+					</div>
+				</div>
+				<div class="message"></div>
+				<div class="bottom">
+					<span class="label">Posted:</span>
+					<span class="post-time"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="incoming-reviews" data-reviews="{{ reviews }}" hidden="hidden"></div>
 	<script type="text/javascript" src="{{ url_for('static', filename='scripts/image.js') }}"></script>
 	<script type="text/javascript" src="{{ url_for('static', filename='scripts/userpage.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/new_review.js') }}"></script>
 {% endblock %}

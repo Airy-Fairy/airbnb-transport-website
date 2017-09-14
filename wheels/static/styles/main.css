@@ -1321,6 +1321,10 @@ input[type="file"] {
     margin-bottom: 10px;
 }
 
+.review.template {
+    display: none;
+}
+
 .new-review {
     width: 100%;
     min-width: 400px;

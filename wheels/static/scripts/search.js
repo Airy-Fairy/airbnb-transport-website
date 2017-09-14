@@ -27,22 +27,17 @@ $('#get-more').click(function() {
         {
             current: current
         },
-        handleResults
+        function(data) {
+            if (data.length) {
+                appendResults(data);
+                current += data.length;
+            }
+            else {
+                $('.get-more-results').hide();
+            }
+        }
     );
 });
-
-/**
- * Handles post request
- */
-function handleResults(data) {
-    if (data.length) {
-        appendResults(data);
-        current += data.length;
-    }
-    else {
-        $('.get-more-results').hide();
-    }
-}
 
 /**
  * Appends results to the end of search page

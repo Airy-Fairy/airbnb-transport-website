@@ -24,21 +24,16 @@ function getMoreCarsPost() {
         {
             current: current
         },
-        handleResults
+        function(data) {
+            if (data.length) {
+                fillPreview(data);
+                current += data.length;
+            }
+            else {
+                $('.get-more-results').hide();
+            }
+        }
     );
-}
-
-/**
- * Handles post request
- */
-function handleResults(data) {
-    if (data.length) {
-        fillPreview(data);
-        current += data.length;
-    }
-    else {
-        $('.get-more-results').hide();
-    }
 }
 
 /**
