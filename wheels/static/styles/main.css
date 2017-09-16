@@ -99,6 +99,8 @@ header input[type="search"] {
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: center;
+    user-select: none;
+    cursor: default;
 }
 
 .main-content .title .name {
@@ -994,8 +996,7 @@ input[type="file"] {
 }
 
 .map-block .google-map {
-    max-height: 400px;
-    min-height: 300px;
+    height: 400px;
     width: 100%;
 }
 
@@ -1514,6 +1515,8 @@ input[type="file"] {
     font-size: 40px;
     padding:  0 0 16px;
     margin-bottom: 20px;
+    user-select: none;
+    cursor: default;
 }
 
 .box .title .transport {
@@ -1625,11 +1628,48 @@ input[type="file"] {
 
 .help-block .to-admin textarea {
     width: 100%;
-    min-height: 100px;
+    min-height: 150px;
     resize: vertical;
 }
 
 .help-block .to-admin input {
     line-height: 40px;
     width: 100%;
+}
+
+/**
+ *
+ * Terms of Use page styles
+ *
+ */
+
+ .terms-block {
+     margin-top: 50px;
+     width: 100%;
+ }
+
+.terms-block h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.terms-block ul {
+    margin-top: 10px;
+}
+
+.terms-block ol {
+    text-align: justify;
+}
+
+.terms-block li {
+    margin-bottom: 10px;
+}
+
+.terms-block .box {
+    padding: 50px;
+    width: 90%;
+}
+
+.terms-block .title {
+    text-align: center;
 }

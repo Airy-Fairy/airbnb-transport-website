@@ -34,15 +34,16 @@
         <h1>Contact the team</h1>
         <div class="to-admin">
             <div class="comment">
-                If you have some unusual problem/question that's not mentioned in FAQ, you can send a message to the <strong>Sharing <span style="color: darkcyan;">Wheels</span></strong> team with this form:</p>
+                If you have some unusual problem/question that's not mentioned in FAQ, you can send a message to the <strong>Sharing <span style="color: darkcyan;">Wheels</span></strong> team with this form:
             </div>
             <form action="/feedback" method="post">
+                <input type="email" name="email" placeholder="Your Email" required><br>
+                <input type="text" name="name" placeholder="Your Name" required><br>
                 <div class="message">
-                    <textarea name="message" placeholder="Write us something, but think twice before..." required></textarea>
+                    <textarea name="message" placeholder="Write us something, but think twice..." required></textarea>
                 </div>
                 <input type="submit" value="Send">
             </form>
-
         </div>
     </div>
 </div>
