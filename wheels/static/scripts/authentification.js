@@ -153,3 +153,38 @@ $('#new-password, #new-confirm').keyup(function() {
         makeActive($submit, buttonColor);
     }
 });
+
+/**
+ * Login attempt handler
+ */
+$('#login-form').submit(function(event) {
+    event.preventDefault();
+
+    // Collecting data from form
+    var $form = $(this);
+    var $inputs = $form.find('input').not('.clickable');
+    var loginData = {};
+    $inputs.each(function() {
+        loginData[$(this).attr('name')] = $(this).val();
+    });
+
+    // If all good -> reload and you're logged it!
+    // Otherwise you can try until you're out of attempts
+    $.post(
+        '/login',
+        loginData,
+        function(data) {
+            if (!data.failed) {
+                location.reload();
+            }
+            else {
+                $('.wrong-creds').show();
+                if (data.attempts) {
+                    $('.error-msg').text('Wrong email or password!');
+                } else {
+                    $('.error-msg').text('You are out of attempts! Try later!');
+                }
+            }
+        }
+    );
+});

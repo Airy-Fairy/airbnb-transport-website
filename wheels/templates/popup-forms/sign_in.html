@@ -3,10 +3,13 @@
             <div class="close-block">
                 <a href="" class="close signin"></a> <!-- Make fucking decorator -->
             </div>
-            <form action="/login" method="post">
+            <form id="login-form" action="/login" method="post">
                 <div class="signin-creds">
                     <input type="email" name="email" placeholder="Your Email" required><br>
                     <input type="password" name="password" placeholder="Your Password" required><br>
+                </div>
+                <div class="wrong-creds" hidden="hidden">
+                    <div class="error-msg"></div>
                 </div>
                 <div class="rememberme-forgotpasswd">
                     <div class="rememberme">
@@ -28,4 +31,3 @@
                 <a id="go-signup" class="go-signup" href="">Sign up</a> <!-- Make fucking decorator -->
             </div>
         </div>
-        

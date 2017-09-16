@@ -59,10 +59,14 @@
 					</div>
 				</div>
 				<div class="row">
-					<span class="label">Phone:</span> {{ user.phone }}
+					<span class="label">Phone:</span>
+					<a id="get-phone" class="clickable">XXX-XXX-XXXX</a>
+					<span id="user-phone"></span>
 				</div>
 				<div class="row split">
-					<span class="label">Email:</span> {{ user.email }}
+					<span class="label">Email:</span>
+					<a id="get-email" class="clickable">clicktoget@email.com</a>
+					<span id="user-email"></span>
 				</div>
 				<div class="row split">
 					<span class="label">About me: </span>За Печенкина и двор стреляю в упор!
@@ -79,7 +83,13 @@
 						</li>
 					</ul>
 				</div>
-				{% include "show_me_more.html" %}
+				{% if reviews_count != 0 %}
+					{% include "show_me_more.html" %}
+				{% else %}
+					<div class="no-reviews">
+						No reviews yet
+					</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

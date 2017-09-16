@@ -410,7 +410,10 @@ textarea {
 .signup-creds input {
     width: 100%;
     line-height: 40px;
-    /* background-repeat: no-repeat; */
+}
+
+.password-rules {
+    font-size: 14px;
 }
 
 .birthday {
@@ -1179,6 +1182,10 @@ input[type="file"] {
     width: 100%;
 }
 
+.transport-profile .contacts a:hover {
+    color: darkcyan;
+}
+
 /*
  *
  *  styles for user profile
@@ -1245,6 +1252,12 @@ input[type="file"] {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
+}
+
+.user-transport .no-transport,
+.profile-page .no-reviews {
+    margin-top: 30px;
+    text-align: center;
 }
 
 .profile-page .arrow-block {

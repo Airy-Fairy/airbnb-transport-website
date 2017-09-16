@@ -7,7 +7,7 @@ from flask_login import login_user, logout_user, \
 						login_required, current_user
 from werkzeug.utils import secure_filename
 from models import User, Vehicle, Review, Serializer
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from email import send_email
 import json, os, uuid
 
@@ -52,16 +52,35 @@ def feedback():
 def terms_of_use():
 	return render_template('terms.html', title='Terms of Use')
 
-@wheels.route('/login', methods=['GET','POST'])
+# Stupid global variables
+attempts = {}
+threshold = 3
+delta = timedelta(seconds=5) # just for tests
+# delta = timedelta(minutes=30)
+
+@wheels.route('/login', methods=['POST'])
 def login():
-	if request.method == 'POST':
-		user = User.query.filter_by(email=request.form['email']).first()
-		if user is not None and user.verify_password(request.form['password']):
+	user = User.query.filter_by(email=request.form['email']).first()
+	if user is not None:
+		# Check attempts
+		if request.form['email'] not in attempts:
+			attempts[request.form['email']] = {'cnt': 1, 'last': datetime.now()}
+		else:
+			if attempts[request.form['email']]['cnt'] == threshold:
+				if datetime.now() - attempts[request.form['email']]['last'] <= delta:
+					return jsonify({'failed': True, 'attempts': False})
+				else:
+					attempts[request.form['email']] = {'cnt': 1, 'last': datetime.now()}
+			else:
+				attempts[request.form['email']]['cnt'] += 1
+				attempts[request.form['email']]['last'] = datetime.now()
+		# Check password
+		if user.verify_password(request.form['password']):
 			rm = True if request.form.get('remember') == 'on' else False
 			login_user(user, rm)
-			return redirect(request.args.get('next') or url_for('index'))
-		flash('Invalid email or password.')
-	return redirect(url_for('index'))
+			return jsonify({'failed': False, 'attempts': True})
+		else:
+			return jsonify({'failed': True, 'attempts': True})
 
 @wheels.route('/logout')
 @login_required
@@ -279,11 +298,23 @@ def user_profile(uid):
 
 @wheels.route('/users/id<uid>', methods=['POST'])
 def get_more_reviews(uid):
+	# returns email or phone on request
+	try:
+		contact = request.form['contact']
+	except:
+		pass
+	else:
+		user = User.query.get_or_404(uid)
+		if contact == 'get-phone':
+			return user.phone
+		else:
+			return user.email
+	# -----------------------------------
 	current = request.form['current']
 	review_query = Review.query.filter_by(ownid=uid).order_by(Review.id.desc())
 	reviews = fill_reviews_list(get_records(review_query, 3, current))
 	return jsonify(reviews)
-	
+
 def fill_reviews_list(reviews):
 	retarray = []
 	for review in reviews:
@@ -313,6 +344,16 @@ def vehicle_profile(vid):
 	return render_template('transport_info.html',
 		vehicle=current,
 		rating=int(round(current.rating)))
+
+# returns email or phone on request
+@wheels.route('/vehicles/id<vid>', methods=['POST'])
+def get_owner_email_phone(vid):
+	contact = request.form['contact']
+	vehicle = Vehicle.query.get_or_404(vid)
+	if contact == 'get-phone':
+		return vehicle.owner.phone
+	else:
+		return vehicle.owner.email
 
 @wheels.route('/upload_avatar', methods=['POST'])
 @login_required

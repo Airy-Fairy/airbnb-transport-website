@@ -78,3 +78,26 @@ $(document).ready(function() {
         $('.nav-search-block').show();
     }
 });
+
+/**
+ * Getting email and telephone number on profile page
+ */
+$('#get-phone, #get-email').click(function() {
+    var id = this.id;
+    $.post(
+        '/' + document.URL.split('/').slice(-2, -1) +
+        '/' + document.URL.split('/').pop(),
+        {
+            contact: id
+        },
+        function(data) {
+            if (id == 'get-phone') {
+                $('#get-phone').hide();
+                $('#user-phone').text(data);
+            } else {
+                $('#get-email').hide();
+                $('#user-email').text(data);
+            }
+        }
+    );
+});
