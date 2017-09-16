@@ -28,23 +28,23 @@ $(document).ready(function() {
 });
 
 
-// $('.get-more-results').click(function() {
-//     $post(
-//         '/users/' + document.URL.split('/').pop(),
-//         {
-//             current: current
-//         },
-//         function(data) {
-//             if (data.length) {
-//                 appendReviews(data);
-//                 current += data.length;
-//             }
-//             else {
-//                 $('.get-more-results').hide();
-//             }
-//         }
-//     );
-// });
+$('.get-more-results').click(function() {
+    $.post(
+        '/users/' + document.URL.split('/').pop(),
+        {
+            current: current
+        },
+        function(data) {
+            if (data.length) {
+                appendReviews(data);
+                current += data.length;
+            }
+            else {
+                $('.get-more-results').hide();
+            }
+        }
+    );
+});
 
 /**
  * Same stuff as on almost every .js -.-

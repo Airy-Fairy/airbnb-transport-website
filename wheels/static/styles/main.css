@@ -1007,7 +1007,7 @@ input[type="file"] {
     text-align: center;
     width: 100%;
 }
-
+.profile-page .get-more-results,
 .user-transport .get-more-results {
     margin-top: 30px;
     position: relative;
@@ -1250,6 +1250,10 @@ input[type="file"] {
     margin-top: 20px;
     text-align: center;
 }
+.profile-page .arrow-up:hover,
+.profile-page .arrow-down:hover {
+    opacity: 0.7;
+}
 
 .profile-page .arrow-btn {
     border: 1px solid lightgray;
@@ -1482,4 +1486,150 @@ input[type="file"] {
 
 .clickable {
     cursor: pointer;
+}
+
+/**
+ *
+ * unconfirmed.html styles
+ *
+ */
+
+.unconfirmed-block {
+    margin-top: 100px;
+    width: 100%;
+}
+
+.unconfirmed-block .box {
+    padding: 50px 100px;
+    text-align: center;
+    width: 760px;
+}
+
+.unconfirmed-block .row {
+    margin-bottom: 15px;
+}
+
+.box .title {
+    font-family: Impact;
+    font-size: 40px;
+    padding:  0 0 16px;
+    margin-bottom: 20px;
+}
+
+.box .title .transport {
+    color: darkcyan;
+}
+
+.circled-sign {
+    color: white;
+    border-radius: 50%;
+    background-color: darkcyan;
+    opacity: 0.7;
+    margin-bottom: 30px;
+    width: 100px;
+    height: 100px;
+    padding: 25px;
+}
+
+.unconfirmed-block .another-email {
+    border-radius: 5px;
+    background-color: darkcyan;
+    color: white;
+    font-weight: bold;
+    opacity: 0.7;
+    padding: 20px;
+    margin-top: 30px;
+}
+.unconfirmed-block .another-email:hover {
+    opacity: 0.5;
+}
+
+/**
+ *
+ * password-recovery.html styles
+ *
+ */
+
+.new-password-block {
+    margin-top: 80px;
+    width: 100%;
+}
+
+.new-password-block .box {
+    padding: 50px 100px;
+    text-align: center;
+    width: 600px;
+}
+
+.new-password-block input {
+    line-height: 40px;
+    width: 100%;
+}
+
+.new-password-block .no_match {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.new-password-block .submit {
+    margin-top: 20px;
+}
+
+/**
+ *
+ * Help page styles
+ *
+ */
+
+.help-block {
+    margin-top: 80px;
+    width: 100%;
+}
+
+.help-block h1 {
+    margin-bottom: 20px;
+}
+
+.help-block ul {
+    padding: 0;
+}
+
+.help-block li {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.help-block .box {
+    padding: 50px 100px;
+    text-align: center;
+    width: 760px;
+}
+
+.help-block .faq {
+    text-align: justify;
+    margin-bottom: 10px;
+}
+
+.help-block .faq .question,
+.help-block .to-admin .comment {
+    margin-bottom: 15px;
+}
+
+.help-block .to-admin {
+    text-align: justify;
+}
+
+.help-block .to-admin .message {
+    margin-bottom: 5px;
+}
+
+.help-block .to-admin textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+}
+
+.help-block .to-admin input {
+    line-height: 40px;
+    width: 100%;
 }

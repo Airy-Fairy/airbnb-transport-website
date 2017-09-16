@@ -4,11 +4,11 @@
 
 
 // Original colour of the submit button
-var btn_color = $('#signup-btn').css('background-color');
+var buttonColor = $('#signup-btn').css('background-color');
 
 /**
- * These three functions and dictionary are responsivble
- * for making submit button active and vice versa
+ * If all good we make submit button active
+ * otherwise we block submit
  */
  var allgood = {
      'terms': true,
@@ -16,7 +16,7 @@ var btn_color = $('#signup-btn').css('background-color');
      'birthday': true
  };
 
-function is_allgood() {
+function isAllGood() {
     for (var key in allgood) {
         if (!allgood[key]) {
             return false;
@@ -25,12 +25,21 @@ function is_allgood() {
     return true;
 }
 
-function make_active($elem, color) {
+/**
+ * Enables element
+ * @param  {object} $elem Some DOM element
+ * @param  {String} color Color of active element
+ */
+function makeActive($elem, color) {
     $elem.prop('disabled', false);
     $elem.css('background-color', color);
 }
 
-function make_inactive($elem) {
+/**
+ * Disables element
+ * @param  {object} $elem Some DOM element
+ */
+function makeInactive($elem) {
     $elem.prop('disabled', true);
     $elem.css('background-color', 'grey');
 }
@@ -39,7 +48,7 @@ function make_inactive($elem) {
 /**
  * These ones we need to show error messages
  */
-function is_hidden($elem) {
+function isHidden($elem) {
     return $elem.prop('hidden');
 }
 
@@ -47,7 +56,7 @@ function hide($elem) {
     $elem.prop('hidden', true);
 }
 
-function unhide($elem) {
+function show($elem) {
     $elem.prop('hidden', false);
 }
 
@@ -58,18 +67,18 @@ function unhide($elem) {
     var $signup_btn = $('#signup-btn');
 
     // Makes button inactive
-    make_inactive($signup_btn);
+    makeInactive($signup_btn);
     allgood.terms = false;
 
     $('#terms-of-use').on('change', function() {
         if (this.checked) {
             allgood.terms = true;
-            if (is_allgood()) {
-                make_active($signup_btn, btn_color);
+            if (isAllGood()) {
+                makeActive($signup_btn, buttonColor);
             }
         } else {
-            if (is_allgood()) {
-                make_inactive($signup_btn);
+            if (isAllGood()) {
+                makeInactive($signup_btn);
             }
             allgood.terms = false;
         }
@@ -82,20 +91,20 @@ function unhide($elem) {
  */
 $('#password, #confirm_password').on('keyup', function() {
     if ($('#password').val() != $('#confirm_password').val()) {
-        if (is_hidden($('#no_match_msg'))) {
-            unhide($('#no_match_msg'));
+        if (isHidden($('#no_match_msg'))) {
+            show($('#no_match_msg'));
         }
-        if (is_allgood()) {
-            make_inactive($('#signup-btn'));
+        if (isAllGood()) {
+            makeInactive($('#signup-btn'));
         }
         allgood.passwds = false;
     } else {
-        if (!is_hidden($('#no_match_msg'))) {
+        if (!isHidden($('#no_match_msg'))) {
             hide($('#no_match_msg'));
         }
         allgood.passwds = true;
-        if (is_allgood()) {
-            make_active($('#signup-btn'), btn_color);
+        if (isAllGood()) {
+            makeActive($('#signup-btn'), buttonColor);
         }
     }
 });
@@ -109,21 +118,38 @@ $('#day, #month, #year').on('change', function() {
         $('#month')[0].selectedIndex &&
         $('#year')[0].selectedIndex) {
             if (!birthdayCheck()) {
-                if (is_hidden($('#birthday_error_msg'))) {
-                    unhide($('#birthday_error_msg'));
+                if (isHidden($('#birthday_error_msg'))) {
+                    show($('#birthday_error_msg'));
                 }
-                if (is_allgood()) {
-                    make_inactive($('#signup-btn'));
+                if (isAllGood()) {
+                    makeInactive($('#signup-btn'));
                 }
                 allgood.birthday = false;
             } else {
-                if (!is_hidden($('#birthday_error_msg'))) {
+                if (!isHidden($('#birthday_error_msg'))) {
                     hide($('#birthday_error_msg'));
                 }
                 allgood.birthday = true;
-                if (is_allgood()) {
-                    make_active($('#signup-btn'), btn_color);
+                if (isAllGood()) {
+                    makeActive($('#signup-btn'), buttonColor);
                 }
             }
         }
+});
+
+/**
+ * New password match control
+ */
+$('#new-password, #new-confirm').keyup(function() {
+    var $password = $('#new-password');
+    var $confirm = $('#new-confirm');
+    var $submit = $('.new-password-block input[type="submit"]');
+    var $error = $('.new-password-block .no_match');
+    if ($password.val() != $confirm.val()) {
+        $error.show();
+        makeInactive($submit);
+    } else {
+        $error.hide();
+        makeActive($submit, buttonColor);
+    }
 });

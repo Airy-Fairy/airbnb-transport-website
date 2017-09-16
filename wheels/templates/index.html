@@ -23,11 +23,7 @@
          </section>
      </div>
  </div>
- <div class="get-more-results">
-     <div class="button cool-shadow cool-hover white-back">
-         <a id="get-more" class="link-as-text">Get more of these...</a>
-     </div>
- </div>
+{% include "show_me_more.html" %}
 {% include "transport_thumbnail.html" %}
  <script type="text/javascript" src="{{ url_for('static', filename='scripts/thumbnail.js') }}"></script>
  <script type="text/javascript" src="{{ url_for('static', filename='scripts/index.js') }}"></script>

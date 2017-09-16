@@ -2,7 +2,48 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="help-page">
-    <img src="static/imgs/development.gif" alt="In development">
+<div class="help-block">
+    <div class="box white-back cool-shadow">
+        <div class="title">
+            Sharing <span class="transport">Wheels</span>
+        </div>
+        <div class="circled-sign">
+            <label class="fa fa-question fa-3x" aria-hidden="true"></label>
+        </div>
+        <h1>FAQ</h1>
+        <div class="faq">
+            <ul>
+                <li>
+                    <div class="question">
+                        <h3>Question #1</h3>
+                    </div>
+                    <div class="reply">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </li>
+                <li>
+                    <div class="question">
+                        <h3>Question #2</h3>
+                    </div>
+                    <div class="reply">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <h1>Contact the team</h1>
+        <div class="to-admin">
+            <div class="comment">
+                If you have some unusual problem/question that's not mentioned in FAQ, you can send a message to the <strong>Sharing <span style="color: darkcyan;">Wheels</span></strong> team with this form:</p>
+            </div>
+            <form action="/" method="post">
+                <div class="message">
+                    <textarea name="message" placeholder="Write us something, but think twice before..." required></textarea>
+                </div>
+                <input type="submit" value="Send">
+            </form>
+
+        </div>
+    </div>
 </div>
 {% endblock %}

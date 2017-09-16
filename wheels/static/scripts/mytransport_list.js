@@ -23,7 +23,7 @@ $(document).ready(function() {
  */
 $('#get-more').click(function() {
     $.post(
-        '/' + decodeURIComponent(document.URL.split('/').pop()),
+        '/' + document.URL.split('/').pop(),
         {
             current: current
         },
