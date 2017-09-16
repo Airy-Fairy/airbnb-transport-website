@@ -1,10 +1,13 @@
-from __future__ import print_function
+# from __future__ import print_function
+#import sys
+from flask import current_app
 from flask_login import UserMixin
 from wheels import wheels, db
 import flask_whooshalchemy as wa
 from werkzeug.security import generate_password_hash, \
 	 check_password_hash
-import sys
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
 
 class User(UserMixin, db.Model):
 	__tablename__ = 'users'
@@ -18,7 +21,7 @@ class User(UserMixin, db.Model):
 	password_hash = db.Column(db.String(128))
 	avatar = db.Column(db.String(32))
 	vehicles = db.relationship('Vehicle', backref='owner', lazy='dynamic')
-	#confirmed = db.Column(db.Boolean, default=False)
+	confirmed = db.Column(db.Boolean, default=False)
 
 	@property
 	def password(self):
@@ -31,37 +34,37 @@ class User(UserMixin, db.Model):
 	def verify_password(self, password):
 		return check_password_hash(self.password_hash, password)
 
-	#def generate_confirmation_token(self, expiration=3600):
-	#    s = Serializer(current_app.config['SECRET_KEY'], expiration)
-	#    return s.dumps({'confirm': self.id})
+	def generate_confirmation_token(self, expiration=3600):
+		ser = Serializer(current_app.config['SECRET_KEY'], expiration)
+		return ser.dumps({'confirm': self.id})
 
-	#def confirm(self, token):
-	#    s = Serializer(current_app.config['SECRET_KEY'])
-	#    try:
-	#        data = s.loads(token)
-	#    except:
-	#        return False
-	#    if data.get('confirm') != self.id:
-	#        return False
-	#    self.confirmed = True
-	#    db.session.add(self)
-	#    return True
+	def confirm(self, token):
+		ser = Serializer(current_app.config['SECRET_KEY'])
+		try:
+			data = ser.loads(token)
+		except:
+			return False
+		if data.get('confirm') != self.id:
+			return False
+		self.confirmed = True
+		db.session.add(self)
+		return True
 
-	#def generate_reset_token(self, expiration=3600):
-	#    s = Serializer(current_app.config['SECRET_KEY'], expiration)
-	#    return s.dumps({'reset': self.id})
+	def generate_reset_token(self, expiration=3600):
+		s = Serializer(current_app.config['SECRET_KEY'], expiration)
+		return s.dumps({'reset': self.id})
 
-	#def reset_password(self, token, new_password):
-	#    s = Serializer(current_app.config['SECRET_KEY'])
-	#    try:
-	#        data = s.loads(token)
-	#    except:
-	#        return False
-	#    if data.get('reset') != self.id:
-	#        return False
-	#    self.password = new_password
-	#    db.session.add(self)
-	#    return True
+	def reset_password(self, new_password):
+		#s = Serializer(current_app.config['SECRET_KEY'])
+		#try:
+		#	data = s.loads(token)
+		#except:
+		#	return False
+		#if data.get('reset') != self.id:
+		#	return False
+		self.password = new_password
+		db.session.add(self)
+		#return True
 
 	#def generate_auth_token(self, expiration):
 	#    s = Serializer(current_app.config['SECRET_KEY'],

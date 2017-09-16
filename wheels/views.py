@@ -1,14 +1,15 @@
 from __future__ import print_function
-from wheels import wheels, login_manager, db, \
+from wheels import wheels, db, login_manager, \
 				   ALLOWED_EXTENSIONS, default_avatar_path
 from flask import render_template, redirect, url_for, request, flash, \
 				  jsonify, send_from_directory, abort
 from flask_login import login_user, logout_user, \
 						login_required, current_user
 from werkzeug.utils import secure_filename
-from models import User, Vehicle, Review
+from models import User, Vehicle, Review, Serializer
 from datetime import date, datetime
-import json, os, base64
+from email import send_email
+import json, os, uuid
 
 # tests only
 import sys # sys.stderr
@@ -43,6 +44,10 @@ def index_car_review():
 def help():
 	return render_template('help.html', title='Help')
 
+@wheels.route('/feedback')
+def feedback():
+	return render_template('help.html', title='Help')
+
 @wheels.route('/terms_of_use')
 def terms_of_use():
 	return render_template('terms.html', title='Terms of Use')
@@ -73,7 +78,7 @@ def sign_up():
 			bday = date(int(request.form.get('bd_year')) + 1900,  \
 						int(request.form.get('bd_month')) + 1, \
 						int(request.form.get('bd_day')) + 1)
-			user_new = User(email=request.form['email'],
+			user = User(email=request.form['email'],
 							phone=request.form['phone'],
 							name=request.form['name'],
 							surname=request.form['surname'],
@@ -85,14 +90,76 @@ def sign_up():
 			if not os.path.exists(user_directory):
 				os.mkdir(user_directory)
 				os.mkdir(os.path.join(user_directory, 'vehicles'))
-			db.session.add(user_new)
+			db.session.add(user)
 			db.session.commit()
+			token = user.generate_confirmation_token()
+			send_email(user.email, 'Confirm Your Account',
+					   'email/confirm', user=user, token=token)
 			flash('A confirmation email has been sent to you by email.')
 		else:
-			flash('This email is already registered.')
+			flash('This email is already exists.')
 		return redirect(url_for('index'))
 	flash('Something has gone wrong :(')
 	return redirect(url_for('index'))
+
+@wheels.route('/confirm/<token>')
+@login_required
+def confirm(token):
+	if current_user.confirmed:
+		return redirect(url_for('index'))
+	if current_user.confirm(token):
+		flash('You have confirmed your account. Thanks!')
+	else:
+		flash('The confirmation link is invalid or has expired.')
+	return redirect(url_for('index'))
+
+@wheels.route('/confirm')
+@login_required
+def resend_confirmation():
+	token = current_user.generate_confirmation_token()
+	send_email(current_user.email, 'Confirm Your Account',
+			   'email/confirm', user=current_user, token=token)
+	flash('A new confirmation email has been sent to you by email.')
+	return redirect(url_for('index'))
+
+@wheels.route('/unconfirmed')
+def unconfirmed():
+	if current_user.is_anonymous or current_user.confirmed:
+		return redirect(url_for('index'))
+	return render_template('unconfirmed.html', title='Confirm your account')
+
+@wheels.route('/reset', methods=['POST'])
+def password_reset_request():
+	if current_user.is_anonymous:
+		user = User.query.filter_by(email=request.form['user_email']).first()
+		if user:
+			token = user.generate_reset_token()
+			send_email(user.email, 'Reset Your Password',
+			   'email/reset_password', user=user, token=token)
+			flash('An email with instructions to reset your password has been sent to you.')
+		flash('This email is unregistered.')
+	return redirect(url_for('index', title='Main page'))
+
+@wheels.route('/reset/<token>', methods=['GET','POST'])
+def password_reset(token):
+	if not current_user.is_anonymous:
+		return redirect(url_for('index'))
+	if request.method == 'POST':
+		s = Serializer(wheels.config['SECRET_KEY'])
+		try:
+			data = s.loads(token)
+		except:
+			flash('Your token has been expired or revoked. Try again.')
+			return redirect(url_for('index'))
+		uid = data.get('reset')
+		user = User.query.get_or_404(uid)
+		if user is None:
+			flash('Password has not been updated.')
+			return redirect(url_for('index'))
+		user.reset_password(request.form['password'])
+		flash('Your password has been updated.')
+		return redirect(url_for('index', title='Try to login now.'))
+	return render_template('new_password.html', token=token)
 
 @wheels.route('/search', methods=['GET'])
 def search():
@@ -159,12 +226,16 @@ def get_top_rated_vehicles(current):
 @wheels.route('/user')
 @login_required
 def user_menu():
+	if not current_user.confirmed:
+		return redirect(url_for('unconfirmed'))
 	user = current_user.email.split('@')
 	return redirect(url_for('user', nickname=user[0], page='settings'))
 
-@wheels.route('/user=<nickname>?<page>')
+@wheels.route('/user=<nickname>?<page>', methods=['GET'])
 @login_required
 def user(nickname, page):
+	if not current_user.confirmed:
+		return redirect(url_for('unconfirmed'))
 	page_new = 'user/' + page + '.html'
 	if page == 'transport':
 		query = Vehicle.query.filter_by(owner=current_user)
@@ -179,8 +250,14 @@ def user(nickname, page):
 
 @wheels.route('/user=<nickname>?transport', methods=['POST'])
 @login_required
-def mytransport_more():
-	return 'nothing to say to you'
+def mytransport_more(nickname):
+	if not current_user.confirmed:
+		return redirect(url_for('unconfirmed'))
+	current = request.form['current']
+	query = Vehicle.query.filter_by(owner=current_user)
+	query = query.order_by(Vehicle.id.desc())
+	mytransport = fill_vehicle_array(get_records(query, 3, current))
+	return jsonify(mytransport)
 
 @wheels.route('/users/id<uid>')
 def user_profile(uid):
@@ -203,8 +280,10 @@ def user_profile(uid):
 @wheels.route('/users/id<uid>', methods=['POST'])
 def get_more_reviews(uid):
 	current = request.form['current']
-	return 'nothing to say to you'
-
+	review_query = Review.query.filter_by(ownid=uid).order_by(Review.id.desc())
+	reviews = fill_reviews_list(get_records(review_query, 3, current))
+	return jsonify(reviews)
+	
 def fill_reviews_list(reviews):
 	retarray = []
 	for review in reviews:
@@ -238,6 +317,8 @@ def vehicle_profile(vid):
 @wheels.route('/upload_avatar', methods=['POST'])
 @login_required
 def upload_avatar():
+	if not current_user.confirmed:
+		return redirect(url_for('unconfirmed'))
 	if 'avatar' not in request.files:
 		flash('No file part in request.')
 		return redirect(url_for('user_menu'))
@@ -253,7 +334,6 @@ def upload_avatar():
 		file.save(os.path.join(save_path, filename))
 		# change db avatar value
 		current_user.avatar = filename
-		db.session.commit()
 		user_name = current_user.email.split('@')[0]
 		return redirect(url_for('user', nickname=user_name, page='photo'))
 	flash('Sorry, server can\'t upload this file.')
@@ -263,7 +343,7 @@ def upload_avatar():
 def upload_user_avatar(uid, filename):
 	if filename == 'default':
 		return send_from_directory(default_avatar_path, 'default.png')
-	user = User.query.get_or_404(uid) # filter_by(id=uid).first()
+	user = User.query.get_or_404(uid)
 	if user == None:
 		return abort(404)
 	load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], user.email)
@@ -271,7 +351,7 @@ def upload_user_avatar(uid, filename):
 
 @wheels.route('/upload/vehicle=<vid>/<filename>')
 def upload_vehicle_photo(vid, filename):
-	vehicle = Vehicle.query.get_or_404(vid) #filter_by(id=vid).first()
+	vehicle = Vehicle.query.get_or_404(vid)
 	owner = vehicle.owner
 	load_path = os.path.join(wheels.config['UPLOAD_FOLDER'], owner.email)
 	load_path = os.path.join(load_path, 'vehicles')
@@ -284,6 +364,8 @@ def allowed_file(filename):
 @wheels.route('/add_review', methods=['POST'])
 @login_required
 def add_review():
+	if not current_user.confirmed:
+		return redirect(url_for('unconfirmed'))
 	text = request.form['text_review']
 	vid = int(request.form.get('choose_transport'))
 	rating = float(request.form['rating'])
@@ -298,16 +380,15 @@ def add_review():
 							timestamp=datetime.utcnow(),
 							uid=current_user.id,
 							ownid=owner_id,
-							vid=vid)
+							vid=vid,
+							target=chosen)
 		db.session.add(review_new)
 		# update transport info
 		chosen = Vehicle.query.get_or_404(vid)
 		chosen.rating = (chosen.rating * chosen.review_count + rating) \
 						/ (chosen.review_count + 1)
-		db.session.merge(chosen)
 		chosen.review_count += 1
-		db.session.merge(chosen)
-		db.session.commit()
+		db.session.add(chosen)
 	else:
 		flash('You already rated this vehicle.')
 	return redirect(url_for('user_profile', uid=owner_id))
@@ -315,6 +396,8 @@ def add_review():
 @wheels.route('/add_transport', methods=['POST'])
 @login_required
 def add_transport():
+	if not current_user.confirmed:
+		return redirect(url_for('unconfirmed'))
 	brand = request.form.get('brand')
 	model = request.form.get('model')
 	year = 1900 if request.form.get('year') == 'before-1960' else int(request.form.get('year')) + 1960
@@ -329,7 +412,8 @@ def add_transport():
 	file = request.files['photo']
 	if file and allowed_file(file.filename):
 		save_path = wheels.config['UPLOAD_FOLDER'] + '/' + current_user.email + '/vehicles'
-		filename = base64.b64encode(secure_filename(file.filename)) + '.jpg'
+		# creating the unique file names for each file
+		filename = uuid.uuid4().hex + '.' + file.filename.split('.')[-1]
 		file.save(os.path.join(save_path, filename))
 		vehicle = Vehicle(brand=brand,
 						  model=model,

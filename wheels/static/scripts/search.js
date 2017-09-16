@@ -15,8 +15,6 @@ $(document).ready(function() {
     if (data.length) {
         appendResults(data);
         current += data.length;
-    } else if (current == 0) {
-        $('.no-search-results').show();
     }
 });
 

@@ -16,7 +16,8 @@ def init_user_db():
 					 password='pass123',
 					 avatar='admin.png',
 					 reg_date=datetime.utcnow(),
-					 bday=date(1995, 03, 31))
+					 bday=date(1995, 03, 31),
+					 confirmed=True)
 	db.session.add(admin)
 	db.session.commit()
 	users = User.query.all()
