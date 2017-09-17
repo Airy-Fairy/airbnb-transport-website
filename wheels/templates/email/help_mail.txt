@@ -1,0 +1,11 @@
+My Lord,
+
+Your miserable servant by name {{ name }} from {{ email }} wrote Your Majesty a following letter:
+
+{{ text }}
+
+I'm begging Your Majesty to not be angry and show some mercy to this pathetic creature.
+
+Sincerely,
+
+Mr. Nobody
