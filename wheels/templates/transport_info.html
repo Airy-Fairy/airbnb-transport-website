@@ -108,20 +108,21 @@
                             <div class="panel-line">
                                 <div class="contacts">
                                     <div class="row">
-                    					<span class="label">Phone:</span>
-                    					<a id="get-phone" class="clickable">XXX-XXX-XXXX</a>
-                    					<span id="user-phone"></span>
-                    				</div>
-                    				<div class="row">
-                    					<span class="label">Email:</span>
-                    					<a id="get-email" class="clickable">clicktoget@email.com</a>
-                    					<span id="user-email"></span>
-                    				</div>
+                                        <span class="label">Phone:</span>
+                                        <a id="get-phone" class="clickable">XXX-XXX-XXXX</a>
+                                        <span id="user-phone"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Email:</span>
+                                        <a id="get-email" class="clickable">clicktoget@email.com</a>
+                                        <span id="user-email"></span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="panel-line">
                                 <div class="message">
                                     <form class="" action="#" method="post">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                         <div class="label">
                                             Write a message to the owner:
                                         </div>

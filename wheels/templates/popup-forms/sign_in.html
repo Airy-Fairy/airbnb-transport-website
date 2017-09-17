@@ -1,9 +1,10 @@
         <!-- POPUP sign in form -->
         <div class="popup signin-form">
             <div class="close-block">
-                <a href="" class="close signin"></a> <!-- Make fucking decorator -->
+                <a href="" class="close signin"></a>
             </div>
             <form id="login-form" action="/login" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div class="signin-creds">
                     <input type="email" name="email" placeholder="Your Email" required><br>
                     <input type="password" name="password" placeholder="Your Password" required><br>
@@ -16,7 +17,7 @@
                         <input type="checkbox" name="remember"> Remember me
                     </div>
                     <div class="forgotpasswd">
-                        <a class="colored-link" href="" id="forgotpasswd">Forgot your password?</a> <!-- Make fucking decorator -->
+                        <a class="colored-link" href="" id="forgotpasswd">Forgot your password?</a>
                     </div>
                 </div>
                 <div class="signin-btn">

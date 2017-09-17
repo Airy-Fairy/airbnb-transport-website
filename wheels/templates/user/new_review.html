@@ -7,6 +7,7 @@
         <div class="right-col">
         <!-- Add post request for database updating -->
             <form class="" action="/add_review" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div class="transport-choice">
                     <span class="label">Choose transport:</span>
                     <select name="choose_transport" id="choose-user-transport">

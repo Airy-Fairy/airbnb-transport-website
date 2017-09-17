@@ -8,6 +8,7 @@
                             <img class="cover round square" src="{{ url_for('upload_user_avatar', uid=current_user.id, filename=current_user.avatar) }}">
                         </div>
                         <form class="upload-form" action="/upload_avatar" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <div class="upload-btn">
                                 <input type="file" name="avatar" accept="image/*" class="custom-file-input" id="upload-photo" capture="camera" required>
                             </div>

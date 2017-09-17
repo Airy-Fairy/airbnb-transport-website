@@ -2,7 +2,8 @@
     <div class="close-block">
         <a href="" class="close signup"></a>
     </div>
-    <form id="signup-form" action="/sign_up" method="post">
+    <form id="signup-form" action="/register" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div class="signup-creds">
             <input type="email" name="email" id="email" placeholder="Your Email" required><br>
             <input type="tel" name="phone" id="phone" placeholder="Your Phone Number (format: xxx-xxx-xxxx)" pattern="^\d{3}-\d{3}-\d{4}$" required><br>
@@ -65,7 +66,7 @@
             <div class="left">
                 Already have an account?
             </div>
-            <a class="go-signin" id="go-signin" href="">Sign in</a> <!-- Make fucking decorator -->
+            <a class="go-signin" id="go-signin" href="">Sign in</a>
         </div>
     </form>
 </div>

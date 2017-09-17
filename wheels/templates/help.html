@@ -37,6 +37,7 @@
                 If you have some unusual problem/question that's not mentioned in FAQ, you can send a message to the <strong>Sharing <span style="color: darkcyan;">Wheels</span></strong> team with this form:
             </div>
             <form action="/feedback" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <input type="email" name="email" placeholder="Your Email" required><br>
                 <input type="text" name="name" placeholder="Your Name" required><br>
                 <div class="message">

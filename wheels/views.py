@@ -1,20 +1,57 @@
 from __future__ import print_function
-from wheels import wheels, db, login_manager, \
+# csrf
+from wheels import wheels, db, login_manager, bcrypt, csrf, \
 				   ALLOWED_EXTENSIONS, default_avatar_path
 from flask import render_template, redirect, url_for, request, flash, \
-				  jsonify, send_from_directory, abort
+				  jsonify, send_from_directory, abort, make_response
 from flask_login import login_user, logout_user, \
 						login_required, current_user
 from werkzeug.utils import secure_filename
 from models import User, Vehicle, Review, Serializer
 from datetime import date, datetime, timedelta
 from email import send_email
+from validate_email import validate_email
 import json, os, uuid
 
 # tests only
 import sys # sys.stderr
 
-all_search_results = None
+# Stupid global variables
+all_search_results = None # search query with filters
+no_login_required = ['static', 'terms_of_use', 'index', 'root', # uncookied pages
+					 'index_car_review', 'help', 'user_profile',
+					 'feedback', 'register', 'unconfirmed',
+					 'in_development', 'upload_user_avatar',
+					 'upload_vehicle_photo', 'search',
+					 'reset', 'vehicle_profile', 'vehicles']
+first_request = True # first request for user authorization
+attempts = {} # counts
+delta = timedelta(seconds=5) # just for tests
+# delta = timedelta(minutes=30) 
+
+@wheels.before_request
+def get_cookie():
+	try:
+		global first_request
+		if request.endpoint not in no_login_required or first_request:
+			first_request = False
+			# print (request.endpoint, file=sys.stderr)	
+			data = json.loads(request.cookies.get('remember_me'))
+			user_agent = request.headers.get('User-Agent')
+			uid = data['id']
+			user = User.query.filter_by(guid=uid).first()
+			user_email = user.email
+			login_hash = data['login_info']
+			valid = bcrypt.check_password_hash(login_hash, user_agent + user_email)
+			if not valid:
+				response = make_response(redirect('index'))
+				response.delete_cookie('remember_me')
+				return response
+			if not current_user.is_authenticated:
+				login_user(user)
+	except:
+		# print ('cookies not found', file=sys.stderr)
+		pass
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -44,25 +81,26 @@ def index_car_review():
 def help():
 	return render_template('help.html', title='Help')
 
-@wheels.route('/feedback')
+@wheels.route('/feedback', methods=['POST'])
 def feedback():
+	email = request.form['email']
+	name = request.form['name']
+	text = request.form['message']
+	my_email = os.environ.get('MAIL_USERNAME') + '@yandex.ru'
+	send_email(my_email, 'User Mail', 'email/help_mail',
+						  name=name, email=email, text=text)
+	flash('Thank you for your letter!')
 	return render_template('help.html', title='Help')
 
 @wheels.route('/terms_of_use')
 def terms_of_use():
 	return render_template('terms.html', title='Terms of Use')
 
-# Stupid global variables
-attempts = {}
-threshold = 3
-delta = timedelta(seconds=5) # just for tests
-# delta = timedelta(minutes=30)
-
 @wheels.route('/login', methods=['POST'])
 def login():
 	user = User.query.filter_by(email=request.form['email']).first()
 	if user is not None:
-		# Check attempts
+		# attempts checking
 		if request.form['email'] not in attempts:
 			attempts[request.form['email']] = {'cnt': 1, 'last': datetime.now()}
 		else:
@@ -74,37 +112,51 @@ def login():
 			else:
 				attempts[request.form['email']]['cnt'] += 1
 				attempts[request.form['email']]['last'] = datetime.now()
-		# Check password
+		# password checking
 		if user.verify_password(request.form['password']):
-			rm = True if request.form.get('remember') == 'on' else False
-			login_user(user, rm)
+			remember = True if request.form.get('remember') == 'on' else False
+			#login_user(user, remember)
+			login_user(user)
+			if remember:
+				user_agent = request.headers.get('User-Agent')
+				login_hash = bcrypt.generate_password_hash(user_agent + user.email)
+				response = make_response(redirect('index'))
+				expire_date = datetime.utcnow()
+				expire_date = expire_date + timedelta(days=30)
+				response.set_cookie('remember_me', json.dumps({'login_info': login_hash, 'id' : user.guid }),\
+									expires=expire_date, httponly=True)
+				return response
 			return jsonify({'failed': False, 'attempts': True})
-		else:
-			return jsonify({'failed': True, 'attempts': True})
+	return jsonify({'failed': True, 'attempts': True})
 
 @wheels.route('/logout')
 @login_required
 def logout():
 	logout_user()
 	flash('You have been logged out.')
-	return redirect(url_for('index'))
+	response = make_response(redirect('index'))
+	response.delete_cookie('remember_me')
+	return response
 
-@wheels.route('/sign_up', methods=['GET','POST'])
-def sign_up():
+@wheels.route('/register', methods=['GET','POST'])
+def register():
 	if request.method == 'POST':
-		user = User.query.filter_by(email=request.form['email']).first()
-		if user is None:
+		email = request.form['email']
+		user = User.query.filter_by(email=email).first()
+		if user is None and validate_email(email, verify=True):
 			bday = date(int(request.form.get('bd_year')) + 1900,  \
 						int(request.form.get('bd_month')) + 1, \
 						int(request.form.get('bd_day')) + 1)
-			user = User(email=request.form['email'],
-							phone=request.form['phone'],
-							name=request.form['name'],
-							surname=request.form['surname'],
-							bday=bday,
-							password=request.form['password'],
-							avatar='default',
-							reg_date=datetime.utcnow())
+			user = User(email=email,
+						guid=uuid.uuid4().hex,
+						phone=request.form['phone'],
+						name=request.form['name'],
+						surname=request.form['surname'],
+						bday=bday,
+						password=request.form['password'],
+						avatar='default',
+						reg_date=datetime.utcnow(),
+						about_me='')
 			user_directory = os.path.join(wheels.config['UPLOAD_FOLDER'], request.form['email'])
 			if not os.path.exists(user_directory):
 				os.mkdir(user_directory)
@@ -196,7 +248,8 @@ def search():
 	query = Vehicle.query
 	if not (brand == model == year_from == year_to == \
 			price_from == price_to == search_str == ''):
-		query = query.whoosh_search(search_str)
+		if search_str is not None:
+			query = query.whooshee_search(search_str)
 		if brand:
 			query = query.filter_by(brand=brand)
 		if model:
@@ -278,6 +331,30 @@ def mytransport_more(nickname):
 	mytransport = fill_vehicle_array(get_records(query, 3, current))
 	return jsonify(mytransport)
 
+@wheels.route('/edit_user_info', methods=['POST'])
+@login_required
+def edit_user_info():
+	if not current_user.confirmed:
+		return redirect(url_for('unconfirmed'))
+	name = request.form['name']
+	surname = request.form['surname']
+	phone = request.form['phone']
+	about_me = request.form['about_me']
+	address = request.form['address']
+	currency = request.form.get('currency')
+	gender = request.form.get('gender')
+	bday = date(int(request.form.get('bd_year')) + 1900,  \
+				int(request.form.get('bd_month')) + 1, \
+				int(request.form.get('bd_day')) + 1)
+	current_user.name = name
+	current_user.surname = surname
+	current_user.about_me = about_me
+	print (about_me, file=sys.stderr)
+	current_user.phone = phone
+	current_user.bday = bday
+	db.session.add(current_user)
+	return redirect(url_for('user_menu'))
+
 @wheels.route('/users/id<uid>')
 def user_profile(uid):
 	user = User.query.get_or_404(uid)
@@ -301,20 +378,18 @@ def get_more_reviews(uid):
 	# returns email or phone on request
 	try:
 		contact = request.form['contact']
-	except:
-		pass
-	else:
 		user = User.query.get_or_404(uid)
 		if contact == 'get-phone':
 			return user.phone
 		else:
 			return user.email
-	# -----------------------------------
+	except:
+		pass
 	current = request.form['current']
 	review_query = Review.query.filter_by(ownid=uid).order_by(Review.id.desc())
 	reviews = fill_reviews_list(get_records(review_query, 3, current))
 	return jsonify(reviews)
-
+	
 def fill_reviews_list(reviews):
 	retarray = []
 	for review in reviews:
@@ -472,3 +547,7 @@ def add_transport():
 		return redirect(url_for('user', nickname=user_name, page='transport'))
 	flash('Sorry, server can\'t upload this file.')
 	return redirect(url_for('user_menu'))
+
+@wheels.route('/in_development', methods=['GET','POST'])
+def in_development():
+	return render_template('in_development.html', title='In Development')

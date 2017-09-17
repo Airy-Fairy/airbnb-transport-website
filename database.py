@@ -1,23 +1,25 @@
 import sys
-import json
+import json, uuid
 from random import uniform, randint
 from datetime import datetime, date
-from wheels import db
-from wheels.models import User, Vehicle, Review, db_whoosh
+from wheels import wheels, db
+from wheels.models import User, Vehicle, Review
+
 
 def init_user_db():
 	db.drop_all()
-	db_whoosh()
 	db.create_all()
 	admin = User(email='glebignatieff@gmail.com',
-					 phone='333-333-3333',
-					 name='Gleb',
-					 surname='Ignatiev',
-					 password='pass123',
-					 avatar='admin.png',
-					 reg_date=datetime.utcnow(),
-					 bday=date(1995, 03, 31),
-					 confirmed=True)
+				 guid = uuid.uuid4().hex,
+				 phone='333-333-3333',
+				 name='Gleb',
+				 surname='Ignatiev',
+				 password='pass123',
+				 avatar='admin.png',
+				 reg_date=datetime.utcnow(),
+				 bday=date(1995, 03, 31),
+				 confirmed=True,
+				 about_me='')
 	db.session.add(admin)
 	db.session.commit()
 	users = User.query.all()
@@ -51,6 +53,7 @@ def init_user_db():
 	db.session.commit()
 	db.session.delete(the_review)
 	db.session.commit()
+
 
 if __name__ == "__main__":
 	if len(sys.argv) > 1:

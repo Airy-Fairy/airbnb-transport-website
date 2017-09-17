@@ -1,24 +1,25 @@
 	<div class="user-page-container">
 		<div class="user-settings-form" id="user-settings">
-			<form class="panel-container" action="">
+			<form class="panel-container" action="/edit_user_info" method="post">
+				<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 				<div class="panel-head">Your account settings</div>
 				<div class="panel-line">
 					<div class="form-row">
 						<label for="name">First Name</label>
 						<div class="elem">
-							<input type="text" id="name" value="{{ current_user.name }}" maxlength="64" required>
+							<input type="text" id="name" name="name" value="{{ current_user.name }}" maxlength="64" required>
 						</div>
 					</div>
 					<div class="form-row">
 						<label for="surname">Last Name</label>
 						<div class="elem">
-							<input type="text" id="surname" value="{{ current_user.surname }}" maxlength="64" required>
+							<input type="text" id="surname" name="surname" value="{{ current_user.surname }}" maxlength="64" required>
 						</div>
 					</div>
 					<div class="form-row">
 						<label for="gender">Gender</label>
 						<div class="elem">
-							<select class="omg" id="gender">
+							<select class="omg" id="gender" name="gender">
 								<option>Gender</option>
 								<option value="man">Masculine</option>
 								<option value="woman">Feminine</option>
@@ -30,7 +31,7 @@
 						<label for="birthday">Birthday</label>
 						<div class="elem">
 							<div class="birthday" data-birthday="{{ current_user.bday }}">
-								<select class="omg" name="birthday" id="month" required>
+								<select class="omg" name="bd_month" id="month" required>
 									<option value="-1">Month</option>
 									<option value="0">January</option>
 									<option value="1">February</option>
@@ -45,10 +46,10 @@
 									<option value="10">November</option>
 									<option value="11">December</option>
 								</select>
-								<select class="omg" name="birthday" id="day" required>
+								<select class="omg" name="bd_day" id="day" required>
 									<option value="-1">Day</option>
 								</select>
-								<select class="omg" name="birthday" id="year" required>
+								<select class="omg" name="bd_year" id="year" required>
 									<option value="-1">Year</option>
 								</select>
 							</div>
@@ -63,7 +64,7 @@
 					<div class="form-row">
 						<label for="phone">Phone Number</label>
 						<div class="elem">
-							<input type="tel" id="phone" value="{{ current_user.phone }}" required>
+							<input type="tel" id="phone" name="phone" value="{{ current_user.phone }}" required>
 						</div>
 					</div>
 				</div>
@@ -71,7 +72,7 @@
 					<div class="form-row">
 						<label for="currency">Currency</label>
 						<div class="elem">
-							<select class="omg" id="currency">
+							<select class="omg" id="currency" name="currency">
 								<!-- <option value="rub">RUB</option> -->
 								<option value="usd">USD</option>
 								<option value="eur">EUR</option>
@@ -83,7 +84,7 @@
 					<div class="form-row">
 						<label for="address">Address</label>
 						<div class="elem">
-							<input type="text" id="address" maxlength="96" placeholder="Where do you live?">
+							<input type="text" id="address" name="address" maxlength="96" placeholder="Where do you live?">
 						</div>
 					</div>
 				</div>
@@ -91,7 +92,7 @@
 					<div class="form-row">
 						<label for="aboutme">About me</label>
 						<div class="elem">
-							<textarea id="aboutme" placeholder="Tell us something about you in a few words" maxlength="256"></textarea>
+							<textarea id="aboutme" name="about_me" placeholder="Tell us something about you in a few words" xlength="256">{{ current_user.about_me }}</textarea>
 						</div>
 					</div>
 					<div class="save-settings-btn">

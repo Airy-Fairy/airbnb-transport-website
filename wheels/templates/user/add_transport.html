@@ -1,6 +1,7 @@
 <div class="user-page-container">
     <div class="new-transport-form">
         <form action="/add_transport" method="post" enctype=multipart/form-data>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <div class="panel-container">
                 <div class="panel-head">Required</div>
                 <div class="panel-line">
