@@ -17,6 +17,8 @@ $(document).ready(function() {
         current += data.length;
     } else if (current == 0) {
         $('.no-search-results').show();
+        $('.open-map').hide();
+        $('.get-more-results').hide();
     }
 });
 

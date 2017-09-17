@@ -814,6 +814,10 @@ input[type="checkbox"]:checked:after {
     width: 30%;
 }
 
+.no-side-frame {
+    padding: 1px 0 0;
+}
+
 .new-transport-form .form-row {
     line-height: 40px;
 }
@@ -872,6 +876,44 @@ input[type="file"] {
 .new-transport-form .no-photo {
     text-align: center;
 }
+
+/* Add transport: google maps stuff */
+
+.new-transport-form .map-block {
+    height: 350px;
+}
+
+.new-transport-form .google-map {
+    height: 100%;
+    width: 100%;
+}
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+#pac-input:focus {
+  border-color: darkcyan;
+}
+
+/**/
 
 .save-transport-btn {
     margin-top: 40px;
@@ -985,7 +1027,7 @@ input[type="file"] {
     width: 100%;
 }
 
-.map-block .open-map {
+.search-page .map-block .open-map {
     border: 1px solid lightgrey;
     border-radius: 2px;
     margin-bottom: 10px;
@@ -994,11 +1036,11 @@ input[type="file"] {
     width: 50%;
 }
 
-.map-block .open-map .button {
+.search-page .map-block .open-map .button {
     padding: 10px 0;
 }
 
-.map-block .google-map {
+.search-page .map-block .google-map {
     height: 400px;
     width: 100%;
 }
