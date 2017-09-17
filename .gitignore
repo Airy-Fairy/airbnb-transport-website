@@ -1,2 +1,4 @@
 
 \.tern-project
+*.pyc
+*.db-journal

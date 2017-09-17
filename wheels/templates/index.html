@@ -1,0 +1,30 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+ <div class="main-content">
+     <div class="container">
+         <div class="title">
+             <section class="name">
+                 Sharing <span class="transport">Wheels</span>
+             </section>
+             <section class="tagline">
+                 Share your transport with everyone
+             </section>
+         </div>
+         <section class="picture">
+             <img class="cover cool-shadow" src="{{ url_for('static', filename='imgs/wtf.png') }}" alt="car sharing picture">
+         </section>
+        <section class="search">
+         {% include "search_bar.html" %}
+        </section>
+         <section class="random-content">
+             <div class="grid"></div>
+         </section>
+     </div>
+ </div>
+{% include "show_me_more.html" %}
+{% include "transport_thumbnail.html" %}
+ <script type="text/javascript" src="{{ url_for('static', filename='scripts/thumbnail.js') }}"></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+{% endblock %}

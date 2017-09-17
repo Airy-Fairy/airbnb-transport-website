@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% if title %}
+        <title>Sharing Wheels - {{title}}</title>
+        {% else %}
+        <title>Sharing Wheels</title>
+        {% endif %}
+        <link rel="icon" href="{{ url_for('static', filename='imgs/icon.png') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+        <script src="{{ url_for('static', filename='scripts/jquery-3.2.1.js') }}"></script>
+    </head>
+    <!-- CSRF checking script -->
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
+    </script>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="content">
+                <ul>
+                    <li>
+                        <a class="logo" href="{{ url_for('index') }}" id="home">
+                            <img src="{{ url_for('static', filename='imgs/white-car.svg') }}" height="36">
+                        </a>
+                    </li>
+                    <span class="nav-search-block" hidden="hidden">
+                        <li>
+                            <div class="nav-search">
+                                <form action="/search" method="get">
+                                    <input type="search" name="search" placeholder="Search for some wheels...">
+                                    <input type="submit" name="search-btn">
+                                </form>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="go-detailed">
+                                <a href="{{ url_for('search') }}" id="go-detailed-btn" class="link-as-text cool-hover">Go detailed search</a>
+                            </div>
+                        </li>
+                    </span>
+                </ul>
+                <ul class="right">
+                    <li>
+                        <a href="{{ url_for('help') }}" id="help">Help</a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('user_menu') }}" id="your-profile">Your Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}" id="sign-out">Sign out</a></li>
+                    {% else %}
+                        <li><a href="" id="sign-up">Sign up</a></li>
+                        <li><a href="" id="sign-in">Sign in</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </header>
+        {% block content %}
+        {% endblock %}
+        <!-- Footer -->
+        <footer>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <div class="content">
+                <ul>
+                    <li>
+                        Copyright &copy; <span id="current-year"></span> Sharing Wheels All Rights Reserved.
+                    </li>
+                </ul>
+                <ul class="right">
+                    <li>
+                        <a href=""> <i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+                        <a href=""> <i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                        <a href=""> <i class="fa fa-vk fa-2x" aria-hidden="true"></i></a>
+                        <a href=""> <i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                        <a href=""> <i class="fa fa-google fa-2x" aria-hidden="true"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <!-- Dark screen overlay -->
+        <div class="dark-screen"></div>
+        {% if not current_user.is_authenticated %}
+            {% include "popup-forms/sign_up.html" %}
+            {% include "popup-forms/sign_in.html" %}
+            {% include "popup-forms/password_recovery.html" %}
+            <script type="text/javascript" src="{{ url_for('static', filename='scripts/popups.js') }}"></script>
+            <script type="text/javascript" src="{{ url_for('static', filename='scripts/authentification.js') }}"></script>
+        {% endif %}
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/common.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/birthday.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/transport.js') }}"></script>
+    </body>
+
+</html>

@@ -1,0 +1,138 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="profile-page">
+		<div class="grid">
+			<div class="left-col">
+				<div class="image">
+					<img class="cover square" src="{{ url_for('upload_user_avatar', uid=user.id, filename=user.avatar) }}" alt="User Avatar">
+				</div>
+				<div class="transport-info">
+					<div class="panel-container">
+						<div class="panel-head">
+							My Transport
+						</div>
+						{% for i in range(vehicles|length) %}
+                        <div class="panel-line">
+							<div class="row">
+								<a href="{{ url_for('vehicle_profile', vid=vehicles[i][0]) }}">{{ vehicles[i][1] }}</a>
+							</div>
+						</div>
+                        {% endfor %}
+					</div>
+					<div class="arrow-block" hidden="hidden">
+						<div class="arrow-btn white-back cool-shadow clickable">
+							<div class="arrow-up" hidden="hidden">
+								<span class="fa fa-arrow-circle-o-up fa-2x" aria-hidden="true"></span>
+							</div>
+							<div class="arrow-down" hidden="hidden">
+								<span class="fa fa-arrow-circle-o-down fa-2x" aria-hidden="true"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="right-col">
+				<div class="title">
+					Hello, my name is {{ user.name }}!
+				</div>
+				<div class="row">
+					<div class="since">
+						Joined in <span id="#since">{{ user.reg_date.strftime("%B %Y") }}</span>
+					</div>
+				</div>
+				<div class="row split">
+					<div class="rating">
+						<div class="star-rating">
+							{% for i in range(rating) %}
+								<label class="fa fa-star" aria-hidden="true"></label>
+							{% endfor %}
+							{% for i in range(5 - rating) %}
+								<label class="fa fa-star-o" aria-hidden="true"></label>
+							{% endfor %}
+						</div>
+						<div class="reviews-count">
+							{{ reviews_count }} reviews
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<span class="label">Phone:</span>
+					<a id="get-phone" class="clickable">XXX-XXX-XXXX</a>
+					<span id="user-phone"></span>
+				</div>
+				<div class="row split">
+					<span class="label">Email:</span>
+					<a id="get-email" class="clickable">clicktoget@email.com</a>
+					<span id="user-email"></span>
+				</div>
+				<div class="row split">
+					<span class="label">About me: </span>За Печенкина и двор стреляю в упор!
+				</div>
+				<div class="row">
+					<ul class="reviews-list">
+						<li>
+							<!-- Don't show it if you came from 'Your Profile' -->
+							{% if current_user.is_authenticated %}
+								{% if current_user.id != user.id %}
+									{% include "user/new_review.html" %}
+								{% endif %}
+							{% endif %}
+						</li>
+					</ul>
+				</div>
+				{% if reviews_count != 0 %}
+					{% include "show_me_more.html" %}
+				{% else %}
+					<div class="no-reviews">
+						No reviews yet
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- Maybe some template this shit? -->
+	<div class="review template white-back cool-shadow">
+		<div class="grid">
+			<div class="left-col">
+				<a class="link-as-text">
+					<div class="image">
+						<img class="cover round square" alt="Your avatar">
+					</div>
+					<div class="user-name"></div>
+				</a>
+				<!-- <div class="image">
+					<img class="cover round square" src="" alt="Your avatar">
+				</div>
+				<div class="user-name">Sanji</div> -->
+			</div>
+			<div class="right-col">
+				<div class="top">
+					<a class="link-as-text" style="margin: 0">
+						<div class="transport"></div>
+					</a>
+					<div class="rating">
+						<div class="star-rating">
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+							<label class="fa fa-star-o" aria-hidden="true"></label>
+						</div>
+					</div>
+				</div>
+				<div class="message"></div>
+				<div class="bottom">
+					<span class="label">Posted:</span>
+					<span class="post-time"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="incoming-reviews" data-reviews="{{ reviews }}" hidden="hidden"></div>
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/image.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/userpage.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='scripts/new_review.js') }}"></script>
+{% endblock %}

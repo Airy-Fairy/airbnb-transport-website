@@ -1,0 +1,143 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="transport-profile">
+            <div class="bunch-of-photos">
+                <img class="cover clickable normal-img" src="{{ url_for('upload_vehicle_photo', vid=vehicle.id, filename=vehicle.photo) }}" alt="No image found">
+            </div>
+            <!-- Modal image -->
+            <div class="dark-screen modal">
+                <img class="modal-content modal-img">
+            </div>
+            <div class="title">
+                <div class="content">
+                    <div class="name">
+                        <div class="label">{{ vehicle.show_name }}</div>
+                        <div class="under-label">
+                            <div class="short-info">[Super Short Description]</div>
+                        <div class="rating">
+                            <div class="star-rating">
+                            {% for i in range(rating) %}
+                                <label class="fa fa-star" aria-hidden="true"></label>
+                            {% endfor %}
+                            {% for i in range(5 - rating) %}
+                                <label class="fa fa-star-o" aria-hidden="true"></label>
+                            {% endfor %}
+                            </div>
+                            <div class="reviews-count">
+                                {{ vehicle.review_count }} reviews
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="owner">
+                        <a href="{{ url_for('user_profile', uid=vehicle.owner.id) }}">
+                            <div class="photo">
+                                <img class="cover round" src="{{ url_for('upload_user_avatar', uid=vehicle.owner.id, filename=vehicle.owner.avatar) }}" alt="User Photo is here">
+                            </div>
+                            <div class="user-name ">{{ vehicle.owner.name }} {{ vehicle.owner.surname }}</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="info">
+                <div class="content">
+                    <div class="description">
+                        <div class="col-1-2">
+                            <div class="row">
+                                <span class="label">Brand:</span> {{ vehicle.brand }}
+                            </div>
+                            <div class="row">
+                                <span class="label">Model:</span> {{ vehicle.model }}
+                            </div>
+                            <div class="row">
+                                <span class="label">Year of Manufacture:</span>  {{ vehicle.year }}
+                            </div>
+                            <div class="row">
+                                <span class="label">Haulage (usage):</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Body Type:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Number of Seats:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Color:</span>
+                            </div>
+                        </div>
+                        <div class="col-1-2">
+                            <div class="row">
+                                <span class="label">Gearbox:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Engine:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Drivegear:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Wheel:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">State:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Horsepower:</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">Engine Capacity:</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="address-block">
+                        <address class="">
+                            <span class="label">Address:</span>
+                            Porscheplatz 1 70435 Stuttgart-Zuffenhausen
+                        </address>
+                    </div>
+                    <div class="owner-notation">
+                        {{ vehicle.description }}
+                    </div>
+                    <div class="request-form">
+                        <div class="panel-container">
+                            <div class="panel-head">
+                                <span class="number">${{ vehicle.price }} </span> per day
+                            </div>
+                            <div class="panel-line">
+                                <div class="contacts">
+                                    <div class="row">
+                                        <span class="label">Phone:</span>
+                                        <a id="get-phone" class="clickable">XXX-XXX-XXXX</a>
+                                        <span id="user-phone"></span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Email:</span>
+                                        <a id="get-email" class="clickable">clicktoget@email.com</a>
+                                        <span id="user-email"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-line">
+                                <div class="message">
+                                    <form class="" action="#" method="post">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                        <div class="label">
+                                            Write a message to the owner:
+                                        </div>
+                                        <textarea placeholder="Enter a message or leave it empty [IN DEVELOPMENT]" disabled></textarea>
+                                        <div class="request_btn">
+                                            <input type="submit" value="Send request" disabled>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="uid" data-uid="{{ vehicle.owner.id }}" hidden="hidden"></div>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/image.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="unconfirmed-block">
+    <div class="box white-back cool-shadow">
+        <div class="title">
+            Sharing <span class="transport">Wheels</span>
+        </div>
+        <div class="circled-sign">
+            <label class="fa fa-envelope fa-3x" aria-hidden="true"></label>
+        </div>
+        <div class="row">
+            <h1>
+                Hello, {{ current_user.name + ' ' + current_user.surname }}!
+            </h1>
+        </div>
+        <div class="row">
+            <h3>You have not confirmed your account yet.</h3>
+        </div>
+        <div class="row">
+            Before you can access this site you need to confirm your account. <br>
+            Check your inbox, you should have received an email with a confirmation link.
+        </div>
+        <div class="row">
+            <a class="link-as-text" href="{{ url_for('resend_confirmation') }}">
+                <div class="another-email">
+                    Need another confirmation email? Click here
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

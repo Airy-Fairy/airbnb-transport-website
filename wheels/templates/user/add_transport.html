@@ -1,0 +1,84 @@
+<div class="user-page-container">
+    <div class="new-transport-form">
+        <form action="/add_transport" method="post" enctype=multipart/form-data>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="panel-container">
+                <div class="panel-head">Required</div>
+                <div class="panel-line">
+                    <div class="form-row">
+                        <label for="transport-type">Transport Type</label>
+                        <div class="elem">
+                            <select id="transport-type" required>
+                                <option value="">...</option>
+                                <option value="0">Vehicle</option>
+                                <option value="1">Motorcycle</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="transport-brand">Brand</label>
+                        <div class="elem">
+                            <select id="transport-brand" name="brand" required>
+                                <option value="">...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="transport-model">Model</label>
+                        <div class="elem">
+                            <select id="transport-model" name="model" required>
+                                <option value="">...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="year-of-manufacture">Year of Manufacture</label>
+                        <div class="elem">
+                            <select id="year-of-manufacture" name="year" required>
+                                <option value="before-1960">Before 1960</option>
+                                <!-- And more -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="rental-price">Rental Price (a day)</label>
+                        <div class="elem">
+                            <input type="text" id="rental-price" name="price" maxlength="5" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="description">Description</label>
+                        <div class="elem">
+                            <textarea id="description" name="desc" maxlength="256" placeholder="Tell us about your transport in 256 symbols" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-line no-side-frame">
+                    <div class="form-row" style="display: block; padding-left: 20px;">
+                        <label for="map">Select you transport location on the map [in development]:</label>
+                    </div>
+                    <div class="map-block">
+                        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                        <div id="map" name="map" class="google-map"></div>
+                    </div>
+                </div>
+                <div class="panel-line">
+                    <div class="form-row">
+                        <label class="photo" for="photo">Photo</label>
+                        <div class="elem">
+                            <input type="file" accept="image/*" class="custom-file-input" id="transport-photo" name="photo" capture="camera" required>
+                        </div>
+                    </div>
+                    <div class="no-photo" hidden="hidden">
+                       <span class="error-msg">You must load a photo!</span>
+                    </div>
+                    <div class="save-transport-btn">
+                        <input type="submit" id="new-transport-btn" value="Save">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/google-map.js') }}"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCWS-6RUB7bs5ceDj-ZKsTOXaIsnHIfT34&callback=initMap" charset="utf-8"></script>
