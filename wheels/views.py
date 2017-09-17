@@ -349,7 +349,6 @@ def edit_user_info():
 	current_user.name = name
 	current_user.surname = surname
 	current_user.about_me = about_me
-	print (about_me, file=sys.stderr)
 	current_user.phone = phone
 	current_user.bday = bday
 	db.session.add(current_user)
@@ -399,7 +398,6 @@ def fill_reviews_list(reviews):
   		veh_name = Vehicle.query.get_or_404(review.vid).show_name
 		# Fixes timestamp from UTC to Moscow
 		timestamp = review.timestamp.replace(hour=(review.timestamp.hour + 3) % 24)
-		print(review.timestamp, file=sys.stderr)
 		retarray.append(\
 			{'timestamp':timestamp.strftime('%H:%M:%S %b %d, %Y'), \
 			'text':review.text, \
@@ -520,7 +518,6 @@ def add_transport():
 	price = int(request.form['price'])
 	desc = request.form['desc']
 	show_name = '{0} {1} ({2})'.format(brand, model, 'before 1960' if year < 1960 else year)
-	print (show_name, file=sys.stderr)
 	# vehicle photo uploading
 	if 'photo' not in request.files:
 		flash('No file part in request.')

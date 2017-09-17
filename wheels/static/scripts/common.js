@@ -84,9 +84,12 @@ $(document).ready(function() {
  */
 $('#get-phone, #get-email').click(function() {
     var id = this.id;
+    var uid = $('.uid').data('uid');
+    if (isNaN(parseInt(uid)) || parseInt(uid) <= 0) {
+        return;
+    }
     $.post(
-        '/' + document.URL.split('/').slice(-2, -1) +
-        '/' + document.URL.split('/').pop(),
+        '/users/id' + uid,
         {
             contact: id
         },
