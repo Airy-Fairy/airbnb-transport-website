@@ -30,6 +30,7 @@ $('#get-more').click(function() {
         function(data) {
             if (data.length) {
                 fillMyTransport(data);
+                modalImages();
                 current += data.length;
             }
             else {
@@ -55,25 +56,27 @@ function addMyTransport(data) {
     // Extract json server data
     var transportId = data.id;
     var transportName = data.show_name;
+    var transportLink = '/vehicles/id' + transportId;
     var imgName = data.photo;
     var rating = data.rating;
     var reviews = data.reviews;
     var desc = data.desc;
 
-    var $tranportTemplate = $('.my-transport-template').children('.panel-container').clone().hide();
-    $tranportTemplate.find('.panel-head').text(transportName);
-    $tranportTemplate.find('.reviews-count > .number').text(String(reviews));
-    $tranportTemplate.find('.desc').text(desc);
-    $tranportTemplate.find('img').first().attr('src', '/upload/vehicle=' + transportId +'/' + imgName);
+    var $transportTemplate = $('.my-transport-template').children('.panel-container').clone().hide();
+    $transportTemplate.find('.panel-head a').text(transportName);
+    $transportTemplate.find('.panel-head a').attr('href', transportLink);
+    $transportTemplate.find('.reviews-count > .number').text(String(reviews));
+    $transportTemplate.find('.desc').text(desc);
+    $transportTemplate.find('img').first().attr('src', '/upload/vehicle=' + transportId +'/' + imgName);
 
-    var stars = $tranportTemplate.find('.star-rating').children();
+    var stars = $transportTemplate.find('.star-rating').children();
     for (i = 0; i < Math.round(rating); i++) {
         $(stars[i]).removeClass('fa-star-o');
         $(stars[i]).addClass('fa-star');
     }
 
     var $transportList = $('ul.my-transport-list');
-    $transportList.append('<li>' + $tranportTemplate[0].outerHTML + '</li>');
+    $transportList.append('<li>' + $transportTemplate[0].outerHTML + '</li>');
     $transportList.children('li').children().fadeIn("fast", function() {
         squareImages();
     });

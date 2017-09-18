@@ -4,7 +4,9 @@
 		<ul class="my-transport-list" data-mytransport="{{ mytransport }}"></ul>
 		<div class="my-transport-template" hidden="hidden">
 			<div class="panel-container">
-				<div class="panel-head">Transport Name #1</div>
+				<div class="panel-head">
+					<a href="" class="link-as-text">Transport Name #1</a>
+				</div>
 				<div class="panel-line">
 					<div class="transport-preview grid">
 						<div class="image col-1-3">
@@ -33,8 +35,8 @@
 							<div class="edit-remove">
 								<form action="/in_development" method="post">
 									<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-									<input type="submit" value="Edit [IN DEVELOPMENT]" disabled>
-									<input type="submit" value="Remove [IN DEVELOPMENT]" disabled>
+									<input type="submit" value="Edit [IN DEV]" disabled>
+									<input type="submit" value="Remove [IN DEV]" disabled>
 								</form>
 							</div>
 						</div>

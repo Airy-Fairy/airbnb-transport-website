@@ -1142,6 +1142,8 @@ input[type="file"] {
     height: 70%;
     margin-bottom: 10px;
     width: 70%;
+    max-height: 100px;
+    max-width: 100px;
 }
 
 .transport-profile .owner a {
@@ -1224,6 +1226,7 @@ input[type="file"] {
     width: 100%;
 }
 
+.transport-profile .owner .user-name:hover,
 .transport-profile .contacts a:hover {
     color: darkcyan;
 }
