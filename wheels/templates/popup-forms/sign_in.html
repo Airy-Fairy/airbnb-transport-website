@@ -7,7 +7,7 @@
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div class="signin-creds">
                     <input type="email" name="email" placeholder="Your Email" required><br>
-                    <input type="password" name="password" placeholder="Your Password" required><br>
+                    <input type="password" name="password" placeholder="Your Password" autocomplete="off" required><br>
                 </div>
                 <div class="wrong-creds" hidden="hidden">
                     <div class="error-msg"></div>

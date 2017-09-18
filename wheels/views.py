@@ -26,8 +26,9 @@ no_login_required = ['static', 'terms_of_use', 'index', 'root', # uncookied page
 					 'reset', 'vehicle_profile', 'vehicles']
 first_request = True # first request for user authorization
 attempts = {} # counts
-delta = timedelta(seconds=5) # just for tests
-# delta = timedelta(minutes=30) 
+threshold = 3 # number of attempts in an amount of time
+delta = timedelta(minutes=30)
+# delta = timedelta(seconds=5) # just for tests
 
 @wheels.before_request
 def get_cookie():
@@ -35,7 +36,7 @@ def get_cookie():
 		global first_request
 		if request.endpoint not in no_login_required or first_request:
 			first_request = False
-			# print (request.endpoint, file=sys.stderr)	
+			# print (request.endpoint, file=sys.stderr)
 			data = json.loads(request.cookies.get('remember_me'))
 			user_agent = request.headers.get('User-Agent')
 			uid = data['id']
@@ -45,7 +46,8 @@ def get_cookie():
 			valid = bcrypt.check_password_hash(login_hash, user_agent + user_email)
 			if not valid:
 				response = make_response(redirect('index'))
-				response.delete_cookie('remember_me')
+				response.set_cookie('remember_me', '', max_age=0, expires=0, httponly=True, secure=True)
+				# response.delete_cookie('remember_me')
 				return response
 			if not current_user.is_authenticated:
 				login_user(user)
@@ -124,7 +126,7 @@ def login():
 				expire_date = datetime.utcnow()
 				expire_date = expire_date + timedelta(days=30)
 				response.set_cookie('remember_me', json.dumps({'login_info': login_hash, 'id' : user.guid }),\
-									expires=expire_date, httponly=True)
+									expires=expire_date, httponly=True, secure=True)
 				return response
 			return jsonify({'failed': False, 'attempts': True})
 	return jsonify({'failed': True, 'attempts': True})
@@ -135,7 +137,8 @@ def logout():
 	logout_user()
 	flash('You have been logged out.')
 	response = make_response(redirect('index'))
-	response.delete_cookie('remember_me')
+	response.set_cookie('remember_me', '', max_age=0, expires=0, httponly=True, secure=True)
+	# response.delete_cookie('remember_me')
 	return response
 
 @wheels.route('/register', methods=['GET','POST'])
@@ -388,7 +391,7 @@ def get_more_reviews(uid):
 	review_query = Review.query.filter_by(ownid=uid).order_by(Review.id.desc())
 	reviews = fill_reviews_list(get_records(review_query, 3, current))
 	return jsonify(reviews)
-	
+
 def fill_reviews_list(reviews):
 	retarray = []
 	for review in reviews:

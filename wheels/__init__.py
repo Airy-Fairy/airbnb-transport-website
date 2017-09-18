@@ -38,7 +38,7 @@ WHEELS_MAIL_SUBJECT_PREFIX = '[Sharing Wheels]'
 WHEELS_MAIL_SENDER = 'Sharing Wheels Admin <' + os.environ.get('MAIL_USERNAME') + '@yandex.ru>'
 ALLOWED_EXTENSIONS = set(['png','jpg','jpeg'])
 
-# wheels.config['SESSION_COOKIE_SECURE'] = True
+wheels.config['SESSION_COOKIE_SECURE'] = True
 wheels.config['SESSION_COOKIE_HTTPONLY'] = True
 
 login_manager.init_app(wheels)
