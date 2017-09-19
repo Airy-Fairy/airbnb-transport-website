@@ -86,11 +86,11 @@ $(window).resize(function() {
  */
 function marginFix() {
     var $labels = $('.label').slice(0, $('.label').length - 1);
-    var labelsHeight = parseInt($labels.css('height').replace('px', ''));
+    // var labelsHeight = parseInt($labels.css('height').replace('px', ''));
+    var labelsHeight = 18;
     for (var i = 0; i < $labels.length; i++) {
-        if (labelsHeight < $labels[i].getClientRects()[0].height) {
+        if (labelsHeight < Math.floor($labels[i].getClientRects()[0].height)) {
             $($labels).parents('.col-1-3').stop().animate({'marginBottom': '+40px'}, 1000);
-            marginChanged = true;
             return;
         }
     }

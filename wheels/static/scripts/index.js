@@ -49,4 +49,5 @@ function fillPreview(dataset) {
 
 $('#huge-search').click(function() {
     $('.detailed-search').fadeIn();
+    $('.search').css('margin-bottom', 89.5);
 });

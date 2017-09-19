@@ -129,6 +129,11 @@ header input[type="search"] {
     margin-top: 20px;
 }
 
+.main-content .search {
+    margin-top: -130px;
+    margin-bottom: 150px;
+}
+
 .search input[type="search"] {
     width: 100%;
     line-height: 50px;
@@ -200,13 +205,11 @@ header input[type="search"] {
 /* The end of search*/
 
 .picture {
-    width: 50%;
+    width: 100%;
 }
 
 .picture img {
-    border-radius: 10px;
-    max-width: 100%;
-    height: auto;
+    height: 500px;
 }
 
 .random-content {
