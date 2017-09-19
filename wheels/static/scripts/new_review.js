@@ -95,3 +95,14 @@ function addReview(reviewInfo) {
         squareImages();
     });
  }
+
+$('#add-review-button').click(function(event) {
+    event.preventDefault();
+
+    var $checkedRadio = $('#new-review-form input[type="radio"]:checked');
+    if ($checkedRadio.length == 0 || $('#choose-user-transport').val() == "") {
+        $('.error-msg').show();
+    } else {
+        $('#new-review-form').submit();
+    }
+});

@@ -1230,7 +1230,7 @@ input[type="file"] {
     width: 100%;
 }
 
-.transport-profile .owner .user-name:hover,
+.transport-profile .owner a:hover,
 .transport-profile .contacts a:hover {
     color: darkcyan;
 }
