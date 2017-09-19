@@ -26,7 +26,7 @@ no_login_required = ['static', 'terms_of_use', 'index', 'root', # uncookied page
 					 'reset', 'vehicle_profile', 'vehicles']
 first_request = True # first request for user authorization
 attempts = {} # counts
-threshold = 3 # number of attempts in an amount of time
+threshold = 5 # number of attempts in an amount of time
 delta = timedelta(minutes=30)
 # delta = timedelta(seconds=5) # just for tests
 

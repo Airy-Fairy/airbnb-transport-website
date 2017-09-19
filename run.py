@@ -1,3 +1,4 @@
-#!/home/user/flask/bin/python
+#!flask/bin/python
 from wheels import wheels
 wheels.run(debug=True)
+
